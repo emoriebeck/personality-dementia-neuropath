@@ -30,10 +30,8 @@ options(knitr.kable.NA = '')
 ## Packages  
 
 ```{r packages}
-library(psych)       # psychometrics
 library(knitr)       # knit documents
 library(kableExtra)  # formatted tables
-library(brms)        # bayesian models
 library(readxl)      # read excel files
 library(haven)       # read spss files
 library(broom.mixed) # summaries of models
@@ -42,7 +40,9 @@ library(tidybayes)   # pretty bayes draws and plots
 library(cowplot)
 library(plyr)        # data wrangling
 library(tidyverse)   # data wrangling
+library(brms)        # bayesian models
 library(furrr)       # parallel purrr mapping
+library(psych)       # psychometrics
 ```
 
 ## Directory Path  
@@ -77,6 +77,7 @@ studies_long <- c("ROS", "Rush-MAP", "EAS", "WUSM-MAP", "SATSA", "HRS", "LISS", 
 
 stdcolors <- tibble(
   studies = c("Overall", studies)
+  , studies_long = c("Overall", studies_long)
   , std_text = str_remove_all(studies, "[-]")
   , colors = c("black", "#332288", "#88ccee", "#44aa99", "#117733", "#999933", #"#ddcc77", "#cc6677", 
                "#332288", "#88ccee", "#44aa99")#, "#117733", "#999933", "#ddcc77")

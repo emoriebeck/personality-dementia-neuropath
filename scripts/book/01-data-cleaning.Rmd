@@ -314,6 +314,13 @@ hrs_combined <- hrs_pers %>%
   rename(Trait = name, p_value = value, p_year = year) %>%
   full_join(hrs_out %>% select(SID, Outcome = name, o_value = value)) %>%
   full_join(hrs_cov) %>%
+  left_join(
+    hrs_out %>%
+      filter(name == "dementia") %>%
+      mutate(value = ifelse(rowSums(cbind(future, past), na.rm = T) >= 1, 1, 0)) %>%
+      select(-future, -past) %>%
+      pivot_wider(names_from = "name", values_from = "value")
+    ) %>%
   full_join(hrs_cog) %>%
   filter(!is.na(p_value) & !is.na(o_value)) %>%
   mutate(age = p_year - yearBrth
@@ -542,6 +549,13 @@ map_combined <- map_pers %>%
       select(Outcome = name, SID, o_value = value, o_year)
     ) %>% 
   full_join(map_cov) %>%
+  left_join(
+    map_out %>%
+      filter(name == "dementia") %>%
+      mutate(value = ifelse(rowSums(cbind(future, past), na.rm = T) >= 1, 1, 0)) %>%
+      select(-future, -past) %>%
+      pivot_wider(names_from = "name", values_from = "value")
+    ) %>%
   full_join(map_cog) %>%
   filter(!is.na(p_value) & !is.na(o_value))
 ```
@@ -768,6 +782,13 @@ ros_combined <- ros_pers %>%
       select(Outcome = name, SID, o_value = value, o_year)
     ) %>%
   full_join(ros_cov) %>%
+  left_join(
+    ros_out %>%
+      filter(name == "dementia") %>%
+      mutate(value = ifelse(rowSums(cbind(future, past), na.rm = T) >= 1, 1, 0)) %>%
+      select(-future, -past) %>%
+      pivot_wider(names_from = "name", values_from = "value")
+    ) %>%
   full_join(ros_cog) %>%
   filter(!is.na(p_value) & !is.na(o_value))
 ```
@@ -1020,6 +1041,11 @@ satsa_combined <- satsa_pers %>%
   rename(Trait = name, p_value = value, p_year = year) %>%
   full_join(satsa_out %>% rename(Outcome = name, o_value = value)) %>%
   full_join(satsa_cov) %>%
+  left_join(
+    satsa_out %>%
+      filter(name == "dementia") %>%
+      pivot_wider(names_from = "name", values_from = "value")
+    ) %>%
   full_join(satsa_cog) %>%
   filter(!is.na(p_value) & !is.na(o_value)) %>%
   mutate(age = p_year - yearBrth
@@ -1053,7 +1079,7 @@ adrc_read_fun <- function(file){
   print(file)
   d <- sprintf("%s/adrc-map/%s", data_path, file) %>% read_excel(.) %>%
     select(SID = id, one_of(c("TESTDATE", old.names)), contains("NEO Date"))
-  if("TESTDATE" %in% colnames(d)){ if(class(d$TESTDATE) != "numeric"){d$TESTDATE <- lubridate::year(d$TESTDATE)}}
+  if("TESTDATE" %in% colnames(d)){ if(any(class(d$TESTDATE) != "numeric")){d$TESTDATE <- lubridate::year(d$TESTDATE)}}
   d
 }
 
@@ -1331,6 +1357,13 @@ adrc_combined <- adrc_pers %>%
   filter(!is.na(o_value) & !is.na(p_value)) %>%
   distinct() %>%
   left_join(adrc_cov) %>%
+  left_join(
+    adrc_out %>%
+      filter(name == "dementia") %>%
+      mutate(value = ifelse(rowSums(cbind(future, past), na.rm = T) >= 1, 1, 0)) %>%
+      select(-future, -past) %>%
+      pivot_wider(names_from = "name", values_from = "value")
+    ) %>%
   left_join(adrc_cog) %>%
   left_join(adrc_out_waves %>% select(SID, Outcome = name, o_year))
 ```
@@ -1591,6 +1624,13 @@ eas_combined <- eas_pers %>%
     ) %>%
   filter(!is.na(o_value) & !is.na(p_value)) %>%
   distinct() %>%
+  left_join(
+    eas_out %>%
+      filter(name == "dementia") %>%
+      mutate(value = ifelse(rowSums(cbind(future, past), na.rm = T) >= 1, 1, 0)) %>%
+      select(-future, -past) %>%
+      pivot_wider(names_from = "name", values_from = "value")
+    ) %>%
   left_join(eas_cov) %>%
   left_join(eas_cog) 
 ```
@@ -1880,6 +1920,11 @@ gsoep_combined <- gsoep_pers %>%
   rename(Trait = name, p_value = value, p_year = year) %>%
   full_join(gsoep_out %>% select(p_year, SID, Outcome = name, o_year, o_value = value)) %>%
   full_join(gsoep_cov) %>%
+  left_join(
+    gsoep_out %>%
+      filter(name == "dementia") %>%
+      pivot_wider(names_from = "name", values_from = "value")
+    ) %>%
   full_join(gsoep_cog) %>%
   filter(!is.na(p_value) & !is.na(o_value)) %>%
   mutate(age = p_year - yearBrth
@@ -2126,6 +2171,13 @@ liss_combined <- liss_pers %>%
   rename(Trait = name, p_value = value, p_year = year) %>%
   full_join(liss_out %>% rename(Outcome = name, o_value = value)) %>%
   full_join(liss_cov) %>%
+  left_join(
+    liss_out %>%
+      filter(name == "dementia") %>%
+      mutate(value = ifelse(rowSums(cbind(future, past), na.rm = T) >= 1, 1, 0)) %>%
+      select(-future, -past) %>%
+      pivot_wider(names_from = "name", values_from = "value")
+    ) %>%
   full_join(liss_cog) %>%
   filter(!is.na(p_value) & !is.na(o_value)) %>%
   mutate(age = p_year - yearBrth

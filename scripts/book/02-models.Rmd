@@ -27,7 +27,7 @@ nested_data <- tibble(
                  select(SID, Trait, p_year, p_value, Outcome, o_year, o_value # core variables
                         , one_of(c("age", "gender", "education", "cognition"
                                  , "alcohol", "smokes", "BMI", "race", "SRhealth"
-                                 , "stroke", "cancer", "diabetes", "heartProb")))
+                                 , "stroke", "cancer", "diabetes", "heartProb", "dementia")))
                )
     , study = mapvalues(study, studies, studies_long)
     ) %>%
@@ -92,7 +92,7 @@ desc_tab_lat <- nested_data %>%
       group_by(Outcome, SID, study) %>%
       filter(o_year == min(o_year)) %>%
       ungroup() %>%
-      select(-o_year) %>%
+      select(-o_year, -dementia) %>%
       pivot_wider(names_from = Outcome, values_from = o_value, values_fn = mean) %>%
       select(-Trait, -p_year, -p_value) %>% 
       distinct() %>%
@@ -146,7 +146,7 @@ desc_tab <-
       group_by(Outcome, SID, study) %>%
       filter(o_year == min(o_year)) %>%
       ungroup() %>%
-      select(-o_year) %>%
+      select(-o_year, -dementia) %>%
       pivot_wider(names_from = Outcome, values_from = o_value, values_fn = mean) %>%
       select(-Trait, -p_year, -p_value) %>% 
       distinct() %>%
@@ -189,7 +189,7 @@ nested_data <- nested_data %>%
   mutate_at(vars(p_value, SRhealth),  ~((. - min(., na.rm = T))/(max(., na.rm = T) - min(., na.rm = T))*10)) %>%
   mutate_at(vars(p_value, SRhealth),  ~ifelse(is.infinite(.), NA, .)) %>%
   mutate(CC = rowSums(cbind(stroke, cancer, diabetes, heartProb), na.rm = T)) %>%
-  mutate_at(vars(alcohol, smokes, stroke, cancer, diabetes, heartProb, gender), factor) %>%
+  mutate_at(vars(alcohol, smokes, stroke, cancer, diabetes, heartProb, gender, dementia), factor) %>%
   mutate(age = age - 60
          , education = education - 12) %>%
   ungroup()
@@ -222,14 +222,29 @@ These full data sets will be used for sensitivity analyses and fully models, but
 
 ```{r}
 mod_setup_fun <- function(d, trait, outcome){
-  crossing(Covariates = c("fully", "shared", "standard", "butOne", "unadjusted")
-           , Moderator = c("none", "education", "age", "gender", "cognition")) %>%
+  crossing(Covariates = c("fully", "shared", "standard", "butOne", "unadjusted", "shareddx", "standarddx")
+           , Moderator = c("none", "education", "age", "gender", "cognition", "dementia")) %>%
     mutate(data = list(d)) %>%
     mutate(data = pmap(list(data, trait, outcome, Moderator, Covariates), mod_save_fun))
   return(NULL)
 }
 
 mod_save_fun <- function(d, trait, outcome, mod, cov){
+  covs <- if(cov == "unadjusted"){
+    mod
+  } else if (cov %in% c("shared", "shareddx")){
+    c(mod, "age", "gender", "education", "smokes", "alcohol")
+  } else if (cov %in% c("standard", "standarddx")){
+    c(mod, "age", "gender", "education")
+  } else if(cov == "butOne"){
+    c(mod, "age", "gender", "education", "smokes", "alcohol", "cognition", "CC")
+  } else{
+    colnames(d)
+  }
+  if(grepl("dx", cov)) covs <- c(covs, "dementia")
+  
+  d2 <- d %>% select(study, SID, p_year, p_value, o_year, o_value, one_of(covs)) %>% filter(complete.cases(.))
+  
   d2 <- if(cov == "unadjusted"){
     d %>% select(study, SID, p_year, p_value, o_year, o_value, one_of(mod)) %>% filter(complete.cases(.))
   } else if (cov == "shared"){
@@ -273,7 +288,8 @@ ipd_mega_mod_fun <- function(trait, outcome, mod, cov){
   #if (cov == "shared") cv <- cv
   if (cov == "butOne")  cv <- c(cv, "CC", "cognition")
   if (cov == "fully")    cv <- c(cv, "CC", "cognition", "BMI", "race", "SRhealth")
-  if (cov == "standard") cv <- c("age", "gender", "education")
+  if (grepl("standard", cov)) cv <- c("age", "gender", "education")
+  if(grepl("dx", cov)) cv <- c(cv, "dementia")
   rhs <- "p_value"
   rhs <- if(cov != "unadjusted") c(rhs, cv) else rhs
   if(mod != "none") rhs <- c(rhs, paste("p_value", mod, sep = "*"))
@@ -287,7 +303,10 @@ ipd_mega_mod_fun <- function(trait, outcome, mod, cov){
               , newdata = d2
               , iter = 2000
               , warmup = 1000
-              , cores = 4
+              , cores = 12
+              , threads = threading(3)
+              , backend = "cmdstanr"
+              , chains = 4
               )
   save(m, file = sprintf("%s/results/models/%s/%s_%s_%s.RData"
                          , wd, cov, outcome, trait, mod))
@@ -385,7 +404,7 @@ fx_pred_fun <-function(m, moder){
     sort(unique(fct_lev[,moder][[1]]))
   }
   
-  md_fac <- if(moder == "age") c("-10 yrs", "60", "+10 yrs") else if (moder == "education") c("-5 yrs", "12 years", "+5 yrs") else if(moder == "gender") c("Male", "Female") else c("-1 SD", "M", "+1 SD")
+  md_fac <- if(moder == "age") c("-10 yrs", "60", "+10 yrs") else if (moder == "education") c("-5 yrs", "12 years", "+5 yrs") else if(moder == "gender") c("Male", "Female") else if(moder == "dementia") c("Yes", "No") else c("-1 SD", "M", "+1 SD")
   
   mod_frame <- expand.grid(
     p_value = seq(0,10,.1)
@@ -456,7 +475,7 @@ rx_pred_fun <- function(m, moder){
   }
   d <- d %>% select(-one_of(moder))
   
-  md_fac <- if(moder == "age") c("-10 yrs", "60", "+10 yrs") else if (moder == "education") c("-5 yrs", "12 years", "+5 yrs") else if(moder == "gender") c("Male", "Female") else c("-1 SD", "M", "+1 SD")
+  md_fac <- if(moder == "age") c("-10 yrs", "60", "+10 yrs") else if (moder == "education") c("-5 yrs", "12 years", "+5 yrs") else if(moder == "gender") c("Male", "Female") else if(moder == "dementia") c("Yes", "No") else c("-1 SD", "M", "+1 SD")
   
   md_levs <- if(moder != "cognition"){
     crossing(
@@ -546,14 +565,17 @@ Prior <-  c(set_prior("cauchy(0,1)", class = "sd"),
             set_prior("student_t(3, 0, 2)", class = "b"),
             set_prior("student_t(3, 0, 5)", class = "Intercept"))
 Iter <- 30; Warmup <- 21; treedepth <- 20
-f <- formula(o_value ~ p_value + age + gender + education + (p_value | study))
+f <- formula(o_value ~ p_value + age + gender + p_value*education + (p_value*education | study))
 m <- brm(formula = f
             , data = d
             , family = bernoulli(link = "logit")
             , prior = Prior
             , iter = Iter
             , warmup = Warmup
-            , cores = 4)
+            , cores = 12
+            , threads = threading(3)
+            , backend = "cmdstanr"
+            , chains = 4)
 
 save(m, file = sprintf("%s/results/bayes_sample_mod_binomial.RData", wd))
 # save(m, file = "results/bayes_sample_mod_binomial.RData")
@@ -574,13 +596,16 @@ Prior <-  c(set_prior("cauchy(0,1)", class = "sd"),
             set_prior("student_t(3, 0, 2)", class = "b"),
             set_prior("student_t(3, 0, 5)", class = "Intercept"))
 Iter <- 30; Warmup <- 21; treedepth <- 20
-f <- formula(o_value ~ p_value + age + gender + education + (p_value | study))
+f <- formula(o_value ~ p_value + age + gender + p_value*education + (p_value*education | study))
 m <- brm(formula = f
             , data = d
             , prior = Prior
             , iter = Iter
             , warmup = Warmup
-            , cores = 4)
+            , cores = 12
+            , threads = threading(3)
+            , backend = "cmdstanr"
+            , chains = 4)
 
 save(m, file = sprintf("%s/results/bayes_sample_mod_continuous.RData", wd))
 # save(m, file = "results/bayes_sample_mod_continuous.RData")
@@ -588,7 +613,7 @@ rm(list = c("d", "Prior", "Iter", "Warmup", "treedepth", "f", "m"))
 ```
 
 ```{r ipd reg run models}
-done <- tibble(Covariate = c("fully", "shared", "butOne", "unadjusted", "standard"),
+done <- tibble(Covariate = c("fully", "shared", "butOne", "unadjusted", "standard", "standarddx", "shareddx"),
                file = map(Covariate, ~list.files(sprintf("%s/results/models/%s", wd, .)))) %>%
   unnest(file) %>%
   separate(file, c("Outcome", "Trait", "Moderator"), sep = "_") %>%
@@ -596,45 +621,69 @@ done <- tibble(Covariate = c("fully", "shared", "butOne", "unadjusted", "standar
          , done = "done") %>%
   filter(!is.na(Moderator))
 
+# plan(multisession(workers = 4L))
 nested_ipd_mega <- crossing(
   Trait = traits$short_name
   , Outcome = outcomes$short_name
-  , Moderator = c("education", "age", "gender", "cognition")
-  , Covariate = c("fully", "shared", "butOne", "standard", "unadjusted")
+  , Moderator = c("education", "age", "gender", "cognition", "dementia")
+  , Covariate = c("fully", "shared", "butOne", "standard", "unadjusted", "standarddx", "shareddx")
 ) %>%
   full_join(
     crossing(
       Trait = traits$short_name
       , Outcome = outcomes$short_name
       , Moderator = "none"
-      , Covariate = c("fully", "shared", "butOne", "standard", "unadjusted")
+      , Covariate = c("fully", "shared", "butOne", "standard", "unadjusted", "standarddx", "shareddx")
       )
 ) %>%
-  # full_join(done) %>% filter((is.na(done) | Outcome == "dementia") & Covariate != "fully") %>%
-  filter(Outcome == "dementia" & Covariate != "fully")
-  mutate(run = pmap(list(Trait, Outcome, Moderator, Covariate), ipd_mega_mod_fun))
-
-nested_ipd_mega %>% 
+  full_join(done) %>% filter((is.na(done) | Outcome == "dementia") & Covariate != "fully") %>%
+  filter(Outcome != "dementia" & (Moderator == "dementia" | grepl("dx", Covariate)) & !((Moderator == "dementia" & grepl("dx", Covariate)))) %>%
   mutate(Covariate = factor(Covariate)
          , Covariate = relevel(Covariate, "shared")
-         , Moderator = factor(Moderator, levels = moders$short_name)) %>%
+         # , Moderator = factor(Moderator, levels = moders$short_name)
+         , Moderator = relevel(factor(Moderator), "dementia")
+         ) %>%
   arrange(Covariate, Outcome, Moderator, Trait) %>% 
-  filter(Covariate != "fully") %>% 
-  select(Trait, Outcome, Moderator, Covariate) %>%
-  write.table(.
-              , file = sprintf("%s/scripts/cluster/args/args.txt", wd)
-              , row.names = F)
+  filter(Covariate != "fully") %>%
+  # mutate(run = future_pmap(
+  mutate(run = pmap(
+    list(Trait, Outcome, Moderator, Covariate)
+    , possibly(ipd_mega_mod_fun, NA_real_)
+    # , .options = furrr_options(
+    #                    globals = c("traits", "moders", "covars", "outcomes"
+    #                                , "hetero_fun"
+    #                                , "rx_pred_fun"
+    #                                , "std_eff_fun"
+    #                                , "fx_pred_fun"
+    #                                , "wd")
+    #                    , packages = c("broom", "broom.mixed", "tidyverse", "brms")
+    #                    )
+    #                  , .progress = T
+    ))
+
+# nested_ipd_mega %>% 
+#   mutate(Covariate = factor(Covariate)
+#          , Covariate = relevel(Covariate, "shared")
+#          # , Moderator = factor(Moderator, levels = moders$short_name)
+#          , Moderator = relevel(factor(Moderator), "dementia")
+#          ) %>%
+#   arrange(Covariate, Outcome, Moderator, Trait) %>% 
+#   filter(Covariate != "fully") %>% 
+#   select(Trait, Outcome, Moderator, Covariate) %>%
+#   write.table(.
+#               , file = sprintf("%s/scripts/cluster/args/args.txt", wd)
+#               , row.names = F)
 ```
 
 ### DELETE LATER  
 ```{r}
 # done <- tibble(type = c("Bayesian", "Frequentist"),
-#                file = map(type, ~list.files(sprintf("%s/results/2a_ipd_dc/%s/predicted", wd, .)))) %>% 
+#                file = map(type, ~list.files(sprintf("%s/results/2a_ipd_dc/%s/predicted", wd, .)))) %>%
 #   unnest(file) %>%
 #   separate(file, c("Outcome", "Trait", "Moderator", "Covariate"), sep = "_") %>%
 #   mutate(Covariate = str_remove_all(Covariate, ".RData")
 #          , done = "done") %>%
-#   filter(!is.na(Covariate))
+  # filter(!is.na(Covariate))
 
 pred_fun <- function(file, outcome, trait, mod, cov){
   print(paste(cov, file))
@@ -663,7 +712,7 @@ pred_fun <- function(file, outcome, trait, mod, cov){
 }
 
 plan(multisession(workers = 6L))
-tibble(Covariate = c("fully", "shared", "butOne", "standard", "unadjusted")) %>%
+tibble(Covariate = c("fully", "shared", "butOne", "standard", "unadjusted", "shareddx", "standarddx")) %>%
   mutate(file = map(Covariate, ~list.files(sprintf("%s/results/models/%s", wd, .)))) %>%
   unnest(file) %>%
   separate(file, c("Outcome", "Trait", "Moderator"), sep = "_", remove = F) %>% 
@@ -675,7 +724,7 @@ tibble(Covariate = c("fully", "shared", "butOne", "standard", "unadjusted")) %>%
   #        (Trait == "O" & Moderator == "age" & Covariate == "none"))
   #   & type != "Bayesian") %>%
   ## read in the files
-  filter(Outcome == "dementia") %>%
+  filter(Moderator != "dementia") %>%
   mutate(
     future_pmap(list(file, Outcome, Trait, Moderator, Covariate)
          # pmap(list(file, Outcome, Trait, Moderator, Covariate)
@@ -688,7 +737,7 @@ tibble(Covariate = c("fully", "shared", "butOne", "standard", "unadjusted")) %>%
                                    , "std_eff_fun"
                                    , "fx_pred_fun"
                                    , "wd")
-                       , packages = c("brms", "broom", "broom.mixed", "tidyverse")
+                       , packages = c("broom", "broom.mixed", "tidyverse", "brms")
                        )
                      , .progress = T
     ))

@@ -25,7 +25,7 @@ n_fun <- function(fileName, type){
 
 ## load in "fixed" effects
 ## first get file names
-nested_mega <- tibble(Covariate = c("fully", "shared", "standard", "butOne", "unadjusted")) %>%
+nested_mega <- tibble(Covariate = c("fully", "shared", "standard", "butOne", "unadjusted", "standarddx", "shareddx")) %>%
   mutate(file = map(Covariate, ~list.files(sprintf("%s/results/summary/%s", wd, .)))) %>%
   unnest(file) %>%
   separate(file, c("Outcome", "Trait", "Moderator"), sep = "_", remove = F) %>% 
@@ -82,8 +82,9 @@ nested_mega_tab <-
   # combine the effects, bold significance, factor and label study-specfic effects 
   mutate(est = sprintf("%s<br>[%s, %s]", estimate, conf.low, conf.high),
          est = ifelse(sig == "sig", sprintf("<strong>%s</strong>", est), est),
-         study = factor(study, levels = c(studies, "Overall"),
-                        labels = c(studies, "Overall"))) %>%
+         study = mapvalues(study, c("RADC-MAP", "ADRC"), c("Rush-MAP", "WUSM-MAP")),
+         study = factor(study, levels = c(studies_long, "Overall"),
+                        labels = c(studies_long, "Overall"))) %>%
   # reshaping: remove extra columns, arrange by key variables, and make wide
   select(Outcome, Trait, Moderator, Covariate, study, term, est) %>%
   arrange(Outcome, Trait, Moderator, Covariate, study, term, est) %>%
@@ -156,6 +157,7 @@ ipd_fx_tab <- nested_mega_tab %>%
 # save(ipd2b_reg_tab, ipd2b_res, file = sprintf("%s/manuscript/results/ipd2b_fx_tab.RData", res_path))
 
 (ipd_fx_tab %>% filter(Moderator == "None"))$tab[[1]]
+(ipd_fx_tab %>% filter(Moderator == "Dementia Diagnosis"))$tab[[1]]
 ```
 
 
@@ -213,7 +215,7 @@ ipd_fx_tab2 <- nested_mega_tab %>%
   mutate(tab = pmap(list(data, Covariate), ipd_tab_fun2))
 
 ## Frequentist, no moderator
-(ipd_fx_tab2 %>% filter(Covariate == "fully"))$tab[[1]]
+(ipd_fx_tab2 %>% filter(Covariate == "Shared\nCovariates\nAdjusted\n(With Dementia\nDiagnosis)"))$tab[[1]]
 ```
 
 
@@ -263,7 +265,7 @@ ipd_rx_tab <- nested_mega_tab %>%
 ipd_rx_tab
 
 ## Frequentist
-(ipd_rx_tab %>% filter(Moderator == "None" & Covariate == "shared"))$tab[[1]]
+(ipd_rx_tab %>% filter(Moderator == "None" & Covariate == "Shared\nCovariates\nAdjusted"))$tab[[1]]
 ```
 
 ###### Heterogeneity Estimates  
@@ -275,15 +277,15 @@ ipd_mod_tab <- nested_mega %>%
   unnest(fx) %>%
   # keep key terms 
   # mark significance and prettify trait, outcome, and covariate names
+  left_join(
+    outcomes %>% select(Outcome = short_name, link)
+  ) %>%
   mutate(sig = ifelse(sign(conf.low) == sign(conf.high), "sig", "ns"),
          Trait = factor(Trait, traits$short_name),
          Outcome = factor(Outcome, outcomes$short_name, outcomes$long_name),
          Moderator = factor(Moderator, moders$short_name, moders$long_name),
          Covariate = factor(Covariate, covars$short_name, str_wrap(covars$long_name, 15))
          ) %>%
-  left_join(
-    outcomes %>% select(Outcome = short_name, link)
-  ) %>%
   mutate_at(vars(estimate, conf.low, conf.high), ~ifelse(link == "factor", exp(.), .)) %>%
   # format values as text, combine estimates and CI's, bold significance
   mutate_at(vars(estimate, conf.low, conf.high), 
@@ -297,14 +299,15 @@ ipd_mod_tab <- nested_mega %>%
   arrange(Outcome, Trait, Moderator, Covariate) %>%
   pivot_wider(names_from = "Trait", values_from = "est") 
 
-ipd_mod_tab_fun <- function(d, out, moder, cov){
+ipd_mod_tab_fun <- function(d, out, moder, cov, link){
   md <- mapvalues(moder, moders$long_name, moders$short_name, warn_missing = F)
   o <- mapvalues(out, outcomes$long_name, outcomes$short_name, warn_missing = F)
   cv <- mapvalues(cov, str_wrap(covars$long_name, 15), covars$short_name, warn_missing = F)
   cs <- rep(1,9)
   names(cs) <- c(" ", paste0("<strong>", traits$long_name, "</strong>"))
   # cln <- if(length(unique(d$term2)) == 1) c("Covariate", rep("\\textit{b} [CI]", 5)) else c(" ", "Term", rep("\\textit{b} [CI]", 5))
-  cln <- c("Term", rep("<em>b</em> [CI]", 8))
+  lnk <- if(link == "factor") "<em>OR</em> [CI]" else "<em>b</em> [CI]"
+  cln <- c("Term", rep(lnk, 8))
   al <- c("r", rep("c", 8))
   # caption 
   cap <- if(md == "none") sprintf("All %s Model Estimates of Fixed Effect Personality-Dementia Diagnosis / Neuropathology Associations", cov) else sprintf("All %s Model Estimates of Fixed Effect %s Moderation of Personality-Crystallized Domain Associations", cov, md)
@@ -332,10 +335,10 @@ ipd_mod_tab_fun <- function(d, out, moder, cov){
 }
 
 ipd_mod_tab <- ipd_mod_tab %>%
-  group_by(Outcome, Moderator, Covariate) %>%
+  group_by(Outcome, Moderator, Covariate, link) %>%
   nest() %>%
   ungroup() %>%
-  mutate(tab = pmap(list(data, Outcome, Moderator, Covariate), ipd_mod_tab_fun))
+  mutate(tab = pmap(list(data, Outcome, Moderator, Covariate, link), ipd_mod_tab_fun))
 ```
 
 
@@ -802,7 +805,7 @@ loadRData <- function(fileName, cov, obj, folder){
 
 ## load in "fixed" effects
 ## first get file names
-nested_mega_simp <- tibble(Covariate = c("fully", "shared", "standard", "butOne", "unadjusted")) %>%
+nested_mega_simp <- tibble(Covariate = c("fully", "shared", "standard", "butOne", "unadjusted", "shareddx", "standarddx")) %>%
   mutate(file = map(Covariate, ~list.files(sprintf("%s/results/predicted/%s", wd, .)))) %>%
   unnest(file) %>%
   separate(file, c("Outcome", "Trait", "Moderator"), sep = "_", remove = F) %>% 
@@ -886,7 +889,7 @@ ipd_se_plot <- nested_mega_simp %>%
 ###### Study-Specific Simple Effects  
 ```{r ipd2b study specific se plots}
 ipd_std_se_plot_fun <- function(df, outcome, trait, mod, cov, link){
-  fctr_vars <- c("gender", "smokes", "alcohol", "race", "stroke", "cancer", "diabetes", "heartProb")
+  fctr_vars <- c("gender", "smokes", "alcohol", "race", "stroke", "cancer", "diabetes", "heartProb", "dementia")
   print(paste(outcome, mod))
   o <- mapvalues(outcome, outcomes$short_name, outcomes$long_name, warn_missing = F)
   trt <- mapvalues(trait, traits$short_name, traits$long_name, warn_missing = F)
@@ -914,12 +917,12 @@ ipd_std_se_plot_fun <- function(df, outcome, trait, mod, cov, link){
   #         left_join(df)
   #     }
   std <- unique(df$study)
-  cols <- (stdcolors %>% filter(studies %in% std))$colors
-  lt <- (stdcolors %>% filter(studies %in% std))$lt
+  cols <- (stdcolors %>% filter(studies_long %in% std))$colors
+  lt <- (stdcolors %>% filter(studies_long %in% std))$lt
   ht <- length(unique(df$mod_fac))
   if(link == "factor") {mini <- round(min(df$pred),2); maxi <- round(max(df$pred),2)} else {mini <- floor(min(df$pred)); maxi <- ceiling(max(df$pred))}
   df <- df %>%
-    mutate(study = factor(study, levels = stdcolors$studies),
+    mutate(study = factor(study, levels = stdcolors$studies_long, labels = stdcolors$studies_long),
            lower = ifelse(lower < mini, mini, lower),
            upper = ifelse(upper > maxi, maxi, upper),
            gr = ifelse(study == "Overall", "Overall", "study")) %>%
@@ -946,10 +949,9 @@ ipd_std_se_plot_fun <- function(df, outcome, trait, mod, cov, link){
       labs(x = "Personality (POMP)"
            , y = if(link == "factor") paste(o, "(OR)") else o
            , title = titl
-           , linetype = "Study"
-           , color = "Study"
-           , fill = "Study"
-           , subtitle = "Method 2B: Pooled Regression Using Random Effects") +
+           , linetype = "Sample"
+           , color = "Sample"
+           , fill = "Sample") +
       guides(size = "none", fill = "none") +
       facet_wrap(~mod_fac, nrow = 1) +
       theme_classic() +
@@ -964,7 +966,6 @@ ipd_std_se_plot_fun <- function(df, outcome, trait, mod, cov, link){
 
 nested_simp_std_se <- nested_mega_simp %>%
   filter(Covariate != "fully") %>%
-  # filter(map_lgl(pred.rx, ~!is.null(.)))
   mutate(pred.fx = map(pred.fx, ~(.) %>% mutate(study = "Overall")),
          comb.fx = map2(pred.fx, pred.rx, full_join)) %>%
   select(-pred.fx, -pred.rx) %>%
