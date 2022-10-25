@@ -1,0 +1,2815 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Personality Predictors of Dementia Diagnosis and Neuropathic Burden: A Mega-Analysis</title>
+  <meta name="description" content="Personality, Dementia, and Neuropathology" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Personality Predictors of Dementia Diagnosis and Neuropathic Burden: A Mega-Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Personality, Dementia, and Neuropathology" />
+  <meta name="github-repo" content="emoriebeck/personality-dementia-neuropath" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Personality Predictors of Dementia Diagnosis and Neuropathic Burden: A Mega-Analysis" />
+  
+  <meta name="twitter:description" content="Personality, Dementia, and Neuropathology" />
+  
+
+
+
+<meta name="date" content="2022-10-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="cleaning.html"/>
+<style type="text/css">
+p.abstract{
+  text-align: center;
+  font-weight: bold;
+}
+div.abstract{
+  margin: auto;
+  width: 90%;
+}
+</style>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Workspace</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#packages"><i class="fa fa-check"></i><b>1.1</b> Packages</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#directory-path"><i class="fa fa-check"></i><b>1.2</b> Directory Path</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#codebook"><i class="fa fa-check"></i><b>1.3</b> Codebook</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#tables"><i class="fa fa-check"></i><b>1.4</b> Tables</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="index.html"><a href="index.html#table-s1"><i class="fa fa-check"></i><b>1.4.1</b> Table S1</a></li>
+<li class="chapter" data-level="1.4.2" data-path="index.html"><a href="index.html#table-s2"><i class="fa fa-check"></i><b>1.4.2</b> Table S2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>2</b> Data Cleaning</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="cleaning.html"><a href="cleaning.html#health-and-retirement-study-hrs"><i class="fa fa-check"></i><b>2.1</b> Health and Retirement Study (HRS)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="cleaning.html"><a href="cleaning.html#load-data"><i class="fa fa-check"></i><b>2.1.1</b> Load Data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="cleaning.html"><a href="cleaning.html#recoding-reverse-scoring"><i class="fa fa-check"></i><b>2.1.2</b> Recoding &amp; Reverse Scoring</a></li>
+<li class="chapter" data-level="2.1.3" data-path="cleaning.html"><a href="cleaning.html#covariates"><i class="fa fa-check"></i><b>2.1.3</b> Covariates</a></li>
+<li class="chapter" data-level="2.1.4" data-path="cleaning.html"><a href="cleaning.html#personality-variables"><i class="fa fa-check"></i><b>2.1.4</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.1.5" data-path="cleaning.html"><a href="cleaning.html#cognition-variables"><i class="fa fa-check"></i><b>2.1.5</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.1.6" data-path="cleaning.html"><a href="cleaning.html#outcome-variables"><i class="fa fa-check"></i><b>2.1.6</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.1.7" data-path="cleaning.html"><a href="cleaning.html#combine-data"><i class="fa fa-check"></i><b>2.1.7</b> Combine Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="cleaning.html"><a href="cleaning.html#rush-memory-and-and-aging-project-rush-map"><i class="fa fa-check"></i><b>2.2</b> RUSH Memory and and Aging Project (RUSH-MAP)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="cleaning.html"><a href="cleaning.html#load-data-1"><i class="fa fa-check"></i><b>2.2.1</b> Load Data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="cleaning.html"><a href="cleaning.html#recoding-reverse-scoring-1"><i class="fa fa-check"></i><b>2.2.2</b> Recoding &amp; Reverse Scoring</a></li>
+<li class="chapter" data-level="2.2.3" data-path="cleaning.html"><a href="cleaning.html#covariates-1"><i class="fa fa-check"></i><b>2.2.3</b> Covariates</a></li>
+<li class="chapter" data-level="2.2.4" data-path="cleaning.html"><a href="cleaning.html#personality-variables-1"><i class="fa fa-check"></i><b>2.2.4</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.2.5" data-path="cleaning.html"><a href="cleaning.html#outcome-variables-1"><i class="fa fa-check"></i><b>2.2.5</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.2.6" data-path="cleaning.html"><a href="cleaning.html#cognition-variables-1"><i class="fa fa-check"></i><b>2.2.6</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.2.7" data-path="cleaning.html"><a href="cleaning.html#combine-data-1"><i class="fa fa-check"></i><b>2.2.7</b> Combine Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="cleaning.html"><a href="cleaning.html#rush-religious-orders-study-ros"><i class="fa fa-check"></i><b>2.3</b> RUSH Religious Orders Study (ROS)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="cleaning.html"><a href="cleaning.html#recoding-reverse-scoring-2"><i class="fa fa-check"></i><b>2.3.1</b> Recoding &amp; Reverse Scoring</a></li>
+<li class="chapter" data-level="2.3.2" data-path="cleaning.html"><a href="cleaning.html#covariates-2"><i class="fa fa-check"></i><b>2.3.2</b> Covariates</a></li>
+<li class="chapter" data-level="2.3.3" data-path="cleaning.html"><a href="cleaning.html#personality-variables-2"><i class="fa fa-check"></i><b>2.3.3</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.3.4" data-path="cleaning.html"><a href="cleaning.html#outcome-variables-2"><i class="fa fa-check"></i><b>2.3.4</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.3.5" data-path="cleaning.html"><a href="cleaning.html#cognition-variables-2"><i class="fa fa-check"></i><b>2.3.5</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.3.6" data-path="cleaning.html"><a href="cleaning.html#combine-data-2"><i class="fa fa-check"></i><b>2.3.6</b> Combine Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="cleaning.html"><a href="cleaning.html#swedish-adoption-twin-study-of-aging-satsa"><i class="fa fa-check"></i><b>2.4</b> Swedish Adoption Twin Study of Aging (SATSA)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="cleaning.html"><a href="cleaning.html#load-data-2"><i class="fa fa-check"></i><b>2.4.1</b> Load Data</a></li>
+<li class="chapter" data-level="2.4.2" data-path="cleaning.html"><a href="cleaning.html#recoding-reverse-scoring-3"><i class="fa fa-check"></i><b>2.4.2</b> Recoding &amp; Reverse Scoring</a></li>
+<li class="chapter" data-level="2.4.3" data-path="cleaning.html"><a href="cleaning.html#covariates-3"><i class="fa fa-check"></i><b>2.4.3</b> Covariates</a></li>
+<li class="chapter" data-level="2.4.4" data-path="cleaning.html"><a href="cleaning.html#personality-variables-3"><i class="fa fa-check"></i><b>2.4.4</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.4.5" data-path="cleaning.html"><a href="cleaning.html#outcome-variables-3"><i class="fa fa-check"></i><b>2.4.5</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.4.6" data-path="cleaning.html"><a href="cleaning.html#cognition-variables-3"><i class="fa fa-check"></i><b>2.4.6</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.4.7" data-path="cleaning.html"><a href="cleaning.html#combine-data-3"><i class="fa fa-check"></i><b>2.4.7</b> Combine Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="cleaning.html"><a href="cleaning.html#adrc-memory-and-aging-project-adrc-map"><i class="fa fa-check"></i><b>2.5</b> ADRC Memory and Aging Project (ADRC-MAP)</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="cleaning.html"><a href="cleaning.html#load-data-3"><i class="fa fa-check"></i><b>2.5.1</b> Load Data</a></li>
+<li class="chapter" data-level="2.5.2" data-path="cleaning.html"><a href="cleaning.html#recode-reverse-scoring"><i class="fa fa-check"></i><b>2.5.2</b> Recode &amp; Reverse-Scoring</a></li>
+<li class="chapter" data-level="2.5.3" data-path="cleaning.html"><a href="cleaning.html#covariates-4"><i class="fa fa-check"></i><b>2.5.3</b> Covariates</a></li>
+<li class="chapter" data-level="2.5.4" data-path="cleaning.html"><a href="cleaning.html#personality-variables-4"><i class="fa fa-check"></i><b>2.5.4</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.5.5" data-path="cleaning.html"><a href="cleaning.html#outcome-variables-4"><i class="fa fa-check"></i><b>2.5.5</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.5.6" data-path="cleaning.html"><a href="cleaning.html#cognition-variables-4"><i class="fa fa-check"></i><b>2.5.6</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.5.7" data-path="cleaning.html"><a href="cleaning.html#combine-data-4"><i class="fa fa-check"></i><b>2.5.7</b> Combine Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="cleaning.html"><a href="cleaning.html#einstein-aging-study"><i class="fa fa-check"></i><b>2.6</b> Einstein Aging Study</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="cleaning.html"><a href="cleaning.html#load-data-4"><i class="fa fa-check"></i><b>2.6.1</b> Load Data</a></li>
+<li class="chapter" data-level="2.6.2" data-path="cleaning.html"><a href="cleaning.html#recode-reverse-scoring-1"><i class="fa fa-check"></i><b>2.6.2</b> Recode &amp; Reverse-Scoring</a></li>
+<li class="chapter" data-level="2.6.3" data-path="cleaning.html"><a href="cleaning.html#covariates-5"><i class="fa fa-check"></i><b>2.6.3</b> Covariates</a></li>
+<li class="chapter" data-level="2.6.4" data-path="cleaning.html"><a href="cleaning.html#personality-variables-5"><i class="fa fa-check"></i><b>2.6.4</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.6.5" data-path="cleaning.html"><a href="cleaning.html#outcome-variables-5"><i class="fa fa-check"></i><b>2.6.5</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.6.6" data-path="cleaning.html"><a href="cleaning.html#cognition-variables-5"><i class="fa fa-check"></i><b>2.6.6</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.6.7" data-path="cleaning.html"><a href="cleaning.html#combine-data-5"><i class="fa fa-check"></i><b>2.6.7</b> Combine Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="cleaning.html"><a href="cleaning.html#german-socioeconomic-panel-study-gsoep"><i class="fa fa-check"></i><b>2.7</b> German Socioeconomic Panel Study (GSOEP)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="cleaning.html"><a href="cleaning.html#load-data-5"><i class="fa fa-check"></i><b>2.7.1</b> Load Data</a></li>
+<li class="chapter" data-level="2.7.2" data-path="cleaning.html"><a href="cleaning.html#recoding-reverse-scoring-4"><i class="fa fa-check"></i><b>2.7.2</b> Recoding &amp; Reverse Scoring</a></li>
+<li class="chapter" data-level="2.7.3" data-path="cleaning.html"><a href="cleaning.html#covariates-6"><i class="fa fa-check"></i><b>2.7.3</b> Covariates</a></li>
+<li class="chapter" data-level="2.7.4" data-path="cleaning.html"><a href="cleaning.html#personality-variables-6"><i class="fa fa-check"></i><b>2.7.4</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.7.5" data-path="cleaning.html"><a href="cleaning.html#outcome-variables-6"><i class="fa fa-check"></i><b>2.7.5</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.7.6" data-path="cleaning.html"><a href="cleaning.html#cognition-variables-6"><i class="fa fa-check"></i><b>2.7.6</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.7.7" data-path="cleaning.html"><a href="cleaning.html#combine-data-6"><i class="fa fa-check"></i><b>2.7.7</b> Combine Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="cleaning.html"><a href="cleaning.html#the-longitudinal-studies-for-the-social-sciences-liss"><i class="fa fa-check"></i><b>2.8</b> The Longitudinal Studies for the Social sciences (LISS)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="cleaning.html"><a href="cleaning.html#load-data-6"><i class="fa fa-check"></i><b>2.8.1</b> Load Data</a></li>
+<li class="chapter" data-level="2.8.2" data-path="cleaning.html"><a href="cleaning.html#recoding-reverse-scoring-5"><i class="fa fa-check"></i><b>2.8.2</b> Recoding &amp; Reverse-Scoring</a></li>
+<li class="chapter" data-level="2.8.3" data-path="cleaning.html"><a href="cleaning.html#covariates-7"><i class="fa fa-check"></i><b>2.8.3</b> Covariates</a></li>
+<li class="chapter" data-level="2.8.4" data-path="cleaning.html"><a href="cleaning.html#personality-variables-7"><i class="fa fa-check"></i><b>2.8.4</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.8.5" data-path="cleaning.html"><a href="cleaning.html#cognition-variables-7"><i class="fa fa-check"></i><b>2.8.5</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.8.6" data-path="cleaning.html"><a href="cleaning.html#outcome-variables-7"><i class="fa fa-check"></i><b>2.8.6</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.8.7" data-path="cleaning.html"><a href="cleaning.html#combine-data-7"><i class="fa fa-check"></i><b>2.8.7</b> Combine Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="runmodels.html"><a href="runmodels.html"><i class="fa fa-check"></i><b>3</b> Models</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="runmodels.html"><a href="runmodels.html#part-1-combine-data"><i class="fa fa-check"></i><b>3.1</b> Part 1: Combine Data</a></li>
+<li class="chapter" data-level="3.2" data-path="runmodels.html"><a href="runmodels.html#part-2-clean-and-prepare-data-sets"><i class="fa fa-check"></i><b>3.2</b> Part 2: Clean and Prepare Data Sets</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="runmodels.html"><a href="runmodels.html#pomp-and-factor-levels"><i class="fa fa-check"></i><b>3.2.1</b> POMP and Factor Levels</a></li>
+<li class="chapter" data-level="3.2.2" data-path="runmodels.html"><a href="runmodels.html#rescale-outcomes"><i class="fa fa-check"></i><b>3.2.2</b> Rescale Outcomes</a></li>
+<li class="chapter" data-level="3.2.3" data-path="runmodels.html"><a href="runmodels.html#bring-in-moderators-and-covariate-adjustments"><i class="fa fa-check"></i><b>3.2.3</b> Bring in Moderators and Covariate Adjustments</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="runmodels.html"><a href="runmodels.html#part-3-models"><i class="fa fa-check"></i><b>3.3</b> Part 3: Models</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="runmodels.html"><a href="runmodels.html#functions"><i class="fa fa-check"></i><b>3.3.1</b> Functions</a></li>
+<li class="chapter" data-level="3.3.2" data-path="runmodels.html"><a href="runmodels.html#run-models-and-summaries"><i class="fa fa-check"></i><b>3.3.2</b> Run Models and Summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="runmodels.html"><a href="runmodels.html#compile-results"><i class="fa fa-check"></i><b>3.4</b> Compile Results</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="runmodels.html"><a href="runmodels.html#tables-1"><i class="fa fa-check"></i><b>3.4.1</b> Tables</a></li>
+<li class="chapter" data-level="3.4.2" data-path="runmodels.html"><a href="runmodels.html#figures"><i class="fa fa-check"></i><b>3.4.2</b> Figures</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Personality Predictors of Dementia Diagnosis and Neuropathic Burden: A Mega-Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Personality Predictors of Dementia Diagnosis and Neuropathic Burden: A Mega-Analysis</h1>
+<p class="author multi-author"><em>Emorie D. Beck</em></p>
+<address class="author_afil">
+Feinberg School of Medicine<br>
+</address>
+<p class="author multi-author"><em>Daniel K. Mroczek</em></p>
+<address class="author_afil">
+Feinberg School of Medicine, Northwestern University<br>
+</address>
+<p class="author multi-author"><em>Eileen K. Graham</em></p>
+<address class="author_afil">
+Feinberg School of Medicine<br>
+</address>
+<p class="date"><em>25 October 2022</em></p>
+<div class="abstract">
+<p class="abstract">Abstract</p>
+<div class="line-block">“INTRODUCTION: The extent to which the Big Five personality traits and subjective well-being (SWB) are discriminatory predictors of clinical manifestation of dementia versus dementia-related neuropathology is unclear.”<br />
+“METHODS: Using data from eight independent studies (Ntotal=44,531; baseline Mage= years, % female), Bayesian multilevel models tested whether traits and SWB differentially predicted neuropsychological and neuropathological characteristics of dementia.”<br />
+“RESULTS: Adjusting for sociodemographic and health covariates, synthesized and individual study results indicate that high neuroticism, low conscientiousness, and high negative affect were associated with increased risk of long-term dementia diagnosis.”<br />
+“DISCUSSION: This multi-study project provides robust, conceptually replicated evidence that psychosocial factors are strong predictors of dementia diagnosis, but differentially associated with neuropathology at autopsy as a function of premorbid dementia diagnoses in some samples. These results suggest the possible importance of brain maintenance or test performance, while also highlighting the need for ongoing data collection efforts to disentangle these complex relationships.”</div>
+</div>
+</div>
+<div id="workspace" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Workspace<a href="index.html#workspace" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this section, we’ll set up everything we need to clean data in the next section. This includes:</p>
+<ol style="list-style-type: decimal">
+<li>Loading in all packages</li>
+<li>Loading in the codebook</li>
+</ol>
+<ul>
+<li>Setting up data frames for personality traits / well-being, outcomes, covariates, and moderators, so that we can more easily rename their short-hand names to production ready ones later</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Loading in and rendering html tables of some descriptives, measures, etc.</li>
+</ol>
+<div id="packages" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Packages<a href="index.html#packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>First, let’s load in the packages. Note the descriptions for each commented next to them.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)       <span class="co"># knit documents</span></span>
+<span id="cb1-2"><a href="index.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)  <span class="co"># formatted tables</span></span>
+<span id="cb1-3"><a href="index.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)      <span class="co"># read excel files</span></span>
+<span id="cb1-4"><a href="index.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)       <span class="co"># read spss files</span></span>
+<span id="cb1-5"><a href="index.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom.mixed) <span class="co"># summaries of models</span></span>
+<span id="cb1-6"><a href="index.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstan)       <span class="co"># bayes underpinnings</span></span>
+<span id="cb1-7"><a href="index.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidybayes)   <span class="co"># pretty bayes draws and plots</span></span>
+<span id="cb1-8"><a href="index.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)     <span class="co"># piece plots together</span></span>
+<span id="cb1-9"><a href="index.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plyr)        <span class="co"># data wrangling</span></span>
+<span id="cb1-10"><a href="index.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)   <span class="co"># data wrangling</span></span>
+<span id="cb1-11"><a href="index.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)        <span class="co"># bayesian models</span></span>
+<span id="cb1-12"><a href="index.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furrr)       <span class="co"># parallel purrr mapping</span></span>
+<span id="cb1-13"><a href="index.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)       <span class="co"># psychometrics</span></span></code></pre></div>
+</div>
+<div id="directory-path" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Directory Path<a href="index.html#directory-path" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We have three different directories:
+1. <code>data_path</code> stores the raw that that cannot be shared per data use agreements
+2. <code>res_path</code> includes the GitHub link where shareable objects can be found
+3. <code>local_path</code> is mostly used to save files as they render, or in some limited cases of objects that hold raw data, to access those objects that can’t be shared</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" aria-hidden="true" tabindex="-1"></a>data_path <span class="ot">&lt;-</span> <span class="st">&quot;/Volumes/Emorie/data&quot;</span></span>
+<span id="cb2-2"><a href="index.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># res_path &lt;- &quot;/Volumes/Emorie/projects/dementia/prediction&quot;</span></span>
+<span id="cb2-3"><a href="index.html#cb2-3" aria-hidden="true" tabindex="-1"></a>res_path <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/emoriebeck/personality-dementia-neuropath/raw/master&quot;</span></span>
+<span id="cb2-4"><a href="index.html#cb2-4" aria-hidden="true" tabindex="-1"></a>local_path <span class="ot">&lt;-</span> <span class="st">&quot;/Volumes/Emorie/projects/dementia/prediction&quot;</span></span></code></pre></div>
+</div>
+<div id="codebook" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Codebook<a href="index.html#codebook" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Each study has a separate codebook indexing covariate, moderator, personality, and outcome variables. Moreover, these codebooks contain information about the original scale of the variable, any recoding of the variable (including binarizing outcomes, changing the scale, and removing missing data), reverse coding of scale variables, categories, etc.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># list of all codebook sheets</span></span>
+<span id="cb3-2"><a href="index.html#cb3-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/codebooks/master_codebook_09.04.20.xlsx?raw=true&quot;</span></span>
+<span id="cb3-3"><a href="index.html#cb3-3" aria-hidden="true" tabindex="-1"></a>destfile <span class="ot">&lt;-</span> <span class="st">&quot;master_codebook_09.04.20.xlsx&quot;</span></span>
+<span id="cb3-4"><a href="index.html#cb3-4" aria-hidden="true" tabindex="-1"></a>curl<span class="sc">::</span><span class="fu">curl_download</span>(url, destfile)</span>
+<span id="cb3-5"><a href="index.html#cb3-5" aria-hidden="true" tabindex="-1"></a>sheets <span class="ot">&lt;-</span> <span class="fu">excel_sheets</span>(destfile)</span>
+<span id="cb3-6"><a href="index.html#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="index.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># function for reading in sheets</span></span>
+<span id="cb3-8"><a href="index.html#cb3-8" aria-hidden="true" tabindex="-1"></a>read_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb3-9"><a href="index.html#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_xlsx</span>(destfile, <span class="at">sheet =</span> x)</span>
+<span id="cb3-10"><a href="index.html#cb3-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-11"><a href="index.html#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="index.html#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># read in sheets and index source</span></span>
+<span id="cb3-13"><a href="index.html#cb3-13" aria-hidden="true" tabindex="-1"></a>codebook <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-14"><a href="index.html#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">study =</span> sheets,</span>
+<span id="cb3-15"><a href="index.html#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">codebook =</span> <span class="fu">map</span>(study, read_fun)</span>
+<span id="cb3-16"><a href="index.html#cb3-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-17"><a href="index.html#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="index.html#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="do">## short and long versions of names of all categories for later use</span></span>
+<span id="cb3-19"><a href="index.html#cb3-19" aria-hidden="true" tabindex="-1"></a>studies <span class="ot">&lt;-</span>      <span class="fu">c</span>(<span class="st">&quot;ROS&quot;</span>, <span class="st">&quot;RADC-MAP&quot;</span>, <span class="st">&quot;EAS&quot;</span>, <span class="st">&quot;ADRC&quot;</span>    , <span class="st">&quot;SATSA&quot;</span>, <span class="st">&quot;HRS&quot;</span>, <span class="st">&quot;LISS&quot;</span>, <span class="st">&quot;GSOEP&quot;</span>)</span>
+<span id="cb3-20"><a href="index.html#cb3-20" aria-hidden="true" tabindex="-1"></a>studies_long <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ROS&quot;</span>, <span class="st">&quot;Rush-MAP&quot;</span>, <span class="st">&quot;EAS&quot;</span>, <span class="st">&quot;WUSM-MAP&quot;</span>, <span class="st">&quot;SATSA&quot;</span>, <span class="st">&quot;HRS&quot;</span>, <span class="st">&quot;LISS&quot;</span>, <span class="st">&quot;GSOEP&quot;</span>)</span>
+<span id="cb3-21"><a href="index.html#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="index.html#cb3-22" aria-hidden="true" tabindex="-1"></a>stdcolors <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-23"><a href="index.html#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">studies =</span> <span class="fu">c</span>(<span class="st">&quot;Overall&quot;</span>, studies)</span>
+<span id="cb3-24"><a href="index.html#cb3-24" aria-hidden="true" tabindex="-1"></a>  , <span class="at">studies_long =</span> <span class="fu">c</span>(<span class="st">&quot;Overall&quot;</span>, studies_long)</span>
+<span id="cb3-25"><a href="index.html#cb3-25" aria-hidden="true" tabindex="-1"></a>  , <span class="at">std_text =</span> <span class="fu">str_remove_all</span>(studies, <span class="st">&quot;[-]&quot;</span>)</span>
+<span id="cb3-26"><a href="index.html#cb3-26" aria-hidden="true" tabindex="-1"></a>  , <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;#332288&quot;</span>, <span class="st">&quot;#88ccee&quot;</span>, <span class="st">&quot;#44aa99&quot;</span>, <span class="st">&quot;#117733&quot;</span>, <span class="st">&quot;#999933&quot;</span>, <span class="co">#&quot;#ddcc77&quot;, &quot;#cc6677&quot;, </span></span>
+<span id="cb3-27"><a href="index.html#cb3-27" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;#332288&quot;</span>, <span class="st">&quot;#88ccee&quot;</span>, <span class="st">&quot;#44aa99&quot;</span>)<span class="co">#, &quot;#117733&quot;, &quot;#999933&quot;, &quot;#ddcc77&quot;)</span></span>
+<span id="cb3-28"><a href="index.html#cb3-28" aria-hidden="true" tabindex="-1"></a>       , <span class="at">lt =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;solid&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;dotted&quot;</span>, <span class="dv">3</span>)))</span>
+<span id="cb3-29"><a href="index.html#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="index.html#cb3-30" aria-hidden="true" tabindex="-1"></a>traits <span class="ot">&lt;-</span> codebook<span class="sc">$</span>codebook[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">&quot;pers&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-31"><a href="index.html#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">long_name =</span> Construct, <span class="at">short_name =</span> name); traits</span></code></pre></div>
+<pre><code>## # A tibble: 8 × 2
+##   long_name              short_name
+##   &lt;chr&gt;                  &lt;chr&gt;     
+## 1 Extraversion           E         
+## 2 Agreeableness          A         
+## 3 Conscientiousness      C         
+## 4 Neuroticism            N         
+## 5 Openness to Experience O         
+## 6 Positive Affect        PA        
+## 7 Negative Affect        NA        
+## 8 Satisfaction with Life SWL</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="index.html#cb5-1" aria-hidden="true" tabindex="-1"></a>outcomes <span class="ot">&lt;-</span> codebook<span class="sc">$</span>codebook[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">&quot;out&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="index.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">long_name =</span> Construct, <span class="at">short_name =</span> name, link, colnm); outcomes</span></code></pre></div>
+<pre><code>## # A tibble: 11 × 4
+##    long_name                    short_name         link       colnm  
+##    &lt;chr&gt;                        &lt;chr&gt;              &lt;chr&gt;      &lt;chr&gt;  
+##  1 Incident Dementia Diagnosis  dementia           factor     OR [CI]
+##  2 Braak Stage                  braak              continuous b [CI] 
+##  3 CERAD                        cerad              continuous b [CI] 
+##  4 Lewy Body Disease            lewyBodyDis        factor     OR [CI]
+##  5 Gross Cerebral Infarcts      vsclrInfrcts       factor     OR [CI]
+##  6 Gross Cerebral Microinfarcts vsclrMcrInfrcts    factor     OR [CI]
+##  7 Cerebral Atherosclerosis     atherosclerosis    continuous b [CI] 
+##  8 Cerebral Amyloid Angiopathy  angiopathy         continuous b [CI] 
+##  9 Arteriolosclerosis           arteriolosclerosis continuous b [CI] 
+## 10 Hippocampal Sclerosis        hipSclerosis       factor     OR [CI]
+## 11 TDP-43                       tdp43              factor     OR [CI]</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="index.html#cb7-1" aria-hidden="true" tabindex="-1"></a>moders <span class="ot">&lt;-</span> codebook<span class="sc">$</span>codebook[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">&quot;mod&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="index.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">long_name =</span> Construct, <span class="at">short_name =</span> name, <span class="at">short_term =</span> old_term, <span class="at">long_term =</span> new_term); moders</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+##   long_name          short_name short_term long_term                    
+##   &lt;chr&gt;              &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;                        
+## 1 None               none       p_value    Personality                  
+## 2 Age                age        age        Age                          
+## 3 Gender             gender     gender1    Gender (Male v Female)       
+## 4 Education          education  education  Education (Years)            
+## 5 Cognition          cognition  cognition  Cognition                    
+## 6 Dementia Diagnosis dementia   dementia   Dementia Diagnosis (No v Yes)</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="index.html#cb9-1" aria-hidden="true" tabindex="-1"></a>covars <span class="ot">&lt;-</span> codebook<span class="sc">$</span>codebook[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">&quot;covariates&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="index.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">long_name =</span> Construct, <span class="at">short_name =</span> name, <span class="at">desc =</span> new_term); </span>
+<span id="cb9-3"><a href="index.html#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="index.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># used personality waves </span></span>
+<span id="cb9-5"><a href="index.html#cb9-5" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/codebooks/tables.xlsx?raw=true&quot;</span></span>
+<span id="cb9-6"><a href="index.html#cb9-6" aria-hidden="true" tabindex="-1"></a>destfile <span class="ot">&lt;-</span> <span class="st">&quot;tables.xlsx&quot;</span></span>
+<span id="cb9-7"><a href="index.html#cb9-7" aria-hidden="true" tabindex="-1"></a>curl<span class="sc">::</span><span class="fu">curl_download</span>(url, destfile)</span>
+<span id="cb9-8"><a href="index.html#cb9-8" aria-hidden="true" tabindex="-1"></a>p_waves <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(destfile, <span class="at">sheet =</span> <span class="st">&quot;Table 2&quot;</span>)</span></code></pre></div>
+</div>
+<div id="tables" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Tables<a href="index.html#tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="table-s1" class="section level3 hasAnchor" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Table S1<a href="index.html#table-s1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Below, I create Table S1, which includes information the personality and well-being scales used in each study:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="index.html#cb10-1" aria-hidden="true" tabindex="-1"></a>p_tab <span class="ot">&lt;-</span> p_waves <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="index.html#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Study, <span class="fu">everything</span>(), <span class="sc">-</span>p_item, <span class="sc">-</span>Used) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="index.html#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Study <span class="sc">!=</span> <span class="st">&quot;BLSA&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="index.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Measure =</span> <span class="fu">factor</span>(Measure, traits<span class="sc">$</span>long_name)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="index.html#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Study, Measure) </span>
+<span id="cb10-6"><a href="index.html#cb10-6" aria-hidden="true" tabindex="-1"></a>rs <span class="ot">&lt;-</span> p_tab <span class="sc">%&gt;%</span> </span>
+<span id="cb10-7"><a href="index.html#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Study) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-8"><a href="index.html#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb10-9"><a href="index.html#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">end =</span> <span class="fu">cumsum</span>(n), <span class="at">start =</span> <span class="fu">lag</span>(end) <span class="sc">+</span> <span class="dv">1</span>, <span class="at">start =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(start), <span class="dv">1</span>, start))</span>
+<span id="cb10-10"><a href="index.html#cb10-10" aria-hidden="true" tabindex="-1"></a>p_tab <span class="ot">&lt;-</span> p_tab <span class="sc">%&gt;%</span></span>
+<span id="cb10-11"><a href="index.html#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Study) <span class="sc">%&gt;%</span></span>
+<span id="cb10-12"><a href="index.html#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(.</span>
+<span id="cb10-13"><a href="index.html#cb10-13" aria-hidden="true" tabindex="-1"></a>        , <span class="st">&quot;html&quot;</span></span>
+<span id="cb10-14"><a href="index.html#cb10-14" aria-hidden="true" tabindex="-1"></a>        , <span class="at">caption =</span> <span class="st">&quot;&lt;strong&gt;Table S1&lt;/strong&gt;&lt;br&gt;&lt;em&gt;Personality Trait and Subjective Well-Being Measurement Inventories, Scales, and Assessments Across Samples&lt;/em&gt;&quot;</span></span>
+<span id="cb10-15"><a href="index.html#cb10-15" aria-hidden="true" tabindex="-1"></a>        , <span class="at">escape =</span> F</span>
+<span id="cb10-16"><a href="index.html#cb10-16" aria-hidden="true" tabindex="-1"></a>        , <span class="at">col.names =</span> <span class="fu">paste0</span>(<span class="st">&quot;&lt;strong&gt;&quot;</span>, <span class="fu">colnames</span>(p_tab)[<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;&lt;/strong&gt;&quot;</span>)</span>
+<span id="cb10-17"><a href="index.html#cb10-17" aria-hidden="true" tabindex="-1"></a>        , <span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;r&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb10-18"><a href="index.html#cb10-18" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-19"><a href="index.html#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> F, <span class="at">html_font =</span> <span class="st">&quot;Times New Roman&quot;</span>) </span>
+<span id="cb10-20"><a href="index.html#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(rs)){</span>
+<span id="cb10-21"><a href="index.html#cb10-21" aria-hidden="true" tabindex="-1"></a>  p_tab <span class="ot">&lt;-</span> p_tab <span class="sc">%&gt;%</span> kableExtra<span class="sc">::</span><span class="fu">group_rows</span>(rs<span class="sc">$</span>Study[i], rs<span class="sc">$</span>start[i], rs<span class="sc">$</span>end[i])</span>
+<span id="cb10-22"><a href="index.html#cb10-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-23"><a href="index.html#cb10-23" aria-hidden="true" tabindex="-1"></a>p_tab</span></code></pre></div>
+<table class=" lightable-classic" style="font-family: Times New Roman; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-2">Table 1.1: </span><strong>Table S1</strong><br><em>Personality Trait and Subjective Well-Being Measurement Inventories, Scales, and Assessments Across Samples</em>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+<strong>Measure</strong>
+</th>
+<th style="text-align:left;">
+<strong>Source</strong>
+</th>
+<th style="text-align:left;">
+<strong>Scale</strong>
+</th>
+<th style="text-align:center;">
+<strong>Used (Available)</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="8">
+<td colspan="4" style="border-bottom: 0;">
+<strong>ADRC-MAP</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Extraversion
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Clinical Follow-ups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Agreeableness
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Clinical Follow-ups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Conscientiousness
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Clinical Follow-ups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Neuroticism
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Clinical Follow-ups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Positive Affect
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:center;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Negative Affect
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:center;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Satisfaction with Life
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:center;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Clinical Follow-ups)
+</td>
+</tr>
+<tr grouplength="8">
+<td colspan="4" style="border-bottom: 0;">
+<strong>EAS</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Extraversion
+</td>
+<td style="text-align:left;">
+24 items from the IPIP NEO
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+2004 (Annual Follow-ups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Agreeableness
+</td>
+<td style="text-align:left;">
+24 items from the IPIP NEO
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+2004 (Annual Follow-ups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Conscientiousness
+</td>
+<td style="text-align:left;">
+24 items from the IPIP NEO
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+2004 (Annual Follow-ups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Neuroticism
+</td>
+<td style="text-align:left;">
+24 items from the IPIP NEO
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+2004 (Annual Follow-ups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Positive Affect
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:center;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Negative Affect
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:center;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Satisfaction with Life
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:center;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;">
+24 items from the IPIP NEO
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+2004 (Annual Follow-ups)
+</td>
+</tr>
+<tr grouplength="8">
+<td colspan="4" style="border-bottom: 0;">
+<strong>GSOEP</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Extraversion
+</td>
+<td style="text-align:left;">
+3 items from the 15 item BFI-S (John, Naumann, &amp; Soto, 2008, and Lang, Lüdtke, &amp; Asendorpf, 2001)
+</td>
+<td style="text-align:left;">
+1 “does not apply at all” to 7 ” applies perfectly”
+</td>
+<td style="text-align:center;">
+2005 (2005, 2009, 2013, 2017)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Agreeableness
+</td>
+<td style="text-align:left;">
+3 items from the 15 item BFI-S (John, Naumann, &amp; Soto, 2008, and Lang, Lüdtke, &amp; Asendorpf, 2001)
+</td>
+<td style="text-align:left;">
+1 “does not apply at all” to 7 ” applies perfectly”
+</td>
+<td style="text-align:center;">
+2005 (2005, 2009, 2013, 2017)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Conscientiousness
+</td>
+<td style="text-align:left;">
+3 items from the 15 item BFI-S (John, Naumann, &amp; Soto, 2008, and Lang, Lüdtke, &amp; Asendorpf, 2001)
+</td>
+<td style="text-align:left;">
+1 “does not apply at all” to 7 ” applies perfectly”
+</td>
+<td style="text-align:center;">
+2005 (2005, 2009, 2013, 2017)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Neuroticism
+</td>
+<td style="text-align:left;">
+3 items from the 15 item BFI-S (John, Naumann, &amp; Soto, 2008, and Lang, Lüdtke, &amp; Asendorpf, 2001)
+</td>
+<td style="text-align:left;">
+1 “does not apply at all” to 7 ” applies perfectly”
+</td>
+<td style="text-align:center;">
+2005 (2005, 2009, 2013, 2017)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Positive Affect
+</td>
+<td style="text-align:left;">
+1 item (“Frequency of being happy in the last 4 weeks”)
+</td>
+<td style="text-align:left;">
+1 “very seldom” to 5 “very often”
+</td>
+<td style="text-align:center;">
+2007 (2007-2017)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Negative Affect
+</td>
+<td style="text-align:left;">
+3 items (angry, sad, worried)
+</td>
+<td style="text-align:left;">
+1 “very seldom” to 5 “very often”
+</td>
+<td style="text-align:center;">
+2007 (2007-2017)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Satisfaction with Life
+</td>
+<td style="text-align:left;">
+SWLS (Diener, Emmons, Larsen, &amp; Griffin, 1985)
+</td>
+<td style="text-align:left;">
+0 “low” to 10 “high”
+</td>
+<td style="text-align:center;">
+2005 (1984-2017)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;">
+3 items from the 15 item BFI-S (John, Naumann, &amp; Soto, 2008, and Lang, Lüdtke, &amp; Asendorpf, 2001)
+</td>
+<td style="text-align:left;">
+1 “does not apply at all” to 7 ” applies perfectly”
+</td>
+<td style="text-align:center;">
+2005 (2005, 2009, 2013, 2017)
+</td>
+</tr>
+<tr grouplength="8">
+<td colspan="4" style="border-bottom: 0;">
+<strong>HRS</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Extraversion
+</td>
+<td style="text-align:left;">
+5 adjectives from a 25 adjective checklist (Lachman &amp; Weaver, 1997)
+</td>
+<td style="text-align:left;">
+**1 “a lot” to 4 “not at all”
+</td>
+<td style="text-align:center;">
+2006/8 (2006/8, 2010/12, 2014/16)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Agreeableness
+</td>
+<td style="text-align:left;">
+5 adjectives from a 25 adjective checklist (Lachman &amp; Weaver, 1997)
+</td>
+<td style="text-align:left;">
+**1 “a lot” to 4 “not at all”
+</td>
+<td style="text-align:center;">
+2006/8 (2006/8, 2010/12, 2014/16)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Conscientiousness
+</td>
+<td style="text-align:left;">
+5 adjectives from a 25 adjective checklist (Lachman &amp; Weaver, 1997)
+</td>
+<td style="text-align:left;">
+**1 “a lot” to 4 “not at all”
+</td>
+<td style="text-align:center;">
+2006/8 (2006/8, 2010/12, 2014/16)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Neuroticism
+</td>
+<td style="text-align:left;">
+5 adjectives from a 25 adjective checklist (Lachman &amp; Weaver, 1997)
+</td>
+<td style="text-align:left;">
+**1 “a lot” to 4 “not at all”
+</td>
+<td style="text-align:center;">
+2006/8 (2006/8, 2010/12, 2014/16)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Positive Affect
+</td>
+<td style="text-align:left;">
+PANAS-X (Watson &amp; Clark, 1994)
+</td>
+<td style="text-align:left;">
+*1 “very much” to 5 “not at all”
+</td>
+<td style="text-align:center;">
+2006-2016
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Negative Affect
+</td>
+<td style="text-align:left;">
+PANAS-X (Watson &amp; Clark, 1994)
+</td>
+<td style="text-align:left;">
+*1 “very much” to 5 “not at all”
+</td>
+<td style="text-align:center;">
+2006-2016
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Satisfaction with Life
+</td>
+<td style="text-align:left;">
+SWLS (Diener, Emmons, Larsen, &amp; Griffin, 1985)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 7 “strongly agree”
+</td>
+<td style="text-align:center;">
+2006/8 (2006/8, 2010/12, 2014/16)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;">
+5 adjectives from a 25 adjective checklist (Lachman &amp; Weaver, 1997)
+</td>
+<td style="text-align:left;">
+**1 “a lot” to 4 “not at all”
+</td>
+<td style="text-align:center;">
+2006/8 (2006/8, 2010/12, 2014/16)
+</td>
+</tr>
+<tr grouplength="8">
+<td colspan="4" style="border-bottom: 0;">
+<strong>LISS</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Extraversion
+</td>
+<td style="text-align:left;">
+10 items from the 50 item IPIP-50 (Goldberg, 1992)
+</td>
+<td style="text-align:left;">
+1 “very inaccurate” to 5 “very accurate”
+</td>
+<td style="text-align:center;">
+2008 (2008-2018)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Agreeableness
+</td>
+<td style="text-align:left;">
+10 items from the 50 item IPIP-50 (Goldberg, 1992)
+</td>
+<td style="text-align:left;">
+1 “very inaccurate” to 5 “very accurate”
+</td>
+<td style="text-align:center;">
+2008 (2008-2018)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Conscientiousness
+</td>
+<td style="text-align:left;">
+10 items from the 50 item IPIP-50 (Goldberg, 1992)
+</td>
+<td style="text-align:left;">
+1 “very inaccurate” to 5 “very accurate”
+</td>
+<td style="text-align:center;">
+2008 (2008-2018)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Neuroticism
+</td>
+<td style="text-align:left;">
+10 items from the 50 item IPIP-50 (Goldberg, 1992)
+</td>
+<td style="text-align:left;">
+1 “very inaccurate” to 5 “very accurate”
+</td>
+<td style="text-align:center;">
+2008 (2008-2018)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Positive Affect
+</td>
+<td style="text-align:left;">
+10 items (e.g. “interested”)
+</td>
+<td style="text-align:left;">
+1 “not at all” to 7 “extremely”
+</td>
+<td style="text-align:center;">
+2008 (2008-2018)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Negative Affect
+</td>
+<td style="text-align:left;">
+10 items (e.g. “distressed”)
+</td>
+<td style="text-align:left;">
+1 “not at all” to 7 “extremely”
+</td>
+<td style="text-align:center;">
+2008 (2008-2018)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Satisfaction with Life
+</td>
+<td style="text-align:left;">
+SWLS (Diener, Emmons, Larsen, &amp; Griffin, 1985)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 7 “strongly agree”
+</td>
+<td style="text-align:center;">
+2008 (2008-2018)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;">
+10 items from the 50 item IPIP-50 (Goldberg, 1992)
+</td>
+<td style="text-align:left;">
+1 “very inaccurate” to 5 “very accurate”
+</td>
+<td style="text-align:center;">
+2008 (2008-2018)
+</td>
+</tr>
+<tr grouplength="8">
+<td colspan="4" style="border-bottom: 0;">
+<strong>RUSH-MAP</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Extraversion
+</td>
+<td style="text-align:left;">
+6 items from the NEO Five Factor Inventory
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Baseline)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Agreeableness
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:center;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Conscientiousness
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Baseline)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Neuroticism
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Baseline)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Positive Affect
+</td>
+<td style="text-align:left;">
+1 item “Overall, how happy are you?”
+</td>
+<td style="text-align:left;">
+*1 “Very happy” to 4 “Not happy at all”
+</td>
+<td style="text-align:center;">
+Baseline (Annual Clinical Followups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Negative Affect
+</td>
+<td style="text-align:left;">
+PANAS-X (Watson &amp; Clark, 1994)
+</td>
+<td style="text-align:left;">
+1 “Very slightly or not at al” to 5 “Extremely”
+</td>
+<td style="text-align:center;">
+Baseline (Annual Clinical Followups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Satisfaction with Life
+</td>
+<td style="text-align:left;">
+SWLS (Diener, Emmons, Larsen, &amp; Griffin, 1985)
+</td>
+<td style="text-align:left;">
+*1 “Strongly agree” to 7 “Strongly Disagree”
+</td>
+<td style="text-align:center;">
+Baseline (Annual Clinical Followups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:center;">
+—
+</td>
+</tr>
+<tr grouplength="8">
+<td colspan="4" style="border-bottom: 0;">
+<strong>RUSH-ROS</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Extraversion
+</td>
+<td style="text-align:left;">
+6 items from the NEO Five Factor Inventory
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Baseline)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Agreeableness
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Baseline)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Conscientiousness
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Baseline)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Neuroticism
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Baseline)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Positive Affect
+</td>
+<td style="text-align:left;">
+1 item “Overall, how happy are you?”
+</td>
+<td style="text-align:left;">
+*1 “Very happy” to 4 “Not happy at all”
+</td>
+<td style="text-align:center;">
+Baseline (Annual Clinical Followups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Negative Affect
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:center;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Satisfaction with Life
+</td>
+<td style="text-align:left;">
+SWLS (Diener, Emmons, Larsen, &amp; Griffin, 1985)
+</td>
+<td style="text-align:left;">
+*1 “Strongly agree” to 7 “Strongly Disagree”
+</td>
+<td style="text-align:center;">
+Baseline (Annual Clinical Followups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Baseline)
+</td>
+</tr>
+<tr grouplength="8">
+<td colspan="4" style="border-bottom: 0;">
+<strong>SATSA</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Extraversion
+</td>
+<td style="text-align:left;">
+9 items from the Eysenck Personality Inventory
+</td>
+<td style="text-align:left;">
+**1 “exactly right” to 5 “not right at all”
+</td>
+<td style="text-align:center;">
+1984 (1984, 1987, 1989, 1990, 1992, 1993, 1999, 2002, 2004, 2005, 2007)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Agreeableness
+</td>
+<td style="text-align:left;">
+10 items
+</td>
+<td style="text-align:left;">
+**1 “exactly right” to 5 “not right at all”
+</td>
+<td style="text-align:center;">
+1984 (1984)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Conscientiousness
+</td>
+<td style="text-align:left;">
+10 items
+</td>
+<td style="text-align:left;">
+**1 “exactly right” to 5 “not right at all”
+</td>
+<td style="text-align:center;">
+1984 (1984)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Neuroticism
+</td>
+<td style="text-align:left;">
+9 items from the Eysenck Personality Inventory
+</td>
+<td style="text-align:left;">
+**1 “exactly right” to 5 “not right at all”
+</td>
+<td style="text-align:center;">
+1984 (1984, 1987, 1989, 1990, 1992, 1993, 1999, 2002, 2004, 2005, 2007)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Positive Affect
+</td>
+<td style="text-align:left;">
+5 items (e.g., “calm”, “harmonious”)
+</td>
+<td style="text-align:left;">
+**1 “exactly right” to 5 “not right at all”
+</td>
+<td style="text-align:center;">
+1984 (1984, 1987, 1989, 1990, 1992, 1993, 1995)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Positive Affect
+</td>
+<td style="text-align:left;">
+6 items (e.g., “worried”, “tense”)
+</td>
+<td style="text-align:left;">
+**1 “exactly right” to 5 “not right at all”
+</td>
+<td style="text-align:center;">
+1984 (1984, 1987, 1989, 1990, 1992, 1993, 1995)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Satisfaction with Life
+</td>
+<td style="text-align:left;">
+13 items
+</td>
+<td style="text-align:left;">
+**1 “exactly right” to 5 “not right at all”
+</td>
+<td style="text-align:center;">
+1984 (1984, 1987, 1989, 1990, 1993, 2004, 2007)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;">
+25 items from the NEO Personality Inventory
+</td>
+<td style="text-align:left;">
+**1 “exactly right” to 5 “not right at all”
+</td>
+<td style="text-align:center;">
+1984 (1984)
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="index.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save_kable</span>(p_tab, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/results/tables/tab-s1.html&quot;</span>, local_path))</span></code></pre></div>
+</div>
+<div id="table-s2" class="section level3 hasAnchor" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> Table S2<a href="index.html#table-s2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Next, I create table S2, which indicates which measures were in each study, including which cognitive measures were in each sample.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="index.html#cb12-1" aria-hidden="true" tabindex="-1"></a>meas <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(destfile, <span class="at">sheet =</span> <span class="st">&quot;Table 1&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="index.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>BLSA) </span>
+<span id="cb12-3"><a href="index.html#cb12-3" aria-hidden="true" tabindex="-1"></a>rs <span class="ot">&lt;-</span> meas <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="index.html#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Category) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-5"><a href="index.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-6"><a href="index.html#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">end =</span> <span class="fu">cumsum</span>(n), <span class="at">start =</span> <span class="fu">lag</span>(end) <span class="sc">+</span> <span class="dv">1</span>, <span class="at">start =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(start), <span class="dv">1</span>, start))</span>
+<span id="cb12-7"><a href="index.html#cb12-7" aria-hidden="true" tabindex="-1"></a>meas <span class="ot">&lt;-</span> meas <span class="sc">%&gt;%</span></span>
+<span id="cb12-8"><a href="index.html#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Category) <span class="sc">%&gt;%</span></span>
+<span id="cb12-9"><a href="index.html#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(.</span>
+<span id="cb12-10"><a href="index.html#cb12-10" aria-hidden="true" tabindex="-1"></a>        , <span class="st">&quot;html&quot;</span></span>
+<span id="cb12-11"><a href="index.html#cb12-11" aria-hidden="true" tabindex="-1"></a>        , <span class="at">caption =</span> <span class="st">&quot;&lt;strong&gt;Table S2&lt;/strong&gt;&lt;br&gt;&lt;em&gt;List of Measures Across Samples&lt;/em&gt;&quot;</span></span>
+<span id="cb12-12"><a href="index.html#cb12-12" aria-hidden="true" tabindex="-1"></a>        , <span class="at">escape =</span> F</span>
+<span id="cb12-13"><a href="index.html#cb12-13" aria-hidden="true" tabindex="-1"></a>        , <span class="at">col.names =</span> <span class="fu">paste0</span>(<span class="st">&quot;&lt;strong&gt;&quot;</span>, <span class="fu">colnames</span>(meas)[<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;&lt;/strong&gt;&quot;</span>)</span>
+<span id="cb12-14"><a href="index.html#cb12-14" aria-hidden="true" tabindex="-1"></a>        , <span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">8</span>))</span>
+<span id="cb12-15"><a href="index.html#cb12-15" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-16"><a href="index.html#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> F, <span class="at">html_font =</span> <span class="st">&quot;Times New Roman&quot;</span>) </span>
+<span id="cb12-17"><a href="index.html#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(rs)){</span>
+<span id="cb12-18"><a href="index.html#cb12-18" aria-hidden="true" tabindex="-1"></a>  meas <span class="ot">&lt;-</span> meas <span class="sc">%&gt;%</span> kableExtra<span class="sc">::</span><span class="fu">group_rows</span>(rs<span class="sc">$</span>Category[i], rs<span class="sc">$</span>start[i], rs<span class="sc">$</span>end[i])</span>
+<span id="cb12-19"><a href="index.html#cb12-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-20"><a href="index.html#cb12-20" aria-hidden="true" tabindex="-1"></a>meas</span></code></pre></div>
+<table class=" lightable-classic" style="font-family: Times New Roman; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-3">Table 1.2: </span><strong>Table S2</strong><br><em>List of Measures Across Samples</em>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+<strong>Measure</strong>
+</th>
+<th style="text-align:center;">
+<strong>GSOEP</strong>
+</th>
+<th style="text-align:center;">
+<strong>HRS</strong>
+</th>
+<th style="text-align:center;">
+<strong>LISS</strong>
+</th>
+<th style="text-align:center;">
+<strong>SATSA</strong>
+</th>
+<th style="text-align:center;">
+<strong>RUSH-MAP</strong>
+</th>
+<th style="text-align:center;">
+<strong>RUSH-ROS</strong>
+</th>
+<th style="text-align:center;">
+<strong>ADRC-MAP</strong>
+</th>
+<th style="text-align:center;">
+<strong>EAS</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="1">
+<td colspan="9" style="border-bottom: 0;">
+<strong>Cognitive</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Extraversion
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="9" style="border-bottom: 0;">
+<strong>Covariates</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Agreeableness
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="9" style="border-bottom: 0;">
+<strong>Outcomes</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Conscientiousness
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="9" style="border-bottom: 0;">
+<strong>Personality</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Neuroticim
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr grouplength="44">
+<td colspan="9" style="border-bottom: 0;">
+<strong>NA</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Openness to Experience
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Satisfaction with Life
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Positive Affect
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Negative Affect
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Self-Reported Dementia
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Braak Stage
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+CERAD
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Lewy Body Disease
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Gross Cerebral Infarcts
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Gross Cerebral Microinfarcts
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Cerebral Atherosclerosis
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Cerebral Amyloid Angiopathy
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Arteriolosclerosis
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Hippocampal Sclerosis
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Block Design
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Digits Forward
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Digits Backward
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Information
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Digit Symbol
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Cued Recall
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Free Recall
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Category Fluency
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Picture Memory
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Figure Logic
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Vocabulary
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Boston Naming Test
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Progressive Matrices
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Serial 7’s
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Trail-Making Task
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Card Rotation
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Age
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Gender
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Education
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Race
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Ethnicity
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Marital Status
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Self-Rated Health
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Heart Problems
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Stroke
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Diabetes
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Cancer
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Respiratory Problems
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Smoking
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Alcohol
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+X
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+X
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="index.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save_kable</span>(meas, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/results/tables/tab-s2.html&quot;</span>, local_path))</span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="cleaning.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
