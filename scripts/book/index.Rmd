@@ -3,6 +3,8 @@ title: "Personality Predictors of Dementia Diagnosis and Neuropathic Burden: A M
 author: 
     
   - name        : Emorie D. Beck
+    affiliation : University of California, Davis
+  - name        : Tomiko Yoneda
     affiliation : Feinberg School of Medicine
   - name        : Daniel K. Mroczek
     affiliation : Feinberg School of Medicine, Northwestern University
@@ -14,9 +16,14 @@ output: bookdown::gitbook
 documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
+abstract: |
+  | "INTRODUCTION: The extent to which the Big Five personality traits and subjective well-being (SWB) are discriminatory predictors of clinical manifestation of dementia versus dementia-related neuropathology is unclear."
+  | "METHODS: Using data from eight independent studies (Ntotal=44,531; baseline Mage= years, % female), Bayesian multilevel models tested whether traits and SWB differentially predicted neuropsychological and neuropathological characteristics of dementia."
+  | "RESULTS: Adjusting for sociodemographic and health covariates, synthesized and individual study results indicate that high neuroticism, low conscientiousness, and high negative affect were associated with increased risk of long-term dementia diagnosis."
+  | "DISCUSSION: This multi-study project provides robust, conceptually replicated evidence that psychosocial factors are strong predictors of dementia diagnosis, but differentially associated with neuropathology at autopsy as a function of premorbid dementia diagnoses in some samples. These results suggest the possible importance of brain maintenance or test performance, while also highlighting the need for ongoing data collection efforts to disentangle these complex relationships."
 link-citations: yes
-github-repo: rstudio/bookdown-demo
-description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+github-repo: emoriebeck/personality-dementia-neuropath
+description: "Personality, Dementia, and Neuropathology"
 editor_options: 
   chunk_output_type: console
 ---
@@ -27,7 +34,17 @@ options(knitr.kable.NA = '')
 ```
 
 # Workspace  
+
+In this section, we'll set up everything we need to clean data in the next section. This includes: 
+
+1. Loading in all packages
+2. Loading in the codebook
+  + Setting up data frames for personality traits / well-being, outcomes, covariates, and moderators, so that we can more easily rename their short-hand names to production ready ones later
+3. Loading in and rendering html tables of some descriptives, measures, etc. 
+
 ## Packages  
+
+First, let's load in the packages. Note the descriptions for each commented next to them.
 
 ```{r packages}
 library(knitr)       # knit documents
@@ -37,7 +54,7 @@ library(haven)       # read spss files
 library(broom.mixed) # summaries of models
 library(rstan)       # bayes underpinnings
 library(tidybayes)   # pretty bayes draws and plots
-library(cowplot)
+library(cowplot)     # piece plots together
 library(plyr)        # data wrangling
 library(tidyverse)   # data wrangling
 library(brms)        # bayesian models
@@ -46,23 +63,33 @@ library(psych)       # psychometrics
 ```
 
 ## Directory Path  
+
+We have three different directories: 
+1. `data_path` stores the raw that that cannot be shared per data use agreements
+2. `res_path` includes the GitHub link where shareable objects can be found
+3. `local_path` is mostly used to save files as they render, or in some limited cases of objects that hold raw data, to access those objects that can't be shared
+
 ```{r path}
-# res_path <- "https://github.com/emoriebeck/big-five-prediction/blob/master"
 data_path <- "/Volumes/Emorie/data"
-# res_path <- "~/Box/emorie post doc/01_projects/01_dementia/01_prediction"
-res_path <- "/Volumes/Emorie/projects/dementia/prediction"
-wd <- "/Volumes/Emorie/projects/dementia/prediction"
+# res_path <- "/Volumes/Emorie/projects/dementia/prediction"
+res_path <- "https://github.com/emoriebeck/personality-dementia-neuropath/raw/master"
+local_path <- "/Volumes/Emorie/projects/dementia/prediction"
 ```
 
 ## Codebook  
-Each study has a separate codebook indexing matching, covariate, personality, and outcome variables. Moreover, these codebooks contain information about the original scale of the variable, any recoding of the variable (including binarizing outcomes, changing the scale, and removing missing data), reverse coding of scale variables, categories, etc.  
+
+Each study has a separate codebook indexing covariate, moderator, personality, and outcome variables. Moreover, these codebooks contain information about the original scale of the variable, any recoding of the variable (including binarizing outcomes, changing the scale, and removing missing data), reverse coding of scale variables, categories, etc.  
+
 ```{r codebook}
 # list of all codebook sheets
-sheets <- sprintf("%s/codebooks/master_codebook_09.04.20.xlsx", res_path) %>% excel_sheets()
+url <- "https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/codebooks/master_codebook_09.04.20.xlsx?raw=true"
+destfile <- "master_codebook_09.04.20.xlsx"
+curl::curl_download(url, destfile)
+sheets <- excel_sheets(destfile)
 
 # function for reading in sheets
 read_fun <- function(x){
-  sprintf("%s/codebooks/master_codebook_09.04.20.xlsx", res_path) %>% read_xlsx(., sheet = x)
+  read_xlsx(destfile, sheet = x)
 }
 
 # read in sheets and index source
@@ -84,20 +111,82 @@ stdcolors <- tibble(
        , lt = c(rep("solid", 6), rep("dotted", 3)))
 
 traits <- codebook$codebook[[2]] %>% filter(category == "pers") %>% 
-  select(long_name = Construct, short_name = name)
+  select(long_name = Construct, short_name = name); traits
 
 outcomes <- codebook$codebook[[2]] %>% filter(category == "out") %>%
-  select(long_name = Construct, short_name = name, link, colnm)
+  select(long_name = Construct, short_name = name, link, colnm); outcomes
 
 moders <- codebook$codebook[[2]] %>% filter(category == "mod") %>%
-  select(long_name = Construct, short_name = name, short_term = old_term, long_term = new_term)
+  select(long_name = Construct, short_name = name, short_term = old_term, long_term = new_term); moders
 
 covars <- codebook$codebook[[2]] %>% filter(category == "covariates") %>%
-  select(long_name = Construct, short_name = name, desc = new_term)
+  select(long_name = Construct, short_name = name, desc = new_term); 
 
 # used personality waves 
-p_waves <- sprintf("%s/codebooks/tables.xlsx", res_path) %>% 
-  read_xlsx(., sheet = "Table 2")
+url <- "https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/codebooks/tables.xlsx?raw=true"
+destfile <- "tables.xlsx"
+curl::curl_download(url, destfile)
+p_waves <- read_xlsx(destfile, sheet = "Table 2")
+```
+
+## Tables   
+### Table S1  
+
+Below, I create Table S1, which includes information the personality and well-being scales used in each study:
+
+```{r}
+p_tab <- p_waves %>% 
+  select(Study, everything(), -p_item, -Used) %>%
+  filter(Study != "BLSA") %>%
+  mutate(Measure = factor(Measure, traits$long_name)) %>%
+  arrange(Study, Measure) 
+rs <- p_tab %>% 
+  group_by(Study) %>% 
+  tally() %>% 
+  mutate(end = cumsum(n), start = lag(end) + 1, start = ifelse(is.na(start), 1, start))
+p_tab <- p_tab %>%
+  select(-Study) %>%
+  kable(.
+        , "html"
+        , caption = "<strong>Table S1</strong><br><em>Personality Trait and Subjective Well-Being Measurement Inventories, Scales, and Assessments Across Samples</em>"
+        , escape = F
+        , col.names = paste0("<strong>", colnames(p_tab)[-1], "</strong>")
+        , align = c("r", "l", "l", "c")
+        ) %>%
+  kable_classic(full_width = F, html_font = "Times New Roman") 
+for (i in 1:nrow(rs)){
+  p_tab <- p_tab %>% kableExtra::group_rows(rs$Study[i], rs$start[i], rs$end[i])
+}
+p_tab
+save_kable(p_tab, file = sprintf("%s/results/tables/tab-s1.html", local_path))
+```
+
+### Table S2  
+
+Next, I create table S2, which indicates which measures were in each study, including which cognitive measures were in each sample. 
+
+```{r}
+meas <- read_xlsx(destfile, sheet = "Table 1") %>%
+  select(-BLSA) 
+rs <- meas %>% 
+  group_by(Category) %>% 
+  tally() %>% 
+  mutate(end = cumsum(n), start = lag(end) + 1, start = ifelse(is.na(start), 1, start))
+meas <- meas %>%
+  select(-Category) %>%
+  kable(.
+        , "html"
+        , caption = "<strong>Table S2</strong><br><em>List of Measures Across Samples</em>"
+        , escape = F
+        , col.names = paste0("<strong>", colnames(meas)[-1], "</strong>")
+        , align = c("l", rep("c", 8))
+        ) %>%
+  kable_classic(full_width = F, html_font = "Times New Roman") 
+for (i in 1:nrow(rs)){
+  meas <- meas %>% kableExtra::group_rows(rs$Category[i], rs$start[i], rs$end[i])
+}
+meas
+save_kable(meas, file = sprintf("%s/results/tables/tab-s2.html", local_path))
 ```
 
 

@@ -4,36 +4,45 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | A Minimal Book Example</title>
-  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>References | Personality Predictors of Dementia Diagnosis and Neuropathic Burden: A Mega-Analysis</title>
+  <meta name="description" content="Personality, Dementia, and Neuropathology" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | A Minimal Book Example" />
+  <meta property="og:title" content="References | Personality Predictors of Dementia Diagnosis and Neuropathic Burden: A Mega-Analysis" />
   <meta property="og:type" content="book" />
   
-  
-  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta property="og:description" content="Personality, Dementia, and Neuropathology" />
+  <meta name="github-repo" content="emoriebeck/personality-dementia-neuropath" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | A Minimal Book Example" />
+  <meta name="twitter:title" content="References | Personality Predictors of Dementia Diagnosis and Neuropathic Burden: A Mega-Analysis" />
   
-  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:description" content="Personality, Dementia, and Neuropathology" />
   
 
-<meta name="author" content="Yihui Xie" />
 
 
-<meta name="date" content="2020-09-11" />
+<meta name="date" content="2022-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="final-words.html"/>
+<link rel="prev" href="compile.html"/>
 
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<style type="text/css">
+p.abstract{
+  text-align: center;
+  font-weight: bold;
+}
+div.abstract{
+  margin: auto;
+  width: 90%;
+}
+</style>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,23 +58,26 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -85,13 +97,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -104,7 +116,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -117,6 +129,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -134,15 +147,120 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
-<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
-<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
-<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a><ul>
-<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
-<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Workspace</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#packages"><i class="fa fa-check"></i><b>1.1</b> Packages</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#directory-path"><i class="fa fa-check"></i><b>1.2</b> Directory Path</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#codebook"><i class="fa fa-check"></i><b>1.3</b> Codebook</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#tables"><i class="fa fa-check"></i><b>1.4</b> Tables</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="index.html"><a href="index.html#table-s1"><i class="fa fa-check"></i><b>1.4.1</b> Table S1</a></li>
+<li class="chapter" data-level="1.4.2" data-path="index.html"><a href="index.html#table-s2"><i class="fa fa-check"></i><b>1.4.2</b> Table S2</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>2</b> Data Cleaning</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="cleaning.html"><a href="cleaning.html#health-and-retirement-study-hrs"><i class="fa fa-check"></i><b>2.1</b> Health and Retirement Study (HRS)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="cleaning.html"><a href="cleaning.html#load-data"><i class="fa fa-check"></i><b>2.1.1</b> Load Data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="cleaning.html"><a href="cleaning.html#recoding-reverse-scoring"><i class="fa fa-check"></i><b>2.1.2</b> Recoding &amp; Reverse Scoring</a></li>
+<li class="chapter" data-level="2.1.3" data-path="cleaning.html"><a href="cleaning.html#covariates"><i class="fa fa-check"></i><b>2.1.3</b> Covariates</a></li>
+<li class="chapter" data-level="2.1.4" data-path="cleaning.html"><a href="cleaning.html#personality-variables"><i class="fa fa-check"></i><b>2.1.4</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.1.5" data-path="cleaning.html"><a href="cleaning.html#cognition-variables"><i class="fa fa-check"></i><b>2.1.5</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.1.6" data-path="cleaning.html"><a href="cleaning.html#outcome-variables"><i class="fa fa-check"></i><b>2.1.6</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.1.7" data-path="cleaning.html"><a href="cleaning.html#combine-data"><i class="fa fa-check"></i><b>2.1.7</b> Combine Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="cleaning.html"><a href="cleaning.html#rush-memory-and-and-aging-project-rush-map"><i class="fa fa-check"></i><b>2.2</b> RUSH Memory and and Aging Project (RUSH-MAP)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="cleaning.html"><a href="cleaning.html#load-data-1"><i class="fa fa-check"></i><b>2.2.1</b> Load Data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="cleaning.html"><a href="cleaning.html#recoding-reverse-scoring-1"><i class="fa fa-check"></i><b>2.2.2</b> Recoding &amp; Reverse Scoring</a></li>
+<li class="chapter" data-level="2.2.3" data-path="cleaning.html"><a href="cleaning.html#covariates-1"><i class="fa fa-check"></i><b>2.2.3</b> Covariates</a></li>
+<li class="chapter" data-level="2.2.4" data-path="cleaning.html"><a href="cleaning.html#personality-variables-1"><i class="fa fa-check"></i><b>2.2.4</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.2.5" data-path="cleaning.html"><a href="cleaning.html#outcome-variables-1"><i class="fa fa-check"></i><b>2.2.5</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.2.6" data-path="cleaning.html"><a href="cleaning.html#cognition-variables-1"><i class="fa fa-check"></i><b>2.2.6</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.2.7" data-path="cleaning.html"><a href="cleaning.html#combine-data-1"><i class="fa fa-check"></i><b>2.2.7</b> Combine Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="cleaning.html"><a href="cleaning.html#rush-religious-orders-study-ros"><i class="fa fa-check"></i><b>2.3</b> RUSH Religious Orders Study (ROS)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="cleaning.html"><a href="cleaning.html#recoding-reverse-scoring-2"><i class="fa fa-check"></i><b>2.3.1</b> Recoding &amp; Reverse Scoring</a></li>
+<li class="chapter" data-level="2.3.2" data-path="cleaning.html"><a href="cleaning.html#covariates-2"><i class="fa fa-check"></i><b>2.3.2</b> Covariates</a></li>
+<li class="chapter" data-level="2.3.3" data-path="cleaning.html"><a href="cleaning.html#personality-variables-2"><i class="fa fa-check"></i><b>2.3.3</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.3.4" data-path="cleaning.html"><a href="cleaning.html#outcome-variables-2"><i class="fa fa-check"></i><b>2.3.4</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.3.5" data-path="cleaning.html"><a href="cleaning.html#cognition-variables-2"><i class="fa fa-check"></i><b>2.3.5</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.3.6" data-path="cleaning.html"><a href="cleaning.html#combine-data-2"><i class="fa fa-check"></i><b>2.3.6</b> Combine Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="cleaning.html"><a href="cleaning.html#swedish-adoption-twin-study-of-aging-satsa"><i class="fa fa-check"></i><b>2.4</b> Swedish Adoption Twin Study of Aging (SATSA)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="cleaning.html"><a href="cleaning.html#load-data-2"><i class="fa fa-check"></i><b>2.4.1</b> Load Data</a></li>
+<li class="chapter" data-level="2.4.2" data-path="cleaning.html"><a href="cleaning.html#recoding-reverse-scoring-3"><i class="fa fa-check"></i><b>2.4.2</b> Recoding &amp; Reverse Scoring</a></li>
+<li class="chapter" data-level="2.4.3" data-path="cleaning.html"><a href="cleaning.html#covariates-3"><i class="fa fa-check"></i><b>2.4.3</b> Covariates</a></li>
+<li class="chapter" data-level="2.4.4" data-path="cleaning.html"><a href="cleaning.html#personality-variables-3"><i class="fa fa-check"></i><b>2.4.4</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.4.5" data-path="cleaning.html"><a href="cleaning.html#outcome-variables-3"><i class="fa fa-check"></i><b>2.4.5</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.4.6" data-path="cleaning.html"><a href="cleaning.html#cognition-variables-3"><i class="fa fa-check"></i><b>2.4.6</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.4.7" data-path="cleaning.html"><a href="cleaning.html#combine-data-3"><i class="fa fa-check"></i><b>2.4.7</b> Combine Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="cleaning.html"><a href="cleaning.html#adrc-memory-and-aging-project-adrc-map"><i class="fa fa-check"></i><b>2.5</b> ADRC Memory and Aging Project (ADRC-MAP)</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="cleaning.html"><a href="cleaning.html#load-data-3"><i class="fa fa-check"></i><b>2.5.1</b> Load Data</a></li>
+<li class="chapter" data-level="2.5.2" data-path="cleaning.html"><a href="cleaning.html#recode-reverse-scoring"><i class="fa fa-check"></i><b>2.5.2</b> Recode &amp; Reverse-Scoring</a></li>
+<li class="chapter" data-level="2.5.3" data-path="cleaning.html"><a href="cleaning.html#covariates-4"><i class="fa fa-check"></i><b>2.5.3</b> Covariates</a></li>
+<li class="chapter" data-level="2.5.4" data-path="cleaning.html"><a href="cleaning.html#personality-variables-4"><i class="fa fa-check"></i><b>2.5.4</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.5.5" data-path="cleaning.html"><a href="cleaning.html#outcome-variables-4"><i class="fa fa-check"></i><b>2.5.5</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.5.6" data-path="cleaning.html"><a href="cleaning.html#cognition-variables-4"><i class="fa fa-check"></i><b>2.5.6</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.5.7" data-path="cleaning.html"><a href="cleaning.html#combine-data-4"><i class="fa fa-check"></i><b>2.5.7</b> Combine Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="cleaning.html"><a href="cleaning.html#einstein-aging-study"><i class="fa fa-check"></i><b>2.6</b> Einstein Aging Study</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="cleaning.html"><a href="cleaning.html#load-data-4"><i class="fa fa-check"></i><b>2.6.1</b> Load Data</a></li>
+<li class="chapter" data-level="2.6.2" data-path="cleaning.html"><a href="cleaning.html#recode-reverse-scoring-1"><i class="fa fa-check"></i><b>2.6.2</b> Recode &amp; Reverse-Scoring</a></li>
+<li class="chapter" data-level="2.6.3" data-path="cleaning.html"><a href="cleaning.html#covariates-5"><i class="fa fa-check"></i><b>2.6.3</b> Covariates</a></li>
+<li class="chapter" data-level="2.6.4" data-path="cleaning.html"><a href="cleaning.html#personality-variables-5"><i class="fa fa-check"></i><b>2.6.4</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.6.5" data-path="cleaning.html"><a href="cleaning.html#outcome-variables-5"><i class="fa fa-check"></i><b>2.6.5</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.6.6" data-path="cleaning.html"><a href="cleaning.html#cognition-variables-5"><i class="fa fa-check"></i><b>2.6.6</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.6.7" data-path="cleaning.html"><a href="cleaning.html#combine-data-5"><i class="fa fa-check"></i><b>2.6.7</b> Combine Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="cleaning.html"><a href="cleaning.html#german-socioeconomic-panel-study-gsoep"><i class="fa fa-check"></i><b>2.7</b> German Socioeconomic Panel Study (GSOEP)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="cleaning.html"><a href="cleaning.html#load-data-5"><i class="fa fa-check"></i><b>2.7.1</b> Load Data</a></li>
+<li class="chapter" data-level="2.7.2" data-path="cleaning.html"><a href="cleaning.html#recoding-reverse-scoring-4"><i class="fa fa-check"></i><b>2.7.2</b> Recoding &amp; Reverse Scoring</a></li>
+<li class="chapter" data-level="2.7.3" data-path="cleaning.html"><a href="cleaning.html#covariates-6"><i class="fa fa-check"></i><b>2.7.3</b> Covariates</a></li>
+<li class="chapter" data-level="2.7.4" data-path="cleaning.html"><a href="cleaning.html#personality-variables-6"><i class="fa fa-check"></i><b>2.7.4</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.7.5" data-path="cleaning.html"><a href="cleaning.html#outcome-variables-6"><i class="fa fa-check"></i><b>2.7.5</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.7.6" data-path="cleaning.html"><a href="cleaning.html#cognition-variables-6"><i class="fa fa-check"></i><b>2.7.6</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.7.7" data-path="cleaning.html"><a href="cleaning.html#combine-data-6"><i class="fa fa-check"></i><b>2.7.7</b> Combine Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="cleaning.html"><a href="cleaning.html#the-longitudinal-studies-for-the-social-sciences-liss"><i class="fa fa-check"></i><b>2.8</b> The Longitudinal Studies for the Social sciences (LISS)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="cleaning.html"><a href="cleaning.html#load-data-6"><i class="fa fa-check"></i><b>2.8.1</b> Load Data</a></li>
+<li class="chapter" data-level="2.8.2" data-path="cleaning.html"><a href="cleaning.html#recoding-reverse-scoring-5"><i class="fa fa-check"></i><b>2.8.2</b> Recoding &amp; Reverse-Scoring</a></li>
+<li class="chapter" data-level="2.8.3" data-path="cleaning.html"><a href="cleaning.html#covariates-7"><i class="fa fa-check"></i><b>2.8.3</b> Covariates</a></li>
+<li class="chapter" data-level="2.8.4" data-path="cleaning.html"><a href="cleaning.html#personality-variables-7"><i class="fa fa-check"></i><b>2.8.4</b> Personality Variables</a></li>
+<li class="chapter" data-level="2.8.5" data-path="cleaning.html"><a href="cleaning.html#cognition-variables-7"><i class="fa fa-check"></i><b>2.8.5</b> Cognition Variables</a></li>
+<li class="chapter" data-level="2.8.6" data-path="cleaning.html"><a href="cleaning.html#outcome-variables-7"><i class="fa fa-check"></i><b>2.8.6</b> Outcome Variables</a></li>
+<li class="chapter" data-level="2.8.7" data-path="cleaning.html"><a href="cleaning.html#combine-data-7"><i class="fa fa-check"></i><b>2.8.7</b> Combine Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="runmodels.html"><a href="runmodels.html"><i class="fa fa-check"></i><b>3</b> Models</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="runmodels.html"><a href="runmodels.html#part-1-combine-data"><i class="fa fa-check"></i><b>3.1</b> Part 1: Combine Data</a></li>
+<li class="chapter" data-level="3.2" data-path="runmodels.html"><a href="runmodels.html#part-2-clean-and-prepare-data-sets"><i class="fa fa-check"></i><b>3.2</b> Part 2: Clean and Prepare Data Sets</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="runmodels.html"><a href="runmodels.html#pomp-and-factor-levels"><i class="fa fa-check"></i><b>3.2.1</b> POMP and Factor Levels</a></li>
+<li class="chapter" data-level="3.2.2" data-path="runmodels.html"><a href="runmodels.html#zero-order-correlations"><i class="fa fa-check"></i><b>3.2.2</b> Zero-Order Correlations</a></li>
+<li class="chapter" data-level="3.2.3" data-path="runmodels.html"><a href="runmodels.html#rescale-outcomes"><i class="fa fa-check"></i><b>3.2.3</b> Rescale Outcomes</a></li>
+<li class="chapter" data-level="3.2.4" data-path="runmodels.html"><a href="runmodels.html#bring-in-moderators-and-covariate-adjustments"><i class="fa fa-check"></i><b>3.2.4</b> Bring in Moderators and Covariate Adjustments</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="runmodels.html"><a href="runmodels.html#part-3-models"><i class="fa fa-check"></i><b>3.3</b> Part 3: Models</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="runmodels.html"><a href="runmodels.html#functions"><i class="fa fa-check"></i><b>3.3.1</b> Functions</a></li>
+<li class="chapter" data-level="3.3.2" data-path="runmodels.html"><a href="runmodels.html#run-models-and-summaries"><i class="fa fa-check"></i><b>3.3.2</b> Run Models and Summaries</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="compile.html"><a href="compile.html"><i class="fa fa-check"></i><b>4</b> Compile Results</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="compile.html"><a href="compile.html#tables-1"><i class="fa fa-check"></i><b>4.0.1</b> Tables</a></li>
+<li class="chapter" data-level="4.0.2" data-path="compile.html"><a href="compile.html#figures"><i class="fa fa-check"></i><b>4.0.2</b> Figures</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -156,7 +274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Personality Predictors of Dementia Diagnosis and Neuropathic Burden: A Mega-Analysis</a>
           </h1>
         </div>
 
@@ -164,29 +282,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="references" class="section level1 unnumbered hasAnchor">
+<h1>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 
-<div id="refs" class="references">
-<div>
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
-</div>
-<div>
-<p>———. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="final-words.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="compile.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -205,6 +314,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -213,7 +323,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-references.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-references.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -225,6 +335,10 @@ gitbook.start({
 "text": null
 },
 "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -232,20 +346,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

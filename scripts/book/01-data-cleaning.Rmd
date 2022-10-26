@@ -5,6 +5,8 @@ editor_options:
 ---
 # Data Cleaning {#cleaning}
 
+In this section, we will clean the data for each study. Raw data cannot be shared directly, but for each study, we include instrucitons on how to access the data. 
+
 ```{r mode fun}
 Mode <- function(x) {
   ux <- unique(x)
@@ -22,7 +24,7 @@ Participants were recruited from more than 35,000 individuals from the financial
 Sample size varies by year, ranging from approximately 7,500 (2014) to 15,500 (1992). (https://hrs.isr.umich.edu/sites/default/files/biblio/ResponseRates_2017.pdf). This provides 99% power to detect a zero-order correlation effect size of ~.04, two-tailed at alpha .05.  
 
 ### Load Data  
-```{r hrs clean fun, eval = T}
+```{r hrs clean fun, eval = F}
 hrs_read_fun <- function(year) {
   read_da <- function(da, dct, Year){
     print(paste(da, dct, year, sep = " "))
@@ -76,7 +78,7 @@ hrs_codebook <- (codebook %>% filter(study == "HRS"))$codebook[[1]] %>%
 hrs_codebook
 ```
 
-```{r hrs data, eval = T}
+```{r hrs data, eval = F}
 old.names <- unique(hrs_codebook$orig_itemname)
 hrs.paq <- tibble(
   year = sprintf("%s/hrs", data_path) %>% list.files(., pattern = "^[0-9]")
@@ -114,7 +116,7 @@ hrs_long <- hrs_long %>%
   bind_rows(hrs.rand %>% select(orig_itemname, value, SID)) %>%
   filter(SID %in% hrs.subs)
 
-save(hrs.rand, hrs.paq, file = sprintf("%s/data/clean/hrs_raw.RData", wd))
+save(hrs.rand, hrs.paq, file = sprintf("%s/data/clean/hrs_raw.RData", load_path))
 rm(list = c("hrs.paq", "hrs.rand"))
 ```
 
@@ -181,7 +183,12 @@ fun_call <- function(x, rule){
 
 ### Covariates  
 
-```{r hrs covariates, eval = T}
+```{r hrs load, echo = F}
+load(sprintf("%s/data/clean/hrs_cleaned.RData", local_path))
+```
+
+
+```{r hrs covariates, eval = F}
 # compositing within years
 year_comp_fun <- function(df, rule){
   df %>%
@@ -227,8 +234,13 @@ hrs_cov <- hrs_cov %>%
   filter(!is.na(SID))
 ```
 
+```{r hrs cov print}
+hrs_cov
+```
+
 ### Personality Variables  
-```{r hrs personality, eval = T}
+
+```{r hrs personality, eval = F}
 hrs_pers <- hrs_recode %>%
   filter(category == "pers") %>%
   select(-category) %>% 
@@ -265,8 +277,13 @@ hrs_pers <- hrs_pers %>%
   select(-comp_rule)
 ```
 
+```{r hrs pers print}
+hrs_pers
+```
+
 ### Cognition Variables  
-```{r hrs cog, eval = T}
+
+```{r hrs cog, eval = F}
 hrs_cog <- hrs_recode %>%
   filter(category == "cognition") %>%
   select(-category) %>% 
@@ -281,8 +298,14 @@ hrs_cog <- hrs_recode %>%
   pivot_wider(names_from = "name", values_from = "value")
 ```
 
+```{r hrs cog print}
+hrs_cog
+```
+
+
 ### Outcome Variables  
-```{r hrs out, eval = T}
+
+```{r hrs out, eval = F}
 # composite within years 
 # compositing within years
 hrs_out <- hrs_recode %>%
@@ -308,8 +331,13 @@ hrs_out <- hrs_recode %>%
 ungroup()
 ```
 
+```{r hrs out print}
+hrs_out
+```
+
 ### Combine Data  
-```{r hrs combine}
+
+```{r hrs combine, eval = F}
 hrs_combined <- hrs_pers %>% 
   rename(Trait = name, p_value = value, p_year = year) %>%
   full_join(hrs_out %>% select(SID, Outcome = name, o_value = value)) %>%
@@ -327,9 +355,13 @@ hrs_combined <- hrs_pers %>%
          , o_year = 2014)
 ```
 
-```{r hrs save}
+```{r hrs combined print}
+hrs_combined
+```
+
+```{r hrs save, eval = F}
 save(hrs_cov, hrs_alpha, hrs_pers, hrs_out, hrs_combined, hrs_cog,
-     file = sprintf("%s/data/clean/hrs_cleaned.RData", wd))
+     file = sprintf("%s/data/clean/hrs_cleaned.RData", load_path))
 ```
 
 ```{r}
@@ -350,7 +382,7 @@ Sample sizes vary by year, ranging from 52 (1997) to 2205 participants including
   mutate(orig_itemname = str_to_lower(orig_itemname)))
 ```
 
-```{r nlsy data, eval = T}
+```{r map data, eval = F}
 map <- sprintf("%s/rush-radc/dataset_1033_long_03-24-2021.xlsx", data_path) %>% read_excel() %>%
   full_join(sprintf("%s/rush-radc/dataset_1033_basic_03-24-2021.xlsx", data_path) %>% read_excel()) %>%
   full_join(sprintf("%s/rush-radc/dataset_1034_long_03-25-2021.xlsx", data_path) %>% read_excel()) %>%
@@ -360,7 +392,7 @@ map <- sprintf("%s/rush-radc/dataset_1033_long_03-24-2021.xlsx", data_path) %>% 
 
 ### Recoding & Reverse Scoring  
 
-```{r nlsy match, eval = T}
+```{r map recode, eval = F}
 rename_fun <- function(cb, var){
   print(var)
   old.names <- unique((map_codebook %>% filter(name == var))$orig_itemname)
@@ -417,7 +449,11 @@ fun_call <- function(x, rule){
 
 ### Covariates  
 
-```{r map covariates, eval = T}
+```{r map load, echo = F}
+load(sprintf("%s/data/clean/radc-map_cleaned.RData", local_path))
+```
+
+```{r map covariates, eval = F}
 # composite WITHIN years 
 map_cov <- map_recode %>%
   filter(category == "covariates") %>%
@@ -456,8 +492,13 @@ map_cov <- map_cov %>%
   filter(!is.na(SID))
 ```
 
+```{r map cov print}
+map_cov
+```
+
 ### Personality Variables  
-```{r map personality, eval = T}
+
+```{r map personality, eval = F}
 map_pers <- map_recode %>%
   filter(category == "pers") %>%
   select(-category) %>% 
@@ -469,8 +510,13 @@ map_pers <- map_recode %>%
   select(SID, name, wave, value)
 ```
 
+```{r map pers print}
+map_pers
+```
+
 ### Outcome Variables  
-```{r map out, eval = T}
+
+```{r map out, eval = F}
 map_out_waves <- map_recode %>%
   filter(category == "outcome") %>%
   unnest(data) %>%
@@ -522,8 +568,13 @@ map_out <- map_out %>%
   left_join(map_out_waves)
 ```
 
+```{r map out print}
+map_out
+```
+
 ### Cognition Variables  
-```{r map cog, eval = T}
+
+```{r map cog, eval = F}
 # composite within years
 map_cog <- map_recode %>%
   filter(category == "cognition") %>%
@@ -540,8 +591,13 @@ map_cog <- map_recode %>%
               , values_from = "value")
 ```
 
+```{r map cog print}
+map_cog
+```
+
 ### Combine Data  
-```{r map combine}
+
+```{r map combine, eval = F}
 map_combined <- map_pers %>% 
   rename(Trait = name, p_value = value, p_year = wave) %>%
   full_join(
@@ -560,9 +616,13 @@ map_combined <- map_pers %>%
   filter(!is.na(p_value) & !is.na(o_value))
 ```
 
-```{r map save}
+```{r map comb print}
+map_combined
+```
+
+```{r map save, eval = F}
 save(map_cov, map_pers, map_out, map_combined, map_cog,
-     file = sprintf("%s/data/clean/radc-map_cleaned.RData", wd))
+     file = sprintf("%s/data/clean/radc-map_cleaned.RData", load_path))
 ```
 
 ```{r}
@@ -571,6 +631,7 @@ rm(list =ls()[grepl("map", ls())])
 
 
 ## RUSH Religious Orders Study (ROS)  
+
 The RUSH Religious Orders Study (ROS) is an ongoing longitudinal study that began in 1994 [@a2012overview]. These data are available, through application from https://www.radc.rush.edu/requests.htm. 
 
 Older (65 and above) Catholic nuns, priests, and brothers with no prior dementia diagnosis and who agreed to annual evaluations and eventual organ donation were recruited from more than 40 groups across the United States. Additional participants are recuited each year. Additional information and documentation on the data can be found at https://www.radc.rush.edu/docs/var/variables.htm.  
@@ -582,7 +643,7 @@ Sample sizes vary bt year from 353 participants (1994) to 1487 participants, inc
   mutate(orig_itemname = str_to_lower(orig_itemname)))
 ```
 
-```{r ros data, eval = T}
+```{r ros data, eval = F}
 ros <- sprintf("%s/rush-radc/dataset_1033_long_03-24-2021.xlsx", data_path) %>% read_excel() %>%
   full_join(sprintf("%s/rush-radc/dataset_1033_basic_03-24-2021.xlsx", data_path) %>% read_excel()) %>%
   full_join(sprintf("%s/rush-radc/dataset_1034_long_03-25-2021.xlsx", data_path) %>% read_excel()) %>%
@@ -592,7 +653,7 @@ ros <- sprintf("%s/rush-radc/dataset_1033_long_03-24-2021.xlsx", data_path) %>% 
 
 ### Recoding & Reverse Scoring  
 
-```{r ros match, eval = T}
+```{r ros match, eval = F}
 rename_fun <- function(cb, var){
   print(var)
   old.names <- unique((ros_codebook %>% filter(name == var))$orig_itemname)
@@ -649,7 +710,11 @@ fun_call <- function(x, rule){
 
 ### Covariates  
 
-```{r ros covariates, eval = T}
+```{r ros load, echo = F}
+load(sprintf("%s/data/clean/ros_cleaned.RData", local_path))
+```
+
+```{r ros covariates, eval = F}
 # composite WITHIN years 
 ros_cov <- ros_recode %>%
   filter(category == "covariates") %>%
@@ -688,8 +753,14 @@ ros_cov <- ros_cov %>%
   filter(!is.na(SID))
 ```
 
+```{r ros cov print}
+ros_cov
+```
+
+
 ### Personality Variables  
-```{r ros personality, eval = T}
+
+```{r ros personality, eval = F}
 ros_pers <- ros_recode %>%
   filter(category == "pers") %>%
   select(-category) %>% 
@@ -701,8 +772,14 @@ ros_pers <- ros_recode %>%
   select(SID, name, wave, value)
 ```
 
+```{r ros pers print}
+ros_pers
+```
+
+
 ### Outcome Variables  
-```{r ros out, eval = T}
+
+```{r ros out, eval = F}
 ros_out_waves <- ros_recode %>%
   filter(category == "outcome") %>%
   unnest(data) %>%
@@ -754,9 +831,13 @@ ros_out <- ros_out %>%
   left_join(ros_out_waves)
 ```
 
+```{r ros out print}
+ros_out
+```
 
 ### Cognition Variables  
-```{r ros cog, eval = T}
+
+```{r ros cog, eval = F}
 # composite within years
 ros_cog <- ros_recode %>%
   filter(category == "cognition") %>%
@@ -773,8 +854,13 @@ ros_cog <- ros_recode %>%
               , values_from = "value")
 ```
 
+```{r ros cog print}
+ros_cog
+```
+
 ### Combine Data  
-```{r ros combine}
+
+```{r ros combine, eval = F}
 ros_combined <- ros_pers %>% 
   rename(Trait = name, p_value = value, p_year = wave) %>%
   full_join(
@@ -793,9 +879,13 @@ ros_combined <- ros_pers %>%
   filter(!is.na(p_value) & !is.na(o_value))
 ```
 
-```{r ros save}
+```{r ros comb print}
+ros_combined
+```
+
+```{r ros save, eval = F}
 save(ros_cov, ros_pers, ros_out, ros_combined, ros_cog,
-     file = sprintf("%s/data/clean/ros_cleaned.RData", wd))
+     file = sprintf("%s/data/clean/ros_cleaned.RData", load_path))
 ```
 
 ```{r}
@@ -803,6 +893,7 @@ rm(list =ls()[grepl("ros", ls())])
 ```
 
 ## Swedish Adoption Twin Study of Aging (SATSA)  
+
 The Swedish Adoption Twin Study of Aging (SATSA) is a longitudinal study of twin pairs from the Swedish Twin Registry that began in 1984. Data are available through the ICPSR database at https://www.icpsr.umich.edu/web/ICPSR/studies/3843.  
 
 All twin-pairs on the Swedish Twin Registry who were separated at an early age were invited to be a part of the study in 1984. A control sample of twins reared together were also included. Additional waves of all participants were collected in 1987, 1990, 1993, 2004, 2007, 2010, 2012, and 2014. More information, including codebooks, scales, and variable search functions can be found at https://www.maelstrom-research.org/mica/individual-study/satsa/#.
@@ -831,7 +922,7 @@ satsa_codebook
 ```
 
 
-```{r satsa data, eval = T}
+```{r satsa data, eval = F}
 old.names <- unique(satsa_codebook$orig_itemname) %>% str_to_upper
 datasets <- sprintf("%s/satsa", data_path) %>% list.files(., pattern = ".sav")
 satsa <- tibble(datasets = datasets) %>%
@@ -849,12 +940,13 @@ satsa_long <- satsa %>%
     , cols = -SID
     # , values_drop_na = T
     )
-save(satsa, file = sprintf("%s/data/clean/satsa_raw.RData", wd))
+save(satsa, file = sprintf("%s/data/clean/satsa_raw.RData", load_path))
 rm(satsa)
 ```
 
 ### Recoding & Reverse Scoring  
-```{r satsa recode}
+
+```{r satsa recode, eval = F}
 satsa_waves <- p_waves %>% filter(Study == "SATSA") %>% select(Used) %>% distinct()
 
 # join data with recoding info 
@@ -904,7 +996,11 @@ fun_call <- function(x, rule){
 
 ### Covariates  
 
-```{r satsa covariates, eval = T}
+```{r satsa load}
+load(sprintf("%s/data/clean/satsa_cleaned.RData", local_path))
+```
+
+```{r satsa covariates, eval = F}
 satsa_cov <- satsa_recode %>% filter(category == "covariates")
 # bring in year or birth for cleaning
 yrBrth <- satsa_cov %>% 
@@ -956,8 +1052,13 @@ satsa_cov <- satsa_cov %>%
   mutate(BMI = weight/((height/100)^2))
 ```
 
+```{r satsa cov print}
+satsa_cov
+```
+
 ### Personality Variables  
-```{r satsa pers, eval = T}
+
+```{r satsa pers, eval = F}
 satsa_pers <- satsa_recode %>%
   filter(category == "pers") %>%
   unnest(data) %>%
@@ -981,12 +1082,13 @@ satsa_pers <- satsa_pers %>%
   ungroup()
 ```
 
-```{r satsa pers print, echo = F}
+```{r satsa pers print}
 satsa_pers
 ```
 
 ### Outcome Variables  
-```{r satsa out, eval = T}
+
+```{r satsa out, eval = F}
 satsa_out <- satsa_recode %>% 
   filter(category == "outcome") %>%
   unnest(data) %>%
@@ -1013,12 +1115,13 @@ satsa_out <- satsa_out %>%
          o_year = 2005) 
 ```
 
-```{r satsa out print, echo = F}
+```{r satsa out print}
 satsa_out
 ```
 
 ### Cognition Variables  
-```{r satsa cog, eval = T}
+
+```{r satsa cog, eval = F}
 # composite within years
 satsa_cog <- satsa_recode %>%
   filter(category == "cognition") %>%
@@ -1036,7 +1139,8 @@ satsa_cog <- satsa_recode %>%
 ```
 
 ### Combine Data  
-```{r satsa combine}
+
+```{r satsa combine, eval = F}
 satsa_combined <- satsa_pers %>% 
   rename(Trait = name, p_value = value, p_year = year) %>%
   full_join(satsa_out %>% rename(Outcome = name, o_value = value)) %>%
@@ -1052,9 +1156,13 @@ satsa_combined <- satsa_pers %>%
          , o_year = 2005)
 ```
 
-```{r satsa save}
+```{r satsa combined print}
+satsa_combined
+```
+
+```{r satsa save, eval = F}
 save(satsa_cov, satsa_alpha, satsa_pers, satsa_out, satsa_combined, satsa_cog,
-     file = sprintf("%s/data/clean/satsa_cleaned.RData", wd))
+     file = sprintf("%s/data/clean/satsa_cleaned.RData", load_path))
 ```
 
 ```{r}
@@ -1074,7 +1182,7 @@ Sample sizes vary over time, from approximately 400 to 1200. This provides 99% p
 (adrc_codebook <- (codebook %>% filter(study == "ADRC"))$codebook[[1]])
 ```
 
-```{r}
+```{r adrc read data, eval = F}
 adrc_read_fun <- function(file){
   print(file)
   d <- sprintf("%s/adrc-map/%s", data_path, file) %>% read_excel(.) %>%
@@ -1127,7 +1235,8 @@ adrc_pers_waves <- adrc_pers %>%
 ```
 
 ### Recode & Reverse-Scoring  
-```{r}
+
+```{r adrc recode, eval = F}
 adrc_recode <- adrc_codebook %>%
   filter(category %in%  c("covariates", "outcome", "cognition") & !is.na(orig_itemname)) %>%
   select(category, name, itemname, orig_itemname, reverse_code:long_rule) %>%
@@ -1172,7 +1281,12 @@ fun_call <- function(x, rule){
 
 
 ### Covariates  
-```{r adrc cov}
+
+```{r adrc load}
+load(sprintf("%s/data/clean/adrc_cleaned.RData", local_path))
+```
+
+```{r adrc cov, eval = F}
 # compositing within years
 year_comp_fun <- function(df, rule){
   df %>%
@@ -1216,8 +1330,13 @@ adrc_cov <- adrc_cov %>%
   mutate(age = p_year - yearBrth)
 ```
 
+```{r adrc cov print}
+adrc_cov
+```
+
 ### Personality Variables  
-```{r adrc pers}
+
+```{r adrc pers, eval = F}
 # bring in codebook info
 adrc_pers <- adrc_pers %>%
   pivot_longer(`1S1`:`1S60`
@@ -1261,8 +1380,13 @@ adrc_pers <- adrc_pers %>%
   left_join(adrc_pers_waves)
 ```
 
+```{r adrc pers print}
+adrc_pers
+```
+
 ### Outcome Variables  
-```{r adrc outcome}
+
+```{r adrc outcome, eval = F}
 adrc_out <- adrc_recode %>%
   filter(category == "outcome") %>%
   unnest(data)
@@ -1326,8 +1450,12 @@ adrc_out <- adrc_out %>%
   left_join(adrc_out_waves)
 ```
 
+```{r adrc out print}
+adrc_out
+```
+
 ### Cognition Variables  
-```{r adrc cog, eval = T}
+```{r adrc cog, eval = F}
 # composite within years
 adrc_cog <- adrc_recode %>%
   filter(category == "cognition") %>%
@@ -1346,8 +1474,12 @@ adrc_cog <- adrc_recode %>%
               , values_from = "value")
 ```
 
+```{r adrc cog print}
+adrc_cog
+```
+
 ### Combine Data  
-```{r adrc combine}
+```{r adrc combine, eval = F}
 adrc_combined <- adrc_pers %>% 
   select(SID, Trait = name, p_value = value, p_year) %>%
   full_join(
@@ -1368,9 +1500,14 @@ adrc_combined <- adrc_pers %>%
   left_join(adrc_out_waves %>% select(SID, Outcome = name, o_year))
 ```
 
-```{r adrc save}
+```{r adrc combined print}
+adrc_combined
+```
+
+
+```{r adrc save, eval = F}
 save(adrc_cov, adrc_alpha, adrc_pers, adrc_out, adrc_combined, adrc_cog,
-     file = sprintf("%s/data/clean/adrc_cleaned.RData", wd))
+     file = sprintf("%s/data/clean/adrc_cleaned.RData", load_path))
 ```
 
 ```{r}
@@ -1389,7 +1526,7 @@ Sample sizes vary over time, with ranges across waves not publically available. 
 (eas_codebook <- (codebook %>% filter(study == "EAS"))$codebook[[1]])
 ```
 
-```{r nlsy data, eval = F}
+```{r eas data, eval = F}
 old.names1 <- unique((eas_codebook %>% filter(dataset == "behavior"))$orig_itemname)
 old.names2 <- unique((eas_codebook %>% filter(dataset == "neuropath"))$orig_itemname)
 old.names3 <- unique((eas_codebook %>% filter(dataset == "activity"))$orig_itemname)
@@ -1423,7 +1560,8 @@ eas_long <- eas %>%
 ```
 
 ### Recode & Reverse-Scoring  
-```{r}
+
+```{r eas recode, eval = F}
 eas_recode <- eas_codebook %>%
   filter(category %in%  c("covariates", "outcome", "cognition", "pers") & !is.na(orig_itemname)) %>%
   select(category, name, itemname, orig_itemname, reverse_code:long_rule) %>%
@@ -1476,7 +1614,13 @@ eas_p_waves <- eas_recode %>%
 ```
 
 ### Covariates  
-```{r eas cov}
+
+```{r eas load, echo = F}
+load(sprintf("%s/data/clean/eas_cleaned.RData", local_path))
+```
+
+
+```{r eas cov, eval = F}
 # compositing within years
 year_comp_fun <- function(df, rule){
   df %>%
@@ -1520,8 +1664,13 @@ eas_cov <- eas_cov %>%
   right_join(eas_p_waves) 
 ```
 
+```{r eas cov print}
+eas_cov
+```
+
+
 ### Personality Variables  
-```{r eas pers}
+```{r eas pers, eval = F}
 # bring in codebook info
 eas_pers <- eas_recode %>% 
   filter(category == "pers") %>%
@@ -1536,8 +1685,14 @@ eas_pers <- eas_pers %>%
   ungroup() 
 ```
 
+```{r eas pers print}
+eas_pers
+```
+
+
 ### Outcome Variables  
-```{r eas outcome}
+
+```{r eas outcome, eval = F}
 eas_out <- eas_recode %>%
   filter(category == "outcome") %>%
   unnest(data)
@@ -1594,8 +1749,14 @@ eas_out <- eas_out %>%
   filter(!is.na(value))
 ```
 
+```{r eas out print}
+eas_out
+```
+
+
 ### Cognition Variables  
-```{r eas cog, eval = T}
+
+```{r eas cog, eval = F}
 # composite within years
 eas_cog <- eas_recode %>%
   filter(category == "cognition") %>%
@@ -1614,8 +1775,14 @@ eas_cog <- eas_recode %>%
               , values_from = "value")
 ```
 
+```{r eas cog print}
+eas_cog
+```
+
+
 ### Combine Data  
-```{r eas combine}
+
+```{r eas combine, eval = F}
 eas_combined <- eas_pers %>% 
   select(SID, Trait = name, p_value = value, p_year) %>%
   full_join(
@@ -1635,9 +1802,14 @@ eas_combined <- eas_pers %>%
   left_join(eas_cog) 
 ```
 
-```{r eas save}
+```{r eas combined print}
+eas_combined
+```
+
+
+```{r eas save, eval = F}
 save(eas_cov, eas_pers, eas_out, eas_combined, eas_cog,
-     file = sprintf("%s/data/clean/eas_cleaned.RData", wd))
+     file = sprintf("%s/data/clean/eas_cleaned.RData", load_path))
 ```
 
 ```{r}
@@ -1653,7 +1825,7 @@ Data have been collected annually since 1984 (the latest data release includes d
 Sample size varies by year, ranging from approximately 10,000 (1989) to 31,000 (2013). This provides 99\% power to detect a zero-order correlation effect size of ~.06, two-tailed at alpha < .05.  
  
 ### Load Data  
-```{r gsoep clean fun, eval = T}
+```{r gsoep clean fun, eval = F}
 gsoep_read_fun <- function(Year, WL){
   old.names <- (gsoep_codebook %>% filter(year == Year | category == "proc"))$orig_itemname 
   p <- sprintf("%s/gsoep/%sp.sav", data_path, WL) %>% haven::read_sav(.) %>%
@@ -1679,7 +1851,7 @@ gsoep_codebook <- (codebook %>% filter(study == "GSOEP"))$codebook[[1]] %>%
 gsoep_codebook
 ```
 
-```{r gsoep data, eval = T}
+```{r gsoep data, eval = F}
 gsoep <- gsoep_codebook %>% 
   select(wave, waveletter, year) %>%
   filter(complete.cases(.)) %>%
@@ -1701,13 +1873,13 @@ gsoep_long <- gsoep %>% unnest(data) %>%
   full_join(gsoep_cog) %>%
   rename(SID = persnr)
 
-save(gsoep, file = sprintf("%s/data/clean/gsoep_raw.RData", wd))
+save(gsoep, file = sprintf("%s/data/clean/gsoep_raw.RData", load_path))
 rm(gsoep)
 ```
 
 
 ### Recoding & Reverse Scoring  
-```{r gsoep recode}
+```{r gsoep recode, eval = F}
 gsoep_waves <- p_waves %>% filter(Study == "GSOEP") %>% select(Used) %>% distinct()
 
 # join data with recoding info 
@@ -1754,7 +1926,12 @@ fun_call <- function(x, rule){
 ```
 
 ### Covariates  
-```{r gsoep matching, eval = T}
+
+```{r gsoep load}
+load(sprintf("%s/data/clean/gsoep_cleaned.RData", local_path))
+```
+
+```{r gsoep cov, eval = F}
 yrBrth <- gsoep_recode %>% 
   filter(name == "yearBrth") %>% 
   unnest(data) %>%
@@ -1810,12 +1987,13 @@ gsoep_cov <- crossing(
   mutate(yearBrth = ifelse(yearBrth < 1000, yearBrth + 1000, yearBrth))
 ```
 
-```{r}
+```{r gsoep cov print}
 gsoep_cov
 ```
 
 ### Personality Variables  
-```{r gsoep pers, eval = T}
+
+```{r gsoep pers, eval = F}
 gsoep_pers <- gsoep_recode %>%
   filter(category == "pers") %>%
   unnest(data) %>%
@@ -1848,8 +2026,13 @@ gsoep_pers <- gsoep_pers %>%
   mutate(value = ifelse(is.infinite(value) | is.nan(value), NA, value))
 ```
 
+```{r gsoep pers print}
+gsoep_pers
+```
+
+
 ### Outcome Variables  
-```{r gsoep out, eval = T}
+```{r gsoep out, eval = F}
 gsoep_pers_subs <- unique(gsoep_pers$SID)
 gsoep_waves <- p_waves %>% filter(Study == "GSOEP") %>% select(Used) %>% distinct()
 
@@ -1889,8 +2072,12 @@ gsoep_out <- tibble(p_year = gsoep_waves$Used) %>%
   mutate(o_year = 2017)
 ```
 
+```{r gosep out print}
+gsoep_out
+```
+
 ### Cognition Variables  
-```{r}
+```{r gsoep cog, eval = F}
 gsoep_cog <- gsoep_recode %>%
   filter(category == "cognition") %>%
   unnest(data) %>% 
@@ -1914,8 +2101,13 @@ gsoep_cog <- gsoep_cog %>%
   pivot_wider(names_from = "name", values_from = "value")
 ```
 
+```{r gsoep cog print}
+gsoep_cog
+```
+
 ### Combine Data  
-```{r gsoep combine}
+
+```{r gsoep combine, eval = F}
 gsoep_combined <- gsoep_pers %>% 
   rename(Trait = name, p_value = value, p_year = year) %>%
   full_join(gsoep_out %>% select(p_year, SID, Outcome = name, o_year, o_value = value)) %>%
@@ -1931,9 +2123,14 @@ gsoep_combined <- gsoep_pers %>%
          , BMI = weight/((height/100)^2))
 ```
 
-```{r gsoep save}
+```{r gsoep combined print}
+gsoep_combined
+```
+
+
+```{r gsoep save, eval = F}
 save(gsoep_cov, gsoep_alpha, gsoep_pers, gsoep_out, gsoep_combined, gsoep_cog,
-     file = sprintf("%s/data/clean/gsoep_cleaned.RData", wd))
+     file = sprintf("%s/data/clean/gsoep_cleaned.RData", load_path))
 ```
 
 ```{r}
@@ -1948,7 +2145,7 @@ Participants were approximately 8,000 Dutch-speaking individuals permanently res
 Sample sizes vary by year, ranging from 5,021 (2018) to 6808 (2008). This provides 99/% power to detect a correlation effect size of ~.04, two-tailed at alpha .05.  
 
 ### Load Data  
-```{r liss clean fun, eval = T}
+```{r liss clean fun, eval = F}
 liss_read_fun <- function(x){
   sprintf("%s/liss/%s", data_path, x) %>% haven::read_sav(.) %>% select(one_of(old.names))
 }
@@ -1959,14 +2156,14 @@ liss_codebook <- (codebook %>% filter(study == "LISS"))$codebook[[1]]
 liss_codebook
 ```
 
-```{r liss data, eval = T}
+```{r liss data, eval = F}
 old.names <- unique(liss_codebook$orig_itemname) %>% str_to_lower
 datasets <- sprintf("%s/liss", data_path) %>% list.files()
 liss <- tibble(datasets = datasets) %>%
   mutate(data = map(datasets, liss_read_fun)) 
 
 liss <- reduce(liss$data, full_join) %>% haven::zap_labels(.)
-save(liss, file = sprintf("%s/data/clean/liss_raw.RData", wd))
+save(liss, file = sprintf("%s/data/clean/liss_raw.RData", load_path))
 
 avars <- tibble(ds = datasets[grepl("avar", datasets)]) %>%
   mutate(data = map(ds, ~sprintf("%s/liss/%s", data_path, .) %>% 
@@ -1980,7 +2177,7 @@ avars <- tibble(ds = datasets[grepl("avar", datasets)]) %>%
 ```
 
 ### Recoding & Reverse-Scoring  
-```{r liss recode, eval = T}
+```{r liss recode, eval = F}
 rename_fun <- function(cb, var){
   print(var)
   old.names <- unique((liss_codebook %>% filter(name == var))$orig_itemname)
@@ -2059,7 +2256,12 @@ fun_call <- function(x, rule){
 
 ### Covariates  
 
-```{r liss matching, eval = T}
+```{r liss load}
+load(sprintf("%s/data/clean/liss_cleaned.RData", local_path))
+```
+
+
+```{r liss cov, eval = F}
 # bring in year or birth for cleaning
 liss_cov <- liss_recode %>% 
   filter(category == "covariates") %>% 
@@ -2106,8 +2308,13 @@ liss_cov <- crossing(
   mutate(BMI = weight/((height/100)^2))
 ```
 
+```{r liss cov print}
+liss_cov
+```
+
+
 ### Personality Variables  
-```{r liss pers, eval = T}
+```{r liss pers, eval = F}
 liss_pers <- liss_recode %>%
   filter(category == "pers") %>%
   unnest(data) %>%
@@ -2129,8 +2336,14 @@ liss_pers <- liss_pers %>%
   ungroup()
 ```
 
+```{r liss pers print}
+liss_pers
+```
+
+
 ### Cognition Variables
-```{r}
+
+```{r liss cog, eval = F}
 liss_cog <- liss_recode %>%
   filter(category == "cognition") %>%
   unnest(data) %>%
@@ -2145,8 +2358,12 @@ liss_cog <- liss_recode %>%
   pivot_wider(names_from = "name", values_from = "value")
 ```
 
+```{r liss cog print}
+liss_cog
+```
+
 ### Outcome Variables  
-```{r liss out, eval = T}
+```{r liss out, eval = F}
 liss_out <- liss_recode %>%
   filter(category == "outcome") %>%
   unnest(data) %>%
@@ -2165,8 +2382,13 @@ liss_out <- liss_recode %>%
   filter(!is.na(value))
 ```
 
+```{r liss out print}
+liss_out
+```
+
+
 ### Combine Data  
-```{r liss combine}
+```{r liss combine, eval = F}
 liss_combined <- liss_pers %>% 
   rename(Trait = name, p_value = value, p_year = year) %>%
   full_join(liss_out %>% rename(Outcome = name, o_value = value)) %>%
@@ -2184,9 +2406,13 @@ liss_combined <- liss_pers %>%
          , o_year = 2018)
 ```
 
-```{r liss save}
+```{r liss combined print}
+liss_combined
+```
+
+```{r liss save, eval = F}
 save(liss_cov, liss_alpha, liss_pers, liss_out, liss_combined, liss_cog, 
-     file = sprintf("%s/data/clean/liss_cleaned.RData", wd))
+     file = sprintf("%s/data/clean/liss_cleaned.RData", local_path))
 ```
 
 ```{r}
