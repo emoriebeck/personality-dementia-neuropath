@@ -1,8 +1,9 @@
 tab:unnamed-chunk-2
 tab:unnamed-chunk-3
-tab:unnamed-chunk-15
+tab:unnamed-chunk-4
 tab:unnamed-chunk-16
 tab:unnamed-chunk-17
+tab:unnamed-chunk-18
 workspace
 packages
 directory-path
@@ -10,6 +11,7 @@ codebook
 tables
 table-s1
 table-s2
+table-s3
 cleaning
 health-and-retirement-study-hrs
 load-data
@@ -77,10 +79,11 @@ combine-data-7
 runmodels
 part-1-combine-data
 part-2-clean-and-prepare-data-sets
-pomp-and-factor-levels
+descriptives
 zero-order-correlations
 table
 heat-map
+pomp-and-factor-levels
 rescale-outcomes
 bring-in-moderators-and-covariate-adjustments
 part-3-models
