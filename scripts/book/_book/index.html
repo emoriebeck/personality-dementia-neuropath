@@ -22,7 +22,7 @@
 
 
 
-<meta name="date" content="2022-10-25" />
+<meta name="date" content="2023-07-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -156,6 +156,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="1.4.1" data-path="index.html"><a href="index.html#table-s1"><i class="fa fa-check"></i><b>1.4.1</b> Table S1</a></li>
 <li class="chapter" data-level="1.4.2" data-path="index.html"><a href="index.html#table-s2"><i class="fa fa-check"></i><b>1.4.2</b> Table S2</a></li>
+<li class="chapter" data-level="1.4.3" data-path="index.html"><a href="index.html#table-s3"><i class="fa fa-check"></i><b>1.4.3</b> Table S3</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>2</b> Data Cleaning</a>
@@ -245,10 +246,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="runmodels.html"><a href="runmodels.html#part-1-combine-data"><i class="fa fa-check"></i><b>3.1</b> Part 1: Combine Data</a></li>
 <li class="chapter" data-level="3.2" data-path="runmodels.html"><a href="runmodels.html#part-2-clean-and-prepare-data-sets"><i class="fa fa-check"></i><b>3.2</b> Part 2: Clean and Prepare Data Sets</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="runmodels.html"><a href="runmodels.html#pomp-and-factor-levels"><i class="fa fa-check"></i><b>3.2.1</b> POMP and Factor Levels</a></li>
+<li class="chapter" data-level="3.2.1" data-path="runmodels.html"><a href="runmodels.html#descriptives"><i class="fa fa-check"></i><b>3.2.1</b> Descriptives</a></li>
 <li class="chapter" data-level="3.2.2" data-path="runmodels.html"><a href="runmodels.html#zero-order-correlations"><i class="fa fa-check"></i><b>3.2.2</b> Zero-Order Correlations</a></li>
-<li class="chapter" data-level="3.2.3" data-path="runmodels.html"><a href="runmodels.html#rescale-outcomes"><i class="fa fa-check"></i><b>3.2.3</b> Rescale Outcomes</a></li>
-<li class="chapter" data-level="3.2.4" data-path="runmodels.html"><a href="runmodels.html#bring-in-moderators-and-covariate-adjustments"><i class="fa fa-check"></i><b>3.2.4</b> Bring in Moderators and Covariate Adjustments</a></li>
+<li class="chapter" data-level="3.2.3" data-path="runmodels.html"><a href="runmodels.html#pomp-and-factor-levels"><i class="fa fa-check"></i><b>3.2.3</b> POMP and Factor Levels</a></li>
+<li class="chapter" data-level="3.2.4" data-path="runmodels.html"><a href="runmodels.html#rescale-outcomes"><i class="fa fa-check"></i><b>3.2.4</b> Rescale Outcomes</a></li>
+<li class="chapter" data-level="3.2.5" data-path="runmodels.html"><a href="runmodels.html#bring-in-moderators-and-covariate-adjustments"><i class="fa fa-check"></i><b>3.2.5</b> Bring in Moderators and Covariate Adjustments</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="runmodels.html"><a href="runmodels.html#part-3-models"><i class="fa fa-check"></i><b>3.3</b> Part 3: Models</a>
 <ul>
@@ -300,7 +302,7 @@ Feinberg School of Medicine, Northwestern University<br>
 <address class="author_afil">
 Feinberg School of Medicine<br>
 </address>
-<p class="date"><em>25 October 2022</em></p>
+<p class="date"><em>27 July 2023</em></p>
 <div class="abstract">
 <p class="abstract">Abstract</p>
 <div class="line-block">“INTRODUCTION: The extent to which the Big Five personality traits and subjective well-being (SWB) are discriminatory predictors of clinical manifestation of dementia versus dementia-related neuropathology is unclear.”<br />
@@ -325,19 +327,19 @@ Feinberg School of Medicine<br>
 <div id="packages" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Packages<a href="index.html#packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>First, let’s load in the packages. Note the descriptions for each commented next to them.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)       <span class="co"># knit documents</span></span>
-<span id="cb1-2"><a href="index.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)  <span class="co"># formatted tables</span></span>
-<span id="cb1-3"><a href="index.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)      <span class="co"># read excel files</span></span>
-<span id="cb1-4"><a href="index.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)       <span class="co"># read spss files</span></span>
-<span id="cb1-5"><a href="index.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom.mixed) <span class="co"># summaries of models</span></span>
-<span id="cb1-6"><a href="index.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstan)       <span class="co"># bayes underpinnings</span></span>
-<span id="cb1-7"><a href="index.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidybayes)   <span class="co"># pretty bayes draws and plots</span></span>
-<span id="cb1-8"><a href="index.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)     <span class="co"># piece plots together</span></span>
-<span id="cb1-9"><a href="index.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plyr)        <span class="co"># data wrangling</span></span>
-<span id="cb1-10"><a href="index.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)   <span class="co"># data wrangling</span></span>
-<span id="cb1-11"><a href="index.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)        <span class="co"># bayesian models</span></span>
-<span id="cb1-12"><a href="index.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furrr)       <span class="co"># parallel purrr mapping</span></span>
-<span id="cb1-13"><a href="index.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)       <span class="co"># psychometrics</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(knitr)       <span class="co"># knit documents</span></span>
+<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(kableExtra)  <span class="co"># formatted tables</span></span>
+<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(readxl)      <span class="co"># read excel files</span></span>
+<span id="cb1-4"><a href="index.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(haven)       <span class="co"># read spss files</span></span>
+<span id="cb1-5"><a href="index.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(broom.mixed) <span class="co"># summaries of models</span></span>
+<span id="cb1-6"><a href="index.html#cb1-6" tabindex="-1"></a><span class="fu">library</span>(rstan)       <span class="co"># bayes underpinnings</span></span>
+<span id="cb1-7"><a href="index.html#cb1-7" tabindex="-1"></a><span class="fu">library</span>(tidybayes)   <span class="co"># pretty bayes draws and plots</span></span>
+<span id="cb1-8"><a href="index.html#cb1-8" tabindex="-1"></a><span class="fu">library</span>(cowplot)     <span class="co"># piece plots together</span></span>
+<span id="cb1-9"><a href="index.html#cb1-9" tabindex="-1"></a><span class="fu">library</span>(plyr)        <span class="co"># data wrangling</span></span>
+<span id="cb1-10"><a href="index.html#cb1-10" tabindex="-1"></a><span class="fu">library</span>(tidyverse)   <span class="co"># data wrangling</span></span>
+<span id="cb1-11"><a href="index.html#cb1-11" tabindex="-1"></a><span class="fu">library</span>(brms)        <span class="co"># bayesian models</span></span>
+<span id="cb1-12"><a href="index.html#cb1-12" tabindex="-1"></a><span class="fu">library</span>(furrr)       <span class="co"># parallel purrr mapping</span></span>
+<span id="cb1-13"><a href="index.html#cb1-13" tabindex="-1"></a><span class="fu">library</span>(psych)       <span class="co"># psychometrics</span></span></code></pre></div>
 </div>
 <div id="directory-path" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> Directory Path<a href="index.html#directory-path" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -345,45 +347,46 @@ Feinberg School of Medicine<br>
 1. <code>data_path</code> stores the raw that that cannot be shared per data use agreements
 2. <code>res_path</code> includes the GitHub link where shareable objects can be found
 3. <code>local_path</code> is mostly used to save files as they render, or in some limited cases of objects that hold raw data, to access those objects that can’t be shared</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" aria-hidden="true" tabindex="-1"></a>data_path <span class="ot">&lt;-</span> <span class="st">&quot;/Volumes/Emorie/data&quot;</span></span>
-<span id="cb2-2"><a href="index.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># res_path &lt;- &quot;/Volumes/Emorie/projects/dementia/prediction&quot;</span></span>
-<span id="cb2-3"><a href="index.html#cb2-3" aria-hidden="true" tabindex="-1"></a>res_path <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/emoriebeck/personality-dementia-neuropath/raw/master&quot;</span></span>
-<span id="cb2-4"><a href="index.html#cb2-4" aria-hidden="true" tabindex="-1"></a>local_path <span class="ot">&lt;-</span> <span class="st">&quot;/Volumes/Emorie/projects/dementia/prediction&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" tabindex="-1"></a>data_path <span class="ot">&lt;-</span> <span class="st">&quot;/Volumes/Emorie/data&quot;</span></span>
+<span id="cb2-2"><a href="index.html#cb2-2" tabindex="-1"></a><span class="co"># res_path &lt;- &quot;/Volumes/Emorie/projects/dementia/prediction&quot;</span></span>
+<span id="cb2-3"><a href="index.html#cb2-3" tabindex="-1"></a>res_path <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/emoriebeck/personality-dementia-neuropath/raw/master&quot;</span></span>
+<span id="cb2-4"><a href="index.html#cb2-4" tabindex="-1"></a>local_path <span class="ot">&lt;-</span> <span class="st">&quot;/Volumes/Emorie/projects/dementia/prediction&quot;</span></span></code></pre></div>
 </div>
 <div id="codebook" class="section level2 hasAnchor" number="1.3">
 <h2><span class="header-section-number">1.3</span> Codebook<a href="index.html#codebook" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Each study has a separate codebook indexing covariate, moderator, personality, and outcome variables. Moreover, these codebooks contain information about the original scale of the variable, any recoding of the variable (including binarizing outcomes, changing the scale, and removing missing data), reverse coding of scale variables, categories, etc.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># list of all codebook sheets</span></span>
-<span id="cb3-2"><a href="index.html#cb3-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/codebooks/master_codebook_09.04.20.xlsx?raw=true&quot;</span></span>
-<span id="cb3-3"><a href="index.html#cb3-3" aria-hidden="true" tabindex="-1"></a>destfile <span class="ot">&lt;-</span> <span class="st">&quot;master_codebook_09.04.20.xlsx&quot;</span></span>
-<span id="cb3-4"><a href="index.html#cb3-4" aria-hidden="true" tabindex="-1"></a>curl<span class="sc">::</span><span class="fu">curl_download</span>(url, destfile)</span>
-<span id="cb3-5"><a href="index.html#cb3-5" aria-hidden="true" tabindex="-1"></a>sheets <span class="ot">&lt;-</span> <span class="fu">excel_sheets</span>(destfile)</span>
-<span id="cb3-6"><a href="index.html#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="index.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># function for reading in sheets</span></span>
-<span id="cb3-8"><a href="index.html#cb3-8" aria-hidden="true" tabindex="-1"></a>read_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb3-9"><a href="index.html#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_xlsx</span>(destfile, <span class="at">sheet =</span> x)</span>
-<span id="cb3-10"><a href="index.html#cb3-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-11"><a href="index.html#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="index.html#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># read in sheets and index source</span></span>
-<span id="cb3-13"><a href="index.html#cb3-13" aria-hidden="true" tabindex="-1"></a>codebook <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb3-14"><a href="index.html#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">study =</span> sheets,</span>
-<span id="cb3-15"><a href="index.html#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">codebook =</span> <span class="fu">map</span>(study, read_fun)</span>
-<span id="cb3-16"><a href="index.html#cb3-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-17"><a href="index.html#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="index.html#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="do">## short and long versions of names of all categories for later use</span></span>
-<span id="cb3-19"><a href="index.html#cb3-19" aria-hidden="true" tabindex="-1"></a>studies <span class="ot">&lt;-</span>      <span class="fu">c</span>(<span class="st">&quot;ROS&quot;</span>, <span class="st">&quot;RADC-MAP&quot;</span>, <span class="st">&quot;EAS&quot;</span>, <span class="st">&quot;ADRC&quot;</span>    , <span class="st">&quot;SATSA&quot;</span>, <span class="st">&quot;HRS&quot;</span>, <span class="st">&quot;LISS&quot;</span>, <span class="st">&quot;GSOEP&quot;</span>)</span>
-<span id="cb3-20"><a href="index.html#cb3-20" aria-hidden="true" tabindex="-1"></a>studies_long <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ROS&quot;</span>, <span class="st">&quot;Rush-MAP&quot;</span>, <span class="st">&quot;EAS&quot;</span>, <span class="st">&quot;WUSM-MAP&quot;</span>, <span class="st">&quot;SATSA&quot;</span>, <span class="st">&quot;HRS&quot;</span>, <span class="st">&quot;LISS&quot;</span>, <span class="st">&quot;GSOEP&quot;</span>)</span>
-<span id="cb3-21"><a href="index.html#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="index.html#cb3-22" aria-hidden="true" tabindex="-1"></a>stdcolors <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb3-23"><a href="index.html#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">studies =</span> <span class="fu">c</span>(<span class="st">&quot;Overall&quot;</span>, studies)</span>
-<span id="cb3-24"><a href="index.html#cb3-24" aria-hidden="true" tabindex="-1"></a>  , <span class="at">studies_long =</span> <span class="fu">c</span>(<span class="st">&quot;Overall&quot;</span>, studies_long)</span>
-<span id="cb3-25"><a href="index.html#cb3-25" aria-hidden="true" tabindex="-1"></a>  , <span class="at">std_text =</span> <span class="fu">str_remove_all</span>(studies, <span class="st">&quot;[-]&quot;</span>)</span>
-<span id="cb3-26"><a href="index.html#cb3-26" aria-hidden="true" tabindex="-1"></a>  , <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;#332288&quot;</span>, <span class="st">&quot;#88ccee&quot;</span>, <span class="st">&quot;#44aa99&quot;</span>, <span class="st">&quot;#117733&quot;</span>, <span class="st">&quot;#999933&quot;</span>, <span class="co">#&quot;#ddcc77&quot;, &quot;#cc6677&quot;, </span></span>
-<span id="cb3-27"><a href="index.html#cb3-27" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;#332288&quot;</span>, <span class="st">&quot;#88ccee&quot;</span>, <span class="st">&quot;#44aa99&quot;</span>)<span class="co">#, &quot;#117733&quot;, &quot;#999933&quot;, &quot;#ddcc77&quot;)</span></span>
-<span id="cb3-28"><a href="index.html#cb3-28" aria-hidden="true" tabindex="-1"></a>       , <span class="at">lt =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;solid&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;dotted&quot;</span>, <span class="dv">3</span>)))</span>
-<span id="cb3-29"><a href="index.html#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="index.html#cb3-30" aria-hidden="true" tabindex="-1"></a>traits <span class="ot">&lt;-</span> codebook<span class="sc">$</span>codebook[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">&quot;pers&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-31"><a href="index.html#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">long_name =</span> Construct, <span class="at">short_name =</span> name); traits</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1" tabindex="-1"></a><span class="co"># list of all codebook sheets</span></span>
+<span id="cb3-2"><a href="index.html#cb3-2" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/codebooks/master_codebook_09.04.20.xlsx?raw=true&quot;</span></span>
+<span id="cb3-3"><a href="index.html#cb3-3" tabindex="-1"></a>destfile <span class="ot">&lt;-</span> <span class="st">&quot;master_codebook_09.04.20.xlsx&quot;</span></span>
+<span id="cb3-4"><a href="index.html#cb3-4" tabindex="-1"></a><span class="co"># destfile &lt;- sprintf(&quot;%s/codebooks/%s&quot;, local_path, destfile)</span></span>
+<span id="cb3-5"><a href="index.html#cb3-5" tabindex="-1"></a>curl<span class="sc">::</span><span class="fu">curl_download</span>(url, destfile)</span>
+<span id="cb3-6"><a href="index.html#cb3-6" tabindex="-1"></a>sheets <span class="ot">&lt;-</span> <span class="fu">excel_sheets</span>(destfile)</span>
+<span id="cb3-7"><a href="index.html#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="index.html#cb3-8" tabindex="-1"></a><span class="co"># function for reading in sheets</span></span>
+<span id="cb3-9"><a href="index.html#cb3-9" tabindex="-1"></a>read_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb3-10"><a href="index.html#cb3-10" tabindex="-1"></a>  <span class="fu">read_xlsx</span>(destfile, <span class="at">sheet =</span> x)</span>
+<span id="cb3-11"><a href="index.html#cb3-11" tabindex="-1"></a>}</span>
+<span id="cb3-12"><a href="index.html#cb3-12" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="index.html#cb3-13" tabindex="-1"></a><span class="co"># read in sheets and index source</span></span>
+<span id="cb3-14"><a href="index.html#cb3-14" tabindex="-1"></a>codebook <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-15"><a href="index.html#cb3-15" tabindex="-1"></a>  <span class="at">study =</span> sheets,</span>
+<span id="cb3-16"><a href="index.html#cb3-16" tabindex="-1"></a>  <span class="at">codebook =</span> <span class="fu">map</span>(study, read_fun)</span>
+<span id="cb3-17"><a href="index.html#cb3-17" tabindex="-1"></a>)</span>
+<span id="cb3-18"><a href="index.html#cb3-18" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="index.html#cb3-19" tabindex="-1"></a><span class="do">## short and long versions of names of all categories for later use</span></span>
+<span id="cb3-20"><a href="index.html#cb3-20" tabindex="-1"></a>studies <span class="ot">&lt;-</span>      <span class="fu">c</span>(<span class="st">&quot;ROS&quot;</span>, <span class="st">&quot;RADC-MAP&quot;</span>, <span class="st">&quot;EAS&quot;</span>, <span class="st">&quot;ADRC&quot;</span>    , <span class="st">&quot;SATSA&quot;</span>, <span class="st">&quot;HRS&quot;</span>, <span class="st">&quot;LISS&quot;</span>, <span class="st">&quot;GSOEP&quot;</span>)</span>
+<span id="cb3-21"><a href="index.html#cb3-21" tabindex="-1"></a>studies_long <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ROS&quot;</span>, <span class="st">&quot;Rush-MAP&quot;</span>, <span class="st">&quot;EAS&quot;</span>, <span class="st">&quot;WUSM-MAP&quot;</span>, <span class="st">&quot;SATSA&quot;</span>, <span class="st">&quot;HRS&quot;</span>, <span class="st">&quot;LISS&quot;</span>, <span class="st">&quot;GSOEP&quot;</span>)</span>
+<span id="cb3-22"><a href="index.html#cb3-22" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="index.html#cb3-23" tabindex="-1"></a>stdcolors <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-24"><a href="index.html#cb3-24" tabindex="-1"></a>  <span class="at">studies =</span> <span class="fu">c</span>(<span class="st">&quot;Overall&quot;</span>, studies)</span>
+<span id="cb3-25"><a href="index.html#cb3-25" tabindex="-1"></a>  , <span class="at">studies_long =</span> <span class="fu">c</span>(<span class="st">&quot;Overall&quot;</span>, studies_long)</span>
+<span id="cb3-26"><a href="index.html#cb3-26" tabindex="-1"></a>  , <span class="at">std_text =</span> <span class="fu">str_remove_all</span>(studies, <span class="st">&quot;[-]&quot;</span>)</span>
+<span id="cb3-27"><a href="index.html#cb3-27" tabindex="-1"></a>  , <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;#332288&quot;</span>, <span class="st">&quot;#88ccee&quot;</span>, <span class="st">&quot;#44aa99&quot;</span>, <span class="st">&quot;#117733&quot;</span>, <span class="st">&quot;#999933&quot;</span>, <span class="co">#&quot;#ddcc77&quot;, &quot;#cc6677&quot;, </span></span>
+<span id="cb3-28"><a href="index.html#cb3-28" tabindex="-1"></a>               <span class="st">&quot;#332288&quot;</span>, <span class="st">&quot;#88ccee&quot;</span>, <span class="st">&quot;#44aa99&quot;</span>)<span class="co">#, &quot;#117733&quot;, &quot;#999933&quot;, &quot;#ddcc77&quot;)</span></span>
+<span id="cb3-29"><a href="index.html#cb3-29" tabindex="-1"></a>       , <span class="at">lt =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;solid&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;dotted&quot;</span>, <span class="dv">3</span>)))</span>
+<span id="cb3-30"><a href="index.html#cb3-30" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="index.html#cb3-31" tabindex="-1"></a>traits <span class="ot">&lt;-</span> codebook<span class="sc">$</span>codebook[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">&quot;pers&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-32"><a href="index.html#cb3-32" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">long_name =</span> Construct, <span class="at">short_name =</span> name); traits</span></code></pre></div>
 <pre><code>## # A tibble: 8 × 2
 ##   long_name              short_name
 ##   &lt;chr&gt;                  &lt;chr&gt;     
@@ -395,8 +398,8 @@ Feinberg School of Medicine<br>
 ## 6 Positive Affect        PA        
 ## 7 Negative Affect        NA        
 ## 8 Satisfaction with Life SWL</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="index.html#cb5-1" aria-hidden="true" tabindex="-1"></a>outcomes <span class="ot">&lt;-</span> codebook<span class="sc">$</span>codebook[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">&quot;out&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="index.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">long_name =</span> Construct, <span class="at">short_name =</span> name, link, colnm); outcomes</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="index.html#cb5-1" tabindex="-1"></a>outcomes <span class="ot">&lt;-</span> codebook<span class="sc">$</span>codebook[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">&quot;out&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="index.html#cb5-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">long_name =</span> Construct, <span class="at">short_name =</span> name, link, colnm); outcomes</span></code></pre></div>
 <pre><code>## # A tibble: 11 × 4
 ##    long_name                    short_name         link       colnm  
 ##    &lt;chr&gt;                        &lt;chr&gt;              &lt;chr&gt;      &lt;chr&gt;  
@@ -411,8 +414,8 @@ Feinberg School of Medicine<br>
 ##  9 Arteriolosclerosis           arteriolosclerosis continuous b [CI] 
 ## 10 Hippocampal Sclerosis        hipSclerosis       factor     OR [CI]
 ## 11 TDP-43                       tdp43              factor     OR [CI]</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="index.html#cb7-1" aria-hidden="true" tabindex="-1"></a>moders <span class="ot">&lt;-</span> codebook<span class="sc">$</span>codebook[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">&quot;mod&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="index.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">long_name =</span> Construct, <span class="at">short_name =</span> name, <span class="at">short_term =</span> old_term, <span class="at">long_term =</span> new_term); moders</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="index.html#cb7-1" tabindex="-1"></a>moders <span class="ot">&lt;-</span> codebook<span class="sc">$</span>codebook[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">&quot;mod&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="index.html#cb7-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">long_name =</span> Construct, <span class="at">short_name =</span> name, <span class="at">short_term =</span> old_term, <span class="at">long_term =</span> new_term); moders</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##   long_name          short_name short_term long_term                    
 ##   &lt;chr&gt;              &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;                        
@@ -422,43 +425,54 @@ Feinberg School of Medicine<br>
 ## 4 Education          education  education  Education (Years)            
 ## 5 Cognition          cognition  cognition  Cognition                    
 ## 6 Dementia Diagnosis dementia   dementia   Dementia Diagnosis (No v Yes)</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="index.html#cb9-1" aria-hidden="true" tabindex="-1"></a>covars <span class="ot">&lt;-</span> codebook<span class="sc">$</span>codebook[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">&quot;covariates&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="index.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">long_name =</span> Construct, <span class="at">short_name =</span> name, <span class="at">desc =</span> new_term); </span>
-<span id="cb9-3"><a href="index.html#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="index.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># used personality waves </span></span>
-<span id="cb9-5"><a href="index.html#cb9-5" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/codebooks/tables.xlsx?raw=true&quot;</span></span>
-<span id="cb9-6"><a href="index.html#cb9-6" aria-hidden="true" tabindex="-1"></a>destfile <span class="ot">&lt;-</span> <span class="st">&quot;tables.xlsx&quot;</span></span>
-<span id="cb9-7"><a href="index.html#cb9-7" aria-hidden="true" tabindex="-1"></a>curl<span class="sc">::</span><span class="fu">curl_download</span>(url, destfile)</span>
-<span id="cb9-8"><a href="index.html#cb9-8" aria-hidden="true" tabindex="-1"></a>p_waves <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(destfile, <span class="at">sheet =</span> <span class="st">&quot;Table 2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="index.html#cb9-1" tabindex="-1"></a>covars <span class="ot">&lt;-</span> codebook<span class="sc">$</span>codebook[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">&quot;covariates&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="index.html#cb9-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">long_name =</span> Construct, <span class="at">short_name =</span> name, <span class="at">desc =</span> new_term); covars</span></code></pre></div>
+<pre><code>## # A tibble: 8 × 3
+##   long_name                                              short_name desc                                    
+##   &lt;chr&gt;                                                  &lt;chr&gt;      &lt;chr&gt;                                   
+## 1 Unadjusted                                             unadjusted Unadjusted indicates no covariates were…
+## 2 Fully Adjusted                                         fully      Fully adjusted models include age, gend…
+## 3 Shared Covariates Adjusted                             shared     Shared covariates adjusted models Inclu…
+## 4 Standard Covariates Adjusted                           standard   Standard covariates adjusted models inc…
+## 5 All But One Covariate Adjusted                         butOne     All but one covariate adjusted models i…
+## 6 Shared Covariates Adjusted (With Dementia Diagnosis)   shareddx   Shared covariates with dementia adjuste…
+## 7 Standard Covariates Adjusted (With Dementia Diagnosis) standarddx Standard covariates with dementia adjus…
+## 8 Shared Covariates Adjusted (With Prediction Interval)  sharedint  Shared covariates with prediction inter…</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="index.html#cb11-1" tabindex="-1"></a><span class="co"># used personality waves </span></span>
+<span id="cb11-2"><a href="index.html#cb11-2" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/codebooks/tables.xlsx?raw=true&quot;</span></span>
+<span id="cb11-3"><a href="index.html#cb11-3" tabindex="-1"></a>destfile <span class="ot">&lt;-</span> <span class="st">&quot;tables.xlsx&quot;</span></span>
+<span id="cb11-4"><a href="index.html#cb11-4" tabindex="-1"></a><span class="co"># destfile &lt;- sprintf(&quot;%s/codebooks/%s&quot;, local_path, destfile)</span></span>
+<span id="cb11-5"><a href="index.html#cb11-5" tabindex="-1"></a>curl<span class="sc">::</span><span class="fu">curl_download</span>(url, destfile)</span>
+<span id="cb11-6"><a href="index.html#cb11-6" tabindex="-1"></a>p_waves <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(destfile, <span class="at">sheet =</span> <span class="st">&quot;Table 2&quot;</span>)</span></code></pre></div>
 </div>
 <div id="tables" class="section level2 hasAnchor" number="1.4">
 <h2><span class="header-section-number">1.4</span> Tables<a href="index.html#tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="table-s1" class="section level3 hasAnchor" number="1.4.1">
 <h3><span class="header-section-number">1.4.1</span> Table S1<a href="index.html#table-s1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Below, I create Table S1, which includes information the personality and well-being scales used in each study:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="index.html#cb10-1" aria-hidden="true" tabindex="-1"></a>p_tab <span class="ot">&lt;-</span> p_waves <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="index.html#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Study, <span class="fu">everything</span>(), <span class="sc">-</span>p_item, <span class="sc">-</span>Used) <span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="index.html#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Study <span class="sc">!=</span> <span class="st">&quot;BLSA&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-4"><a href="index.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Measure =</span> <span class="fu">factor</span>(Measure, traits<span class="sc">$</span>long_name)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-5"><a href="index.html#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Study, Measure) </span>
-<span id="cb10-6"><a href="index.html#cb10-6" aria-hidden="true" tabindex="-1"></a>rs <span class="ot">&lt;-</span> p_tab <span class="sc">%&gt;%</span> </span>
-<span id="cb10-7"><a href="index.html#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Study) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-8"><a href="index.html#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb10-9"><a href="index.html#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">end =</span> <span class="fu">cumsum</span>(n), <span class="at">start =</span> <span class="fu">lag</span>(end) <span class="sc">+</span> <span class="dv">1</span>, <span class="at">start =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(start), <span class="dv">1</span>, start))</span>
-<span id="cb10-10"><a href="index.html#cb10-10" aria-hidden="true" tabindex="-1"></a>p_tab <span class="ot">&lt;-</span> p_tab <span class="sc">%&gt;%</span></span>
-<span id="cb10-11"><a href="index.html#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Study) <span class="sc">%&gt;%</span></span>
-<span id="cb10-12"><a href="index.html#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(.</span>
-<span id="cb10-13"><a href="index.html#cb10-13" aria-hidden="true" tabindex="-1"></a>        , <span class="st">&quot;html&quot;</span></span>
-<span id="cb10-14"><a href="index.html#cb10-14" aria-hidden="true" tabindex="-1"></a>        , <span class="at">caption =</span> <span class="st">&quot;&lt;strong&gt;Table S1&lt;/strong&gt;&lt;br&gt;&lt;em&gt;Personality Trait and Subjective Well-Being Measurement Inventories, Scales, and Assessments Across Samples&lt;/em&gt;&quot;</span></span>
-<span id="cb10-15"><a href="index.html#cb10-15" aria-hidden="true" tabindex="-1"></a>        , <span class="at">escape =</span> F</span>
-<span id="cb10-16"><a href="index.html#cb10-16" aria-hidden="true" tabindex="-1"></a>        , <span class="at">col.names =</span> <span class="fu">paste0</span>(<span class="st">&quot;&lt;strong&gt;&quot;</span>, <span class="fu">colnames</span>(p_tab)[<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;&lt;/strong&gt;&quot;</span>)</span>
-<span id="cb10-17"><a href="index.html#cb10-17" aria-hidden="true" tabindex="-1"></a>        , <span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;r&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
-<span id="cb10-18"><a href="index.html#cb10-18" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span></span>
-<span id="cb10-19"><a href="index.html#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> F, <span class="at">html_font =</span> <span class="st">&quot;Times New Roman&quot;</span>) </span>
-<span id="cb10-20"><a href="index.html#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(rs)){</span>
-<span id="cb10-21"><a href="index.html#cb10-21" aria-hidden="true" tabindex="-1"></a>  p_tab <span class="ot">&lt;-</span> p_tab <span class="sc">%&gt;%</span> kableExtra<span class="sc">::</span><span class="fu">group_rows</span>(rs<span class="sc">$</span>Study[i], rs<span class="sc">$</span>start[i], rs<span class="sc">$</span>end[i])</span>
-<span id="cb10-22"><a href="index.html#cb10-22" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-23"><a href="index.html#cb10-23" aria-hidden="true" tabindex="-1"></a>p_tab</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="index.html#cb12-1" tabindex="-1"></a>p_tab <span class="ot">&lt;-</span> p_waves <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="index.html#cb12-2" tabindex="-1"></a>  <span class="fu">select</span>(Study, <span class="fu">everything</span>(), <span class="sc">-</span>p_item, <span class="sc">-</span>Used) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="index.html#cb12-3" tabindex="-1"></a>  <span class="fu">filter</span>(Study <span class="sc">!=</span> <span class="st">&quot;BLSA&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="index.html#cb12-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Measure =</span> <span class="fu">factor</span>(Measure, traits<span class="sc">$</span>long_name)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="index.html#cb12-5" tabindex="-1"></a>  <span class="fu">arrange</span>(Study, Measure) </span>
+<span id="cb12-6"><a href="index.html#cb12-6" tabindex="-1"></a>rs <span class="ot">&lt;-</span> p_tab <span class="sc">%&gt;%</span> </span>
+<span id="cb12-7"><a href="index.html#cb12-7" tabindex="-1"></a>  <span class="fu">group_by</span>(Study) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-8"><a href="index.html#cb12-8" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-9"><a href="index.html#cb12-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">end =</span> <span class="fu">cumsum</span>(n), <span class="at">start =</span> <span class="fu">lag</span>(end) <span class="sc">+</span> <span class="dv">1</span>, <span class="at">start =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(start), <span class="dv">1</span>, start))</span>
+<span id="cb12-10"><a href="index.html#cb12-10" tabindex="-1"></a>p_tab <span class="ot">&lt;-</span> p_tab <span class="sc">%&gt;%</span></span>
+<span id="cb12-11"><a href="index.html#cb12-11" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Study) <span class="sc">%&gt;%</span></span>
+<span id="cb12-12"><a href="index.html#cb12-12" tabindex="-1"></a>  <span class="fu">kable</span>(.</span>
+<span id="cb12-13"><a href="index.html#cb12-13" tabindex="-1"></a>        , <span class="st">&quot;html&quot;</span></span>
+<span id="cb12-14"><a href="index.html#cb12-14" tabindex="-1"></a>        , <span class="at">caption =</span> <span class="st">&quot;&lt;strong&gt;Table S1&lt;/strong&gt;&lt;br&gt;&lt;em&gt;Personality Trait and Subjective Well-Being Measurement Inventories, Scales, and Assessments Across Samples&lt;/em&gt;&quot;</span></span>
+<span id="cb12-15"><a href="index.html#cb12-15" tabindex="-1"></a>        , <span class="at">escape =</span> F</span>
+<span id="cb12-16"><a href="index.html#cb12-16" tabindex="-1"></a>        , <span class="at">col.names =</span> <span class="fu">paste0</span>(<span class="st">&quot;&lt;strong&gt;&quot;</span>, <span class="fu">colnames</span>(p_tab)[<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;&lt;/strong&gt;&quot;</span>)</span>
+<span id="cb12-17"><a href="index.html#cb12-17" tabindex="-1"></a>        , <span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;r&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb12-18"><a href="index.html#cb12-18" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-19"><a href="index.html#cb12-19" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> F, <span class="at">html_font =</span> <span class="st">&quot;Times New Roman&quot;</span>) </span>
+<span id="cb12-20"><a href="index.html#cb12-20" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(rs)){</span>
+<span id="cb12-21"><a href="index.html#cb12-21" tabindex="-1"></a>  p_tab <span class="ot">&lt;-</span> p_tab <span class="sc">%&gt;%</span> kableExtra<span class="sc">::</span><span class="fu">group_rows</span>(rs<span class="sc">$</span>Study[i], rs<span class="sc">$</span>start[i], rs<span class="sc">$</span>end[i])</span>
+<span id="cb12-22"><a href="index.html#cb12-22" tabindex="-1"></a>}</span>
+<span id="cb12-23"><a href="index.html#cb12-23" tabindex="-1"></a>p_tab</span></code></pre></div>
 <table class=" lightable-classic" style="font-family: Times New Roman; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:unnamed-chunk-2">Table 1.1: </span><strong>Table S1</strong><br><em>Personality Trait and Subjective Well-Being Measurement Inventories, Scales, and Assessments Across Samples</em>
@@ -480,122 +494,6 @@ Feinberg School of Medicine<br>
 </tr>
 </thead>
 <tbody>
-<tr grouplength="8">
-<td colspan="4" style="border-bottom: 0;">
-<strong>ADRC-MAP</strong>
-</td>
-</tr>
-<tr>
-<td style="text-align:right;padding-left: 2em;" indentlevel="1">
-Extraversion
-</td>
-<td style="text-align:left;">
-12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
-</td>
-<td style="text-align:left;">
-1 “strongly disagree” to 5 “strongly agree”
-</td>
-<td style="text-align:center;">
-Baseline (Clinical Follow-ups)
-</td>
-</tr>
-<tr>
-<td style="text-align:right;padding-left: 2em;" indentlevel="1">
-Agreeableness
-</td>
-<td style="text-align:left;">
-12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
-</td>
-<td style="text-align:left;">
-1 “strongly disagree” to 5 “strongly agree”
-</td>
-<td style="text-align:center;">
-Baseline (Clinical Follow-ups)
-</td>
-</tr>
-<tr>
-<td style="text-align:right;padding-left: 2em;" indentlevel="1">
-Conscientiousness
-</td>
-<td style="text-align:left;">
-12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
-</td>
-<td style="text-align:left;">
-1 “strongly disagree” to 5 “strongly agree”
-</td>
-<td style="text-align:center;">
-Baseline (Clinical Follow-ups)
-</td>
-</tr>
-<tr>
-<td style="text-align:right;padding-left: 2em;" indentlevel="1">
-Neuroticism
-</td>
-<td style="text-align:left;">
-12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
-</td>
-<td style="text-align:left;">
-1 “strongly disagree” to 5 “strongly agree”
-</td>
-<td style="text-align:center;">
-Baseline (Clinical Follow-ups)
-</td>
-</tr>
-<tr>
-<td style="text-align:right;padding-left: 2em;" indentlevel="1">
-Positive Affect
-</td>
-<td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
-—
-</td>
-<td style="text-align:center;">
-—
-</td>
-</tr>
-<tr>
-<td style="text-align:right;padding-left: 2em;" indentlevel="1">
-Negative Affect
-</td>
-<td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
-—
-</td>
-<td style="text-align:center;">
-—
-</td>
-</tr>
-<tr>
-<td style="text-align:right;padding-left: 2em;" indentlevel="1">
-Satisfaction with Life
-</td>
-<td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
-—
-</td>
-<td style="text-align:center;">
-—
-</td>
-</tr>
-<tr>
-<td style="text-align:right;padding-left: 2em;" indentlevel="1">
-</td>
-<td style="text-align:left;">
-12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
-</td>
-<td style="text-align:left;">
-1 “strongly disagree” to 5 “strongly agree”
-</td>
-<td style="text-align:center;">
-Baseline (Clinical Follow-ups)
-</td>
-</tr>
 <tr grouplength="8">
 <td colspan="4" style="border-bottom: 0;">
 <strong>EAS</strong>
@@ -659,6 +557,20 @@ Neuroticism
 </tr>
 <tr>
 <td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Openness to Experience
+</td>
+<td style="text-align:left;">
+24 items from the IPIP NEO
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+2004 (Annual Follow-ups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 Positive Affect
 </td>
 <td style="text-align:left;">
@@ -697,19 +609,6 @@ Satisfaction with Life
 </td>
 <td style="text-align:center;">
 —
-</td>
-</tr>
-<tr>
-<td style="text-align:right;padding-left: 2em;" indentlevel="1">
-</td>
-<td style="text-align:left;">
-24 items from the IPIP NEO
-</td>
-<td style="text-align:left;">
-1 “strongly disagree” to 5 “strongly agree”
-</td>
-<td style="text-align:center;">
-2004 (Annual Follow-ups)
 </td>
 </tr>
 <tr grouplength="8">
@@ -762,6 +661,20 @@ Conscientiousness
 <tr>
 <td style="text-align:right;padding-left: 2em;" indentlevel="1">
 Neuroticism
+</td>
+<td style="text-align:left;">
+3 items from the 15 item BFI-S (John, Naumann, &amp; Soto, 2008, and Lang, Lüdtke, &amp; Asendorpf, 2001)
+</td>
+<td style="text-align:left;">
+1 “does not apply at all” to 7 ” applies perfectly”
+</td>
+<td style="text-align:center;">
+2005 (2005, 2009, 2013, 2017)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Openness to Experience
 </td>
 <td style="text-align:left;">
 3 items from the 15 item BFI-S (John, Naumann, &amp; Soto, 2008, and Lang, Lüdtke, &amp; Asendorpf, 2001)
@@ -815,19 +728,6 @@ SWLS (Diener, Emmons, Larsen, &amp; Griffin, 1985)
 2005 (1984-2017)
 </td>
 </tr>
-<tr>
-<td style="text-align:right;padding-left: 2em;" indentlevel="1">
-</td>
-<td style="text-align:left;">
-3 items from the 15 item BFI-S (John, Naumann, &amp; Soto, 2008, and Lang, Lüdtke, &amp; Asendorpf, 2001)
-</td>
-<td style="text-align:left;">
-1 “does not apply at all” to 7 ” applies perfectly”
-</td>
-<td style="text-align:center;">
-2005 (2005, 2009, 2013, 2017)
-</td>
-</tr>
 <tr grouplength="8">
 <td colspan="4" style="border-bottom: 0;">
 <strong>HRS</strong>
@@ -891,6 +791,20 @@ Neuroticism
 </tr>
 <tr>
 <td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Openness to Experience
+</td>
+<td style="text-align:left;">
+5 adjectives from a 25 adjective checklist (Lachman &amp; Weaver, 1997)
+</td>
+<td style="text-align:left;">
+**1 “a lot” to 4 “not at all”
+</td>
+<td style="text-align:center;">
+2006/8 (2006/8, 2010/12, 2014/16)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 Positive Affect
 </td>
 <td style="text-align:left;">
@@ -926,19 +840,6 @@ SWLS (Diener, Emmons, Larsen, &amp; Griffin, 1985)
 </td>
 <td style="text-align:left;">
 1 “strongly disagree” to 7 “strongly agree”
-</td>
-<td style="text-align:center;">
-2006/8 (2006/8, 2010/12, 2014/16)
-</td>
-</tr>
-<tr>
-<td style="text-align:right;padding-left: 2em;" indentlevel="1">
-</td>
-<td style="text-align:left;">
-5 adjectives from a 25 adjective checklist (Lachman &amp; Weaver, 1997)
-</td>
-<td style="text-align:left;">
-**1 “a lot” to 4 “not at all”
 </td>
 <td style="text-align:center;">
 2006/8 (2006/8, 2010/12, 2014/16)
@@ -994,6 +895,20 @@ Conscientiousness
 <tr>
 <td style="text-align:right;padding-left: 2em;" indentlevel="1">
 Neuroticism
+</td>
+<td style="text-align:left;">
+10 items from the 50 item IPIP-50 (Goldberg, 1992)
+</td>
+<td style="text-align:left;">
+1 “very inaccurate” to 5 “very accurate”
+</td>
+<td style="text-align:center;">
+2008 (2008-2018)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Openness to Experience
 </td>
 <td style="text-align:left;">
 10 items from the 50 item IPIP-50 (Goldberg, 1992)
@@ -1047,19 +962,6 @@ SWLS (Diener, Emmons, Larsen, &amp; Griffin, 1985)
 2008 (2008-2018)
 </td>
 </tr>
-<tr>
-<td style="text-align:right;padding-left: 2em;" indentlevel="1">
-</td>
-<td style="text-align:left;">
-10 items from the 50 item IPIP-50 (Goldberg, 1992)
-</td>
-<td style="text-align:left;">
-1 “very inaccurate” to 5 “very accurate”
-</td>
-<td style="text-align:center;">
-2008 (2008-2018)
-</td>
-</tr>
 <tr grouplength="8">
 <td colspan="4" style="border-bottom: 0;">
 <strong>RUSH-MAP</strong>
@@ -1119,6 +1021,20 @@ Neuroticism
 </td>
 <td style="text-align:center;">
 Baseline (Baseline)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Openness to Experience
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:center;">
+—
 </td>
 </tr>
 <tr>
@@ -1163,19 +1079,6 @@ SWLS (Diener, Emmons, Larsen, &amp; Griffin, 1985)
 Baseline (Annual Clinical Followups)
 </td>
 </tr>
-<tr>
-<td style="text-align:right;padding-left: 2em;" indentlevel="1">
-</td>
-<td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
-—
-</td>
-<td style="text-align:center;">
-—
-</td>
-</tr>
 <tr grouplength="8">
 <td colspan="4" style="border-bottom: 0;">
 <strong>RUSH-ROS</strong>
@@ -1239,6 +1142,20 @@ Baseline (Baseline)
 </tr>
 <tr>
 <td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Openness to Experience
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Baseline)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 Positive Affect
 </td>
 <td style="text-align:left;">
@@ -1277,19 +1194,6 @@ SWLS (Diener, Emmons, Larsen, &amp; Griffin, 1985)
 </td>
 <td style="text-align:center;">
 Baseline (Annual Clinical Followups)
-</td>
-</tr>
-<tr>
-<td style="text-align:right;padding-left: 2em;" indentlevel="1">
-</td>
-<td style="text-align:left;">
-12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
-</td>
-<td style="text-align:left;">
-1 “strongly disagree” to 5 “strongly agree”
-</td>
-<td style="text-align:center;">
-Baseline (Baseline)
 </td>
 </tr>
 <tr grouplength="8">
@@ -1355,6 +1259,20 @@ Neuroticism
 </tr>
 <tr>
 <td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Openness to Experience
+</td>
+<td style="text-align:left;">
+25 items from the NEO Personality Inventory
+</td>
+<td style="text-align:left;">
+**1 “exactly right” to 5 “not right at all”
+</td>
+<td style="text-align:center;">
+1984 (1984)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 Positive Affect
 </td>
 <td style="text-align:left;">
@@ -1395,46 +1313,150 @@ Satisfaction with Life
 1984 (1984, 1987, 1989, 1990, 1993, 2004, 2007)
 </td>
 </tr>
+<tr grouplength="8">
+<td colspan="4" style="border-bottom: 0;">
+<strong>WUSM-MAP</strong>
+</td>
+</tr>
 <tr>
 <td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Extraversion
 </td>
 <td style="text-align:left;">
-25 items from the NEO Personality Inventory
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
 </td>
 <td style="text-align:left;">
-**1 “exactly right” to 5 “not right at all”
+1 “strongly disagree” to 5 “strongly agree”
 </td>
 <td style="text-align:center;">
-1984 (1984)
+Baseline (Clinical Follow-ups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Agreeableness
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Clinical Follow-ups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Conscientiousness
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Clinical Follow-ups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Neuroticism
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Clinical Follow-ups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Openness to Experience
+</td>
+<td style="text-align:left;">
+12 items from the NEO Five-Factor Inventory (NEO-FFI; Costa &amp; McCrae, 1992)
+</td>
+<td style="text-align:left;">
+1 “strongly disagree” to 5 “strongly agree”
+</td>
+<td style="text-align:center;">
+Baseline (Clinical Follow-ups)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Positive Affect
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:center;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Negative Affect
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:center;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
+Satisfaction with Life
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:center;">
+—
 </td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="index.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save_kable</span>(p_tab, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/results/tables/tab-s1.html&quot;</span>, local_path))</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="index.html#cb13-1" tabindex="-1"></a><span class="fu">save_kable</span>(p_tab, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/results/tables/tab-s1.html&quot;</span>, local_path))</span></code></pre></div>
 </div>
 <div id="table-s2" class="section level3 hasAnchor" number="1.4.2">
 <h3><span class="header-section-number">1.4.2</span> Table S2<a href="index.html#table-s2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Next, I create table S2, which indicates which measures were in each study, including which cognitive measures were in each sample.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="index.html#cb12-1" aria-hidden="true" tabindex="-1"></a>meas <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(destfile, <span class="at">sheet =</span> <span class="st">&quot;Table 1&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="index.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>BLSA) </span>
-<span id="cb12-3"><a href="index.html#cb12-3" aria-hidden="true" tabindex="-1"></a>rs <span class="ot">&lt;-</span> meas <span class="sc">%&gt;%</span> </span>
-<span id="cb12-4"><a href="index.html#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Category) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-5"><a href="index.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb12-6"><a href="index.html#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">end =</span> <span class="fu">cumsum</span>(n), <span class="at">start =</span> <span class="fu">lag</span>(end) <span class="sc">+</span> <span class="dv">1</span>, <span class="at">start =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(start), <span class="dv">1</span>, start))</span>
-<span id="cb12-7"><a href="index.html#cb12-7" aria-hidden="true" tabindex="-1"></a>meas <span class="ot">&lt;-</span> meas <span class="sc">%&gt;%</span></span>
-<span id="cb12-8"><a href="index.html#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Category) <span class="sc">%&gt;%</span></span>
-<span id="cb12-9"><a href="index.html#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(.</span>
-<span id="cb12-10"><a href="index.html#cb12-10" aria-hidden="true" tabindex="-1"></a>        , <span class="st">&quot;html&quot;</span></span>
-<span id="cb12-11"><a href="index.html#cb12-11" aria-hidden="true" tabindex="-1"></a>        , <span class="at">caption =</span> <span class="st">&quot;&lt;strong&gt;Table S2&lt;/strong&gt;&lt;br&gt;&lt;em&gt;List of Measures Across Samples&lt;/em&gt;&quot;</span></span>
-<span id="cb12-12"><a href="index.html#cb12-12" aria-hidden="true" tabindex="-1"></a>        , <span class="at">escape =</span> F</span>
-<span id="cb12-13"><a href="index.html#cb12-13" aria-hidden="true" tabindex="-1"></a>        , <span class="at">col.names =</span> <span class="fu">paste0</span>(<span class="st">&quot;&lt;strong&gt;&quot;</span>, <span class="fu">colnames</span>(meas)[<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;&lt;/strong&gt;&quot;</span>)</span>
-<span id="cb12-14"><a href="index.html#cb12-14" aria-hidden="true" tabindex="-1"></a>        , <span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">8</span>))</span>
-<span id="cb12-15"><a href="index.html#cb12-15" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span></span>
-<span id="cb12-16"><a href="index.html#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> F, <span class="at">html_font =</span> <span class="st">&quot;Times New Roman&quot;</span>) </span>
-<span id="cb12-17"><a href="index.html#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(rs)){</span>
-<span id="cb12-18"><a href="index.html#cb12-18" aria-hidden="true" tabindex="-1"></a>  meas <span class="ot">&lt;-</span> meas <span class="sc">%&gt;%</span> kableExtra<span class="sc">::</span><span class="fu">group_rows</span>(rs<span class="sc">$</span>Category[i], rs<span class="sc">$</span>start[i], rs<span class="sc">$</span>end[i])</span>
-<span id="cb12-19"><a href="index.html#cb12-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb12-20"><a href="index.html#cb12-20" aria-hidden="true" tabindex="-1"></a>meas</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="index.html#cb14-1" tabindex="-1"></a>meas <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(destfile, <span class="at">sheet =</span> <span class="st">&quot;Table 1&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="index.html#cb14-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>BLSA) </span>
+<span id="cb14-3"><a href="index.html#cb14-3" tabindex="-1"></a>rs <span class="ot">&lt;-</span> meas <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="index.html#cb14-4" tabindex="-1"></a>  <span class="fu">group_by</span>(Category) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-5"><a href="index.html#cb14-5" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb14-6"><a href="index.html#cb14-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">end =</span> <span class="fu">cumsum</span>(n), <span class="at">start =</span> <span class="fu">lag</span>(end) <span class="sc">+</span> <span class="dv">1</span>, <span class="at">start =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(start), <span class="dv">1</span>, start))</span>
+<span id="cb14-7"><a href="index.html#cb14-7" tabindex="-1"></a>meas <span class="ot">&lt;-</span> meas <span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="index.html#cb14-8" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Category) <span class="sc">%&gt;%</span></span>
+<span id="cb14-9"><a href="index.html#cb14-9" tabindex="-1"></a>  <span class="fu">kable</span>(.</span>
+<span id="cb14-10"><a href="index.html#cb14-10" tabindex="-1"></a>        , <span class="st">&quot;html&quot;</span></span>
+<span id="cb14-11"><a href="index.html#cb14-11" tabindex="-1"></a>        , <span class="at">caption =</span> <span class="st">&quot;&lt;strong&gt;Table S2&lt;/strong&gt;&lt;br&gt;&lt;em&gt;List of Measures Across Samples&lt;/em&gt;&quot;</span></span>
+<span id="cb14-12"><a href="index.html#cb14-12" tabindex="-1"></a>        , <span class="at">escape =</span> F</span>
+<span id="cb14-13"><a href="index.html#cb14-13" tabindex="-1"></a>        , <span class="at">col.names =</span> <span class="fu">paste0</span>(<span class="st">&quot;&lt;strong&gt;&quot;</span>, <span class="fu">colnames</span>(meas)[<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;&lt;/strong&gt;&quot;</span>)</span>
+<span id="cb14-14"><a href="index.html#cb14-14" tabindex="-1"></a>        , <span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">8</span>))</span>
+<span id="cb14-15"><a href="index.html#cb14-15" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span></span>
+<span id="cb14-16"><a href="index.html#cb14-16" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> F, <span class="at">html_font =</span> <span class="st">&quot;Times New Roman&quot;</span>) </span>
+<span id="cb14-17"><a href="index.html#cb14-17" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(rs)){</span>
+<span id="cb14-18"><a href="index.html#cb14-18" tabindex="-1"></a>  meas <span class="ot">&lt;-</span> meas <span class="sc">%&gt;%</span> kableExtra<span class="sc">::</span><span class="fu">group_rows</span>(rs<span class="sc">$</span>Category[i], rs<span class="sc">$</span>start[i], rs<span class="sc">$</span>end[i])</span>
+<span id="cb14-19"><a href="index.html#cb14-19" tabindex="-1"></a>}</span>
+<span id="cb14-20"><a href="index.html#cb14-20" tabindex="-1"></a>meas</span></code></pre></div>
 <table class=" lightable-classic" style="font-family: Times New Roman; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:unnamed-chunk-3">Table 1.2: </span><strong>Table S2</strong><br><em>List of Measures Across Samples</em>
@@ -1471,7 +1493,7 @@ Satisfaction with Life
 </tr>
 </thead>
 <tbody>
-<tr grouplength="1">
+<tr grouplength="16">
 <td colspan="9" style="border-bottom: 0;">
 <strong>Cognitive</strong>
 </td>
@@ -1505,11 +1527,6 @@ X
 X
 </td>
 </tr>
-<tr grouplength="1">
-<td colspan="9" style="border-bottom: 0;">
-<strong>Covariates</strong>
-</td>
-</tr>
 <tr>
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
 Agreeableness
@@ -1526,7 +1543,6 @@ X
 <td style="text-align:center;">
 </td>
 <td style="text-align:center;">
-X
 </td>
 <td style="text-align:center;">
 X
@@ -1536,11 +1552,6 @@ X
 </td>
 <td style="text-align:center;">
 X
-</td>
-</tr>
-<tr grouplength="1">
-<td colspan="9" style="border-bottom: 0;">
-<strong>Outcomes</strong>
 </td>
 </tr>
 <tr>
@@ -1571,14 +1582,9 @@ X
 X
 </td>
 </tr>
-<tr grouplength="1">
-<td colspan="9" style="border-bottom: 0;">
-<strong>Personality</strong>
-</td>
-</tr>
 <tr>
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-Neuroticim
+Neuroticism
 </td>
 <td style="text-align:center;">
 X
@@ -1603,11 +1609,6 @@ X
 </td>
 <td style="text-align:center;">
 X
-</td>
-</tr>
-<tr grouplength="44">
-<td colspan="9" style="border-bottom: 0;">
-<strong>NA</strong>
 </td>
 </tr>
 <tr>
@@ -1627,7 +1628,6 @@ X
 X
 </td>
 <td style="text-align:center;">
-X
 </td>
 <td style="text-align:center;">
 X
@@ -1712,7 +1712,6 @@ X
 X
 </td>
 <td style="text-align:center;">
-X
 </td>
 <td style="text-align:center;">
 </td>
@@ -1795,7 +1794,6 @@ X
 X
 </td>
 <td style="text-align:center;">
-X
 </td>
 </tr>
 <tr>
@@ -1845,7 +1843,6 @@ X
 X
 </td>
 <td style="text-align:center;">
-X
 </td>
 </tr>
 <tr>
@@ -1870,7 +1867,6 @@ X
 X
 </td>
 <td style="text-align:center;">
-X
 </td>
 </tr>
 <tr>
@@ -1895,7 +1891,6 @@ X
 X
 </td>
 <td style="text-align:center;">
-X
 </td>
 </tr>
 <tr>
@@ -1920,7 +1915,11 @@ X
 X
 </td>
 <td style="text-align:center;">
-X
+</td>
+</tr>
+<tr grouplength="14">
+<td colspan="9" style="border-bottom: 0;">
+<strong>Covariates</strong>
 </td>
 </tr>
 <tr>
@@ -1945,7 +1944,6 @@ X
 X
 </td>
 <td style="text-align:center;">
-X
 </td>
 </tr>
 <tr>
@@ -2266,6 +2264,11 @@ X
 X
 </td>
 </tr>
+<tr grouplength="10">
+<td colspan="9" style="border-bottom: 0;">
+<strong>Outcomes</strong>
+</td>
+</tr>
 <tr>
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
 Progressive Matrices
@@ -2520,6 +2523,11 @@ X
 X
 </td>
 </tr>
+<tr grouplength="8">
+<td colspan="9" style="border-bottom: 0;">
+<strong>Personality</strong>
+</td>
+</tr>
 <tr>
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
 Self-Rated Health
@@ -2750,7 +2758,460 @@ X
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="index.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save_kable</span>(meas, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/results/tables/tab-s2.html&quot;</span>, local_path))</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="index.html#cb15-1" tabindex="-1"></a><span class="fu">save_kable</span>(meas, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/results/tables/tab-s2.html&quot;</span>, local_path))</span></code></pre></div>
+</div>
+<div id="table-s3" class="section level3 hasAnchor" number="1.4.3">
+<h3><span class="header-section-number">1.4.3</span> Table S3<a href="index.html#table-s3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Next, I create table S3, which indicates previous uses of the samples, their findings, and the distinction between them and the present study.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="index.html#cb16-1" tabindex="-1"></a>uses <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(destfile, <span class="at">sheet =</span> <span class="st">&quot;Table S3&quot;</span>)</span>
+<span id="cb16-2"><a href="index.html#cb16-2" tabindex="-1"></a>meas <span class="ot">&lt;-</span> uses <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="index.html#cb16-3" tabindex="-1"></a>  <span class="fu">kable</span>(.</span>
+<span id="cb16-4"><a href="index.html#cb16-4" tabindex="-1"></a>        , <span class="st">&quot;html&quot;</span></span>
+<span id="cb16-5"><a href="index.html#cb16-5" tabindex="-1"></a>        , <span class="at">caption =</span> <span class="st">&quot;&lt;strong&gt;Table S3&lt;/strong&gt;&lt;br&gt;&lt;em&gt;List of Prior Publications Examining Personality-Dementia or Neuropathology Associations&lt;/em&gt;&quot;</span></span>
+<span id="cb16-6"><a href="index.html#cb16-6" tabindex="-1"></a>        , <span class="at">escape =</span> F</span>
+<span id="cb16-7"><a href="index.html#cb16-7" tabindex="-1"></a>        , <span class="at">col.names =</span> <span class="fu">paste0</span>(<span class="st">&quot;&lt;strong&gt;&quot;</span>, <span class="fu">colnames</span>(uses), <span class="st">&quot;&lt;/strong&gt;&quot;</span>)</span>
+<span id="cb16-8"><a href="index.html#cb16-8" tabindex="-1"></a>        , <span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">7</span>), <span class="st">&quot;l&quot;</span>, <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb16-9"><a href="index.html#cb16-9" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span></span>
+<span id="cb16-10"><a href="index.html#cb16-10" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> F, <span class="at">html_font =</span> <span class="st">&quot;Times New Roman&quot;</span>) </span>
+<span id="cb16-11"><a href="index.html#cb16-11" tabindex="-1"></a>meas</span></code></pre></div>
+<table class=" lightable-classic" style="font-family: Times New Roman; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-4">Table 1.3: </span><strong>Table S3</strong><br><em>List of Prior Publications Examining Personality-Dementia or Neuropathology Associations</em>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+<strong>Paper</strong>
+</th>
+<th style="text-align:center;">
+<strong>Year</strong>
+</th>
+<th style="text-align:center;">
+<strong>Ref #</strong>
+</th>
+<th style="text-align:center;">
+<strong>Sample(s)</strong>
+</th>
+<th style="text-align:center;">
+<strong>N</strong>
+</th>
+<th style="text-align:center;">
+<strong>Data</strong>
+</th>
+<th style="text-align:center;">
+<strong>Measures</strong>
+</th>
+<th style="text-align:center;">
+<strong>Outcomes</strong>
+</th>
+<th style="text-align:left;">
+<strong>Findings</strong>
+</th>
+<th style="text-align:left;">
+<strong>Comparison with Current Study</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Terracciano et al. 
+</td>
+<td style="text-align:center;">
+2014
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+BLSA (IPD)
+</td>
+<td style="text-align:center;">
+N = 1671
+</td>
+<td style="text-align:center;">
+IPD + meta-analysis
+</td>
+<td style="text-align:center;">
+E, A, C, N, O
+</td>
+<td style="text-align:center;">
+Cognitive Status
+</td>
+<td style="text-align:left;">
+N -&gt; higher risk<br>
+C -&gt; lower risk
+</td>
+<td style="text-align:left;">
+BLSA not used in the present sample.<br>
+Meta-analyzed results from Rush-MAP and ROS, but included much smaller sample (we used an additional 10-15 years of data).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wilson et al. 
+</td>
+<td style="text-align:center;">
+2006
+</td>
+<td style="text-align:center;">
+50
+</td>
+<td style="text-align:center;">
+Rush-MAP
+</td>
+<td style="text-align:center;">
+N = 648
+</td>
+<td style="text-align:center;">
+IPD
+</td>
+<td style="text-align:center;">
+N
+</td>
+<td style="text-align:center;">
+Cognitive Status
+</td>
+<td style="text-align:left;">
+N -&gt; higher risk
+</td>
+<td style="text-align:left;">
+Additional waves of data (~15 years of additional follow-ups). <br>
+Used Cox Proportional Hazards Models. <br>
+Only examined Neuroticism
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wilson et al. 
+</td>
+<td style="text-align:center;">
+2007
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+ROS
+</td>
+<td style="text-align:center;">
+N = 997
+</td>
+<td style="text-align:center;">
+IPD
+</td>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:center;">
+Cognitive Status
+</td>
+<td style="text-align:left;">
+C -&gt; lower risk
+</td>
+<td style="text-align:left;">
+Additional waves of data (~15 years of additional follow-ups). <br>
+Used Cox Proportional Hazards Models. <br>
+Only examined Conscientiousness
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wilson et al. 
+</td>
+<td style="text-align:center;">
+2015
+</td>
+<td style="text-align:center;">
+–
+</td>
+<td style="text-align:center;">
+ROS, Rush-MAP
+</td>
+<td style="text-align:center;">
+N = 309
+</td>
+<td style="text-align:center;">
+IPD
+</td>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:center;">
+NFT, Lewy bodies, chronic gross cerebral infarctions, and hippocampal sclerosis,, terminal decline
+</td>
+<td style="text-align:left;">
+C -&gt; slower terminal but not preterminal decline
+</td>
+<td style="text-align:left;">
+Additional waves of data.<br>
+Focus was on cognitive decline, not diagnosis.<br>
+Only examined deceased participants.<br>
+Additional waves of follow-up data.<br>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Terracciano et al. 
+</td>
+<td style="text-align:center;">
+2017
+</td>
+<td style="text-align:center;">
+49
+</td>
+<td style="text-align:center;">
+HRS
+</td>
+<td style="text-align:center;">
+N = 13,882
+</td>
+<td style="text-align:center;">
+IPD
+</td>
+<td style="text-align:center;">
+E, A, C, N, O
+</td>
+<td style="text-align:center;">
+Cognitive Status
+</td>
+<td style="text-align:left;">
+N -&gt; higher risk<br>
+C, A -&gt; lower risk
+</td>
+<td style="text-align:left;">
+Used Cox Proportional Hazards Models.<br>
+Additional waves of follow-up data.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Yoneda et al. 
+</td>
+<td style="text-align:center;">
+2020
+</td>
+<td style="text-align:center;">
+52
+</td>
+<td style="text-align:center;">
+EAS
+LASA
+</td>
+<td style="text-align:center;">
+N (EAS) = 785<br>
+N (LASA) = 1300
+</td>
+<td style="text-align:center;">
+IPD
+</td>
+<td style="text-align:center;">
+E, A, C, N, O
+</td>
+<td style="text-align:center;">
+Cognitive Status
+</td>
+<td style="text-align:left;">
+N increases -&gt; higher risk
+</td>
+<td style="text-align:left;">
+We additionally include neuropathology data from EAS.<br>
+Examined associations between personality and change and cognitive status, not baseline levels.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Duchek et al. 
+</td>
+<td style="text-align:center;">
+2020
+</td>
+<td style="text-align:center;">
+34
+</td>
+<td style="text-align:center;">
+WUSM-MAP
+</td>
+<td style="text-align:center;">
+N = 436
+</td>
+<td style="text-align:center;">
+IPD
+</td>
+<td style="text-align:center;">
+N, C
+</td>
+<td style="text-align:center;">
+In vivo neuropathology
+Clinical Dementia Ratings
+</td>
+<td style="text-align:left;">
+C -&gt; lower early dementia risk
+</td>
+<td style="text-align:left;">
+Focused on in vivo neuropathology, rather than neuropathology at autopsy.<br>
+Only examined taransitions to early stage dementia.<br>
+Only investigated N and C.<br>
+Additional waves of follow-up data.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Graham et al. 
+</td>
+<td style="text-align:center;">
+2021a
+</td>
+<td style="text-align:center;">
+51
+</td>
+<td style="text-align:center;">
+ROS
+Rush-MAP
+</td>
+<td style="text-align:center;">
+N (ROS) = 783<br>
+N (MAP) = 857
+</td>
+<td style="text-align:center;">
+IPD
+</td>
+<td style="text-align:center;">
+E, A (ROS), C, O (ROS), N
+</td>
+<td style="text-align:center;">
+Cognitive Resilience (residual of global cognitive function / decline regressed on pathology)
+</td>
+<td style="text-align:left;">
+N-&gt; worse resilience
+</td>
+<td style="text-align:left;">
+Focused on association between personality traits and asymmetry between neuropathology and cognitive function / decline. <br>
+Did not account for dementia diagnoses. <br>
+Additional waves of follow-up data.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Aschwanden et al. 
+</td>
+<td style="text-align:center;">
+2020
+</td>
+<td style="text-align:center;">
+–
+</td>
+<td style="text-align:center;">
+ELSA
+HILDA
+</td>
+<td style="text-align:center;">
+N (ELSA) = 6,887<br>
+N (HILDA) = 2,778
+</td>
+<td style="text-align:center;">
+Meta-analysis
+</td>
+<td style="text-align:center;">
+E, A, C, N, O
+</td>
+<td style="text-align:center;">
+Cognitive Status from cognitive tests
+</td>
+<td style="text-align:left;">
+C -&gt; lower dementia risk (ELSA only)
+</td>
+<td style="text-align:left;">
+Used Cox Proportional Hazards Models Different cognitive status indicator that allowed us to use more of the sample.<br>
+Additional waves of follow-up data.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Aschwanden et al. 
+</td>
+<td style="text-align:center;">
+2021
+</td>
+<td style="text-align:center;">
+19
+</td>
+<td style="text-align:center;">
+Rush-MAP
+ROS
+WUSM-MAP
+ELSA
+HILDA
+</td>
+<td style="text-align:center;">
+N (Rush-MAP) = 648<br>
+N (ROS) = 904<br>
+N (WUSM-MAP) = 436<br>
+N (ELSA) = 6887<br>
+N (HILDA) = 2778
+</td>
+<td style="text-align:center;">
+IPD
+</td>
+<td style="text-align:center;">
+E, A, C, N, O
+</td>
+<td style="text-align:center;">
+Cognitive Status
+</td>
+<td style="text-align:left;">
+N -&gt; higher risk<br>
+C -&gt; lower risk
+</td>
+<td style="text-align:left;">
+Used Cox Proportional Hazards Models.<br>
+Only meta-analyzed existing previous data that, in many cases, had many fewer waves of follow-up.<br>
+Covariates determined by previous publications.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Graham et al. 
+</td>
+<td style="text-align:center;">
+2021b
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+EAS
+MAP
+ROS
+SATSA
+</td>
+<td style="text-align:center;">
+N (EAS) = 737<br>
+N (Rush-MAP) = 1233<br>
+N (ROS) = 1466<br>
+N (SATSA) = 707
+</td>
+<td style="text-align:center;">
+IPD
+</td>
+<td style="text-align:center;">
+E, A, C, N, O
+</td>
+<td style="text-align:center;">
+Cognitive Status
+</td>
+<td style="text-align:left;">
+O -&gt; post-dementia decline
+</td>
+<td style="text-align:left;">
+Additional waves of data for EAS, Rush-MAP, and ROS.<br>
+Focus was on personality predictors of cognitive decline (slope) and cognitive decline following dementia diagnosis.<br>
+No reported associations between personality traits and cognitive status.
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="index.html#cb17-1" tabindex="-1"></a><span class="fu">save_kable</span>(meas, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/results/tables/tab-s3.html&quot;</span>, local_path))</span></code></pre></div>
 
 </div>
 </div>

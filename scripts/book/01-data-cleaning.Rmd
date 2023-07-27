@@ -116,7 +116,7 @@ hrs_long <- hrs_long %>%
   bind_rows(hrs.rand %>% select(orig_itemname, value, SID)) %>%
   filter(SID %in% hrs.subs)
 
-save(hrs.rand, hrs.paq, file = sprintf("%s/data/clean/hrs_raw.RData", load_path))
+save(hrs.rand, hrs.paq, file = sprintf("%s/data/clean/hrs_raw.RData", local_path))
 rm(list = c("hrs.paq", "hrs.rand"))
 ```
 
@@ -318,17 +318,24 @@ hrs_out <- hrs_recode %>%
          group = ifelse(year > p_year, "future", "past")) %>%
   filter(!is.na(value)) %>%
   group_by(SID, p_year, year, name, group) %>%
-  mutate(value = ifelse(value < .5, 0, 1)) %>%
-  group_by(SID, p_year, name, group) %>%
+  mutate(value = ifelse(value < .5, 0, 1)
+         , o_year = max(year[!is.na(value)])) %>%
+  group_by(SID, p_year, name, group, o_year) %>%
   summarize(value = max(value, na.rm = T)) %>%
   ungroup() %>%
   mutate(value = ifelse(is.infinite(value), NA, value)) %>%
   pivot_wider(names_from = group, values_from = value) %>%
-  group_by(SID, name) %>%
+  group_by(SID, name, o_year) %>%
   mutate(value = ifelse(is.na(past) | (past == 0 & !is.na(future)), future,
                  ifelse(past == 0 & is.na(future), past, 
                  ifelse(past == 1, NA, NA)))) %>%
-ungroup()
+  group_by(SID, p_year, name) %>% 
+  mutate(o_year = max(o_year)) %>% 
+  group_by(SID, p_year, o_year, name) %>% 
+  summarize(value = max(value, na.rm = T)) %>%
+  ungroup() %>%
+  mutate(value = ifelse(is.infinite(value), NA, value)) %>%
+  ungroup()
 ```
 
 ```{r hrs out print}
@@ -340,19 +347,16 @@ hrs_out
 ```{r hrs combine, eval = F}
 hrs_combined <- hrs_pers %>% 
   rename(Trait = name, p_value = value, p_year = year) %>%
-  full_join(hrs_out %>% select(SID, Outcome = name, o_value = value)) %>%
+  full_join(hrs_out %>% select(SID, Outcome = name, o_value = value, o_year)) %>%
   full_join(hrs_cov) %>%
   left_join(
     hrs_out %>%
       filter(name == "dementia") %>%
-      mutate(value = ifelse(rowSums(cbind(future, past), na.rm = T) >= 1, 1, 0)) %>%
-      select(-future, -past) %>%
       pivot_wider(names_from = "name", values_from = "value")
     ) %>%
   full_join(hrs_cog) %>%
   filter(!is.na(p_value) & !is.na(o_value)) %>%
-  mutate(age = p_year - yearBrth
-         , o_year = 2014)
+  mutate(age = p_year - yearBrth)
 ```
 
 ```{r hrs combined print}
@@ -361,7 +365,7 @@ hrs_combined
 
 ```{r hrs save, eval = F}
 save(hrs_cov, hrs_alpha, hrs_pers, hrs_out, hrs_combined, hrs_cog,
-     file = sprintf("%s/data/clean/hrs_cleaned.RData", load_path))
+     file = sprintf("%s/data/clean/hrs_cleaned.RData", local_path))
 ```
 
 ```{r}
@@ -1097,7 +1101,7 @@ satsa_out <- satsa_recode %>%
 
 satsa_out_waves <- satsa_out %>%
   group_by(SID, name) %>%
-  summarize(o_year = max(year)) %>%
+  summarize(o_year = max(year[!is.na(value)])) %>%
   ungroup()
 
 satsa_waves <- p_waves %>% filter(Study == "SATSA") %>% select(Used) %>% distinct()
@@ -1111,8 +1115,8 @@ satsa_out <- satsa_out %>%
   group_by(SID, p_year, name) %>%
   summarize(value = max(value, na.rm = T)) %>%
   ungroup() %>%
-  mutate(value = ifelse(is.infinite(value), NA, value),
-         o_year = 2005) 
+  mutate(value = ifelse(is.infinite(value), NA, value)) %>%
+  left_join(satsa_out_waves)
 ```
 
 ```{r satsa out print}
@@ -2369,12 +2373,14 @@ liss_out <- liss_recode %>%
   unnest(data) %>%
   mutate(p_year = liss_waves$Used, 
          group = ifelse(year > p_year, "future", "past")) %>%
-  group_by(SID, name, group, p_year) %>%
+  group_by(SID, name, p_year) %>%
+  mutate(o_year = max(year[!is.na(value)])) %>%
+  group_by(SID, name, group, p_year, o_year) %>%
   summarize(value = max(value, na.rm = T)) %>%
   ungroup() %>%
   mutate(value = ifelse(is.infinite(value), NA, value)) %>%
   pivot_wider(names_from = group, values_from = value) %>%
-  group_by(SID, p_year, name) %>%
+  group_by(SID, p_year, name, o_year) %>%
   mutate(value = ifelse(is.na(past) | (past == 0 & !is.na(future)), future,
                  ifelse(past == 0 & is.na(future), past, 
                  ifelse(past == 1, NA, NA)))) %>% 
@@ -2402,8 +2408,7 @@ liss_combined <- liss_pers %>%
     ) %>%
   full_join(liss_cog) %>%
   filter(!is.na(p_value) & !is.na(o_value)) %>%
-  mutate(age = p_year - yearBrth
-         , o_year = 2018)
+  mutate(age = p_year - yearBrth)
 ```
 
 ```{r liss combined print}

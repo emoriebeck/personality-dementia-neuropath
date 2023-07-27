@@ -84,6 +84,7 @@ Each study has a separate codebook indexing covariate, moderator, personality, a
 # list of all codebook sheets
 url <- "https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/codebooks/master_codebook_09.04.20.xlsx?raw=true"
 destfile <- "master_codebook_09.04.20.xlsx"
+# destfile <- sprintf("%s/codebooks/%s", local_path, destfile)
 curl::curl_download(url, destfile)
 sheets <- excel_sheets(destfile)
 
@@ -120,11 +121,12 @@ moders <- codebook$codebook[[2]] %>% filter(category == "mod") %>%
   select(long_name = Construct, short_name = name, short_term = old_term, long_term = new_term); moders
 
 covars <- codebook$codebook[[2]] %>% filter(category == "covariates") %>%
-  select(long_name = Construct, short_name = name, desc = new_term); 
+  select(long_name = Construct, short_name = name, desc = new_term); covars
 
 # used personality waves 
 url <- "https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/codebooks/tables.xlsx?raw=true"
 destfile <- "tables.xlsx"
+# destfile <- sprintf("%s/codebooks/%s", local_path, destfile)
 curl::curl_download(url, destfile)
 p_waves <- read_xlsx(destfile, sheet = "Table 2")
 ```
@@ -187,6 +189,25 @@ for (i in 1:nrow(rs)){
 }
 meas
 save_kable(meas, file = sprintf("%s/results/tables/tab-s2.html", local_path))
+```
+
+### Table S3  
+
+Next, I create table S3, which indicates previous uses of the samples, their findings, and the distinction between them and the present study. 
+
+```{r}
+uses <- read_xlsx(destfile, sheet = "Table S3")
+meas <- uses %>%
+  kable(.
+        , "html"
+        , caption = "<strong>Table S3</strong><br><em>List of Prior Publications Examining Personality-Dementia or Neuropathology Associations</em>"
+        , escape = F
+        , col.names = paste0("<strong>", colnames(uses), "</strong>")
+        , align = c("l", rep("c", 7), "l", "l")
+        ) %>%
+  kable_classic(full_width = F, html_font = "Times New Roman") 
+meas
+save_kable(meas, file = sprintf("%s/results/tables/tab-s3.html", local_path))
 ```
 
 

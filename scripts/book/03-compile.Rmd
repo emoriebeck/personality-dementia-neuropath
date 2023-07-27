@@ -28,15 +28,17 @@ n_fun <- function(fileName, type){
 
 ## load in "fixed" effects
 ## first get file names
-nested_mega <- tibble(Covariate = c("fully", "shared", "standard", "butOne", "unadjusted", "standarddx", "shareddx")) %>%
+nested_mega <- tibble(Covariate = c("fully", "shared", "standard", "butOne", "unadjusted", "standarddx", "shareddx", "sharedint")) %>%
   mutate(file = map(Covariate, ~list.files(sprintf("%s/results/summary/%s", local_path, .)))) %>%
   unnest(file) %>%
   separate(file, c("Outcome", "Trait", "Moderator"), sep = "_", remove = F) %>% 
+  filter(!(Outcome == "dementia" & Moderator == "dementia.RData")) %>%
   ## read in the files
-  mutate(Moderator = str_remove(Moderator, ".RData"),
-         fx = map2(file, Covariate, ~loadRData(.x, .y, "fx", "summary")),
-         rx = map2(file, Covariate, possibly(~loadRData(.x, .y, "rx", "summary"), NA_real_)),
-         n = map2(file, Covariate, n_fun)) %>%
+  mutate(Moderator = str_remove(Moderator, ".RData")
+         , fx = map2(file, Covariate, ~loadRData(.x, .y, "fx", "summary"))
+         , rx = map2(file, Covariate, possibly(~loadRData(.x, .y, "rx", "summary"), NA_real_))
+         , n = map2(file, Covariate, n_fun)
+         ) %>%
   select(-file) %>%
   filter(!is.na(rx))
 ```
@@ -48,10 +50,10 @@ Next, we want to format the study results in APA table format. In this case, we 
 First, let's format the data.  
 
 ```{r}
-nested_mega_tab <- 
+tmp <- 
   ### fixed effects 
   nested_mega %>%
-  select(-rx, -n) %>%
+  select(-one_of("rx", "n")) %>%
   unnest(fx) %>% # unnesting 
   # keep key terms
   filter((Moderator == "none" & term == "p_value") |
@@ -61,7 +63,7 @@ nested_mega_tab <-
   ### study specific effects 
   full_join(
     nested_mega %>%
-      select(-fx, -n) %>%
+      select(-one_of("fx", "n")) %>%
       unnest(rx) %>% # unnesting 
       rename(term = names) %>%
       filter((Moderator == "none" & term == "p_value") |
@@ -78,8 +80,9 @@ nested_mega_tab <-
          Covariate = factor(Covariate, covars$short_name, str_wrap(covars$long_name, 15)),
          term = str_remove_all(term, "p_value:"),
          term = factor(term, moders$short_term, moders$long_term)) %>%
-  mutate_at(vars(estimate, conf.low, conf.high), ~ifelse(link == "factor", exp(.), .)) %>%
+  mutate_at(vars(estimate, conf.low, conf.high), ~ifelse(link == "factor", exp(.), .))
   # prettify the number format
+nested_mega_tab <- tmp %>%
   mutate_at(vars(estimate, conf.low, conf.high), 
             ~ifelse(abs(.) < .0014, sprintf("%.3f", .), sprintf("%.2f", .))) %>%
   # combine the effects, bold significance, factor and label study-specfic effects 
@@ -154,7 +157,6 @@ ipd_fx_tab <- nested_mega_tab %>%
 (ipd_fx_tab %>% filter(Moderator == "Dementia Diagnosis"))$tab[[1]]
 ```
 
-
 These show the estimates, split by covariate sets across moderators, traits, and outcomes.  
 
 ```{r}
@@ -211,9 +213,8 @@ ipd_fx_tab2 <- nested_mega_tab %>%
   mutate(tab = pmap(list(data, Covariate), ipd_tab_fun2))
 
 ## Frequentist, no moderator
-(ipd_fx_tab2 %>% filter(Covariate == "Shared\nCovariates\nAdjusted\n(With Dementia\nDiagnosis)"))$tab[[1]]
+(ipd_fx_tab2 %>% filter(Covariate == "Shared\nCovariates\nAdjusted (With\nPrediction\nInterval)"))$tab[[1]]
 ```
-
 
 #### Study-Specific Effects  
 Next, we'll look at these estimates for each sample. 
@@ -264,7 +265,7 @@ ipd_rx_tab <- nested_mega_tab %>%
 ipd_rx_tab
 
 ## Frequentist
-(ipd_rx_tab %>% filter(Moderator == "None" & Covariate == "Shared\nCovariates\nAdjusted"))$tab[[1]]
+(ipd_rx_tab %>% filter(Moderator == "None" & Covariate == "Shared\nCovariates\nAdjusted (With\nPrediction\nInterval)"))$tab[[1]]
 ```
 
 #### Heterogeneity Estimates  
@@ -272,7 +273,7 @@ ipd_rx_tab
 #### All Model Terms  
 ```{r}
 ipd_mod_tab <- nested_mega %>%
-  select(-n, -rx) %>%
+  select(-one_of(c("n", "rx"))) %>%
   unnest(fx) %>%
   # keep key terms 
   # mark significance and prettify trait, outcome, and covariate names
@@ -339,7 +340,7 @@ ipd_mod_tab <- ipd_mod_tab %>%
   ungroup() %>%
   mutate(tab = pmap(list(data, Outcome, Moderator, Covariate, link), ipd_mod_tab_fun))
 
-(ipd_mod_tab %>% filter(Covariate == "Shared\nCovariates\nAdjusted"))$tab[[1]]
+(ipd_mod_tab %>% filter(Covariate == "Shared\nCovariates\nAdjusted (With\nPrediction\nInterval)"))$tab[[1]]
 ```
 
 ### Figures  
@@ -504,7 +505,7 @@ nested_ipd_fx_fig2 <- nested_ipd_fx_fig %>%
 ```
 
 ```{r}
-knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/overall-forest/none_shared.png")
+knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/overall-forest/none_sharedint.png")
 ```
 
 #### Study-Specific Forest  
@@ -706,10 +707,10 @@ ipd_rx_plot_comb_fun <- function(outcome, cov, mod, d){
   p <- cowplot::plot_grid(ttl, subttl, p1, rel_heights = c(.06, .03, .91), nrow = 3)
   ggsave(p 
          , file = sprintf("%s/results/figures/study-specific-forest/%s_%s_%s.png", local_path, outcome, mod, cov)
-         , width = 10, height = 10)
+         , width = 10, height = 11)
   ggsave(p 
          , file = sprintf("%s/results/figures/study-specific-forest/%s_%s_%s.pdf", local_path, outcome, mod, cov)
-         , width = 10, height = 10)
+         , width = 10, height = 11)
   return(T)
 }
 
@@ -728,12 +729,12 @@ nested_reg_fp %>%
 ```
 
 ```{r}
-knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/study-specific-forest/dementia_none_shared.png")
+knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/study-specific-forest/dementia_none_sharedint.png")
 ```
 
 #### Overall Simple Effects  
 
-```{r ipd2b somple effects}
+```{r ipd2b simple effects}
 loadRData <- function(fileName, cov, obj, folder){
 #loads an RData file, and returns it
     path <- sprintf("%s/results/%s/%s/%s", local_path, folder, cov, fileName)
@@ -743,7 +744,7 @@ loadRData <- function(fileName, cov, obj, folder){
 
 ## load in "fixed" effects
 ## first get file names
-nested_mega_simp <- tibble(Covariate = c("fully", "shared", "standard", "butOne", "unadjusted", "shareddx", "standarddx")) %>%
+nested_mega_simp <- tibble(Covariate = c("fully", "shared", "standard", "butOne", "unadjusted", "shareddx", "standarddx", "sharedint")) %>%
   mutate(file = map(Covariate, ~list.files(sprintf("%s/results/predicted/%s", local_path, .)))) %>%
   unnest(file) %>%
   separate(file, c("Outcome", "Trait", "Moderator"), sep = "_", remove = F) %>% 
@@ -816,6 +817,7 @@ simp_eff_fun <- function(df, outcome, mod, cov, link){
 }
 
 ipd_se_plot <- nested_mega_simp %>%
+  filter(Moderator != "dementia") %>%
   select(-pred.rx) %>%
   group_by(Outcome, Moderator, Covariate, link) %>%
   nest() %>%
@@ -825,12 +827,91 @@ ipd_se_plot <- nested_mega_simp %>%
 ```
 
 ```{r}
-knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/overall-simple-effects/dementia_gender_shared.png")
+knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/overall-simple-effects/dementia_gender_sharedint.png")
 ```
 
+```{r simple effects plots dem, eval = F}
+simp_eff_fun <- function(df, outcome, mod, cov, link){
+  print(paste(outcome, mod))
+  o <- mapvalues(outcome, outcomes$short_name, outcomes$long_name, warn_missing = F)
+  cv <- cov# cv <- mapvalues(cov, covars$short_name, covars$long_name, warn_missing = F)
+  m <- mapvalues(mod, moders$short_name, moders$long_name, warn_missing = F)
+  dmini <- round(min(df$pred),3); dmaxi = round(max(df$pred),3)
+  d <- round(max(abs(min(df$pred)), abs(max(df$pred))), 3)
+  mini <- if(link == "factor") 0 else dmini - (dmaxi-dmini)
+  maxi <- dmaxi + (dmaxi-dmini)
+  hl <- if(link == "factor") 1 else 0
+  brk <- if(link == "factor") c(round(mini*1.1,2), 1, round(maxi*.9,2)) else c(round(mini*1.1,2), 0, round(maxi*.9,2)) 
+  lab <- if(link == "factor") str_remove(c(round(mini*1.1,2), 1, round(maxi*.9,2)), "^0") else str_remove(c(round(mini*1.1,2), 0, round(maxi*.9,2)), "^0")
+  # mini <- if(link == "factor") C1+(d+(d/5)) else 0+d+(d/5)
+  lim <- c(mini, maxi)
+  # brk <- if(link == "factor") round(c(1-d-(d/10), 1, 1+d+(d/10)),2) else round(c(0-d-(d/10), 0, 0+d+(d/10)),2)
+  # lab <- if(link == "factor") str_remove(c(round(1-d-(d/10),2), 1, round(1+d+(d/10),2)), "^0") else{str_remove(c(round(0-d-(d/10),2), 0, round(0+d+(d/10),2)), "^0")}
+  titl <- if(mod == "none"){o} else {sprintf("%s: Personality x %s Simple Effects", o, m)}
+  lt <- c("dotted", "solid", "dashed")[1:length(unique(df$mod_fac))]
+  # if(link == "factor") {mini <- round(min(df$pred),2); maxi <- round(max(df$pred),2)} else {mini <- floor(min(df$pred)); maxi <- ceiling(max(df$pred))}
+  df %>%
+    mutate(Trait = factor(Trait, levels = traits$short_name, labels = traits$long_name)
+           , lower = ifelse(lower < mini, mini, lower)
+           , upper = ifelse(upper > maxi, maxi, upper)
+           # , dementia = factor(dementia, c(0,1), c("No", "Yes"))
+           ) %>%
+    ggplot(aes(x = pred
+               , y = mod_fac))  +
+        geom_errorbar(aes(xmin = lower, xmax = upper)
+                      , width = .1
+                      , position = position_dodge(width = .9)
+                      ) + 
+        geom_point(aes(fill = Trait)
+                   , color = "black"
+                   , position = position_dodge(width = .9)
+                   , shape = 22
+                   ) + 
+      xlim(c(mini, maxi)) +
+      # scale_y_continuous(limits = lim#c(mini , maxi)
+      #                    , breaks = round(seq(mini, maxi, length.out = 4),2)
+      #                    , labels = round(seq(mini, maxi,length.out = 4), 2)) +
+      # scale_linetype_manual(values = lt) +
+      # geom_ribbon(aes(ymin = lower
+      #                 , ymax = upper
+      #                 , fill = mod_fac)
+      #             , alpha = .25) +
+      # geom_hline(aes(yintercept = hl), linetype = "dashed", size = .6, color = "grey30") +
+      # geom_line(aes(linetype = mod_fac)) +
+      labs(y = "Personality / SWB Rating (POMP)"
+           , x = if(link == "factor") paste(o, "(OR)") else paste(o, "(POMP)")
+           , title = str_wrap(titl, 40)
+           , linetype = m
+           , fill = m
+           , subtitle = "Pooled Regression Using Random Effects") +
+      guides(fill = "none") + 
+      facet_wrap(~Trait, nrow = 3, scales = "free") +
+      theme_classic() +
+      theme(legend.position = "bottom"
+            , plot.title = element_text(face = "bold", size = rel(1.2), hjust = .5)
+            , plot.subtitle = element_text(size = rel(1.1), hjust = .5)
+            , strip.background = element_rect(fill = "black")
+            , strip.text = element_text(face = "bold", color = "white")
+            , axis.text = element_text(color = "black"))
+  ggsave(file = sprintf("%s/results/figures/overall-simple-effects/%s_%s_%s.png", local_path, outcome, mod, cov), width = 6, height = 6)
+}
+
+ipd_se_plot_dx <- nested_mega_simp %>%
+  filter(Moderator == "dementia" & Outcome != Moderator) %>%
+  select(-pred.rx) %>%
+  group_by(Outcome, Moderator, Covariate, link) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(data = map(data, ~(.) %>% unnest(pred.fx)),
+         plot = pmap(list(data, Outcome, Moderator, Covariate, link), simp_eff_fun))
+```
+
+```{r}
+knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/overall-simple-effects/braak_dementia_sharedint.png")
+```
 
 #### Study-Specific Simple Effects  
-```{r ipd2b study specific se plots, eval = F}
+```{r study specific se plots, eval = F}
 ipd_std_se_plot_fun <- function(df, outcome, trait, mod, cov, link){
   fctr_vars <- c("gender", "smokes", "alcohol", "race", "stroke", "cancer", "diabetes", "heartProb", "dementia")
   print(paste(outcome, mod))
@@ -839,26 +920,7 @@ ipd_std_se_plot_fun <- function(df, outcome, trait, mod, cov, link){
   cv <- cov# cv <- mapvalues(cov, covars$short_name, covars$long_name, warn_missing = F)
   m <- mapvalues(mod, moders$short_name, moders$long_name, warn_missing = F)
   d <- round(max(abs(min(df$pred)), abs(max(df$pred))), 3)
-  # mini <- if(d > 2) .05 else 0-(d+(d/5)) 
-  # maxi <- if(d > 2) 2.05 else 0+d+(d/5)
-  # lim <- c(mini, maxi)
-  # brk <- if(d > 2) c(0, 1, 2) else{round(c(0-d-(d/10), 0, 0+d+(d/10)),2)}
-  # lab <- if(d > 2){c("0", "1", "2")} else{str_remove(c(round(0-d-(d/10),2), 0, round(0+d+(d/10),2)), "^0")}
   titl <- if(mod == "none"){sprintf("%s: %s", o, trt)} else {sprintf("%s: %s x %s Simple Effects", o, trt, m)}
-  # colnames(df)[colnames(df) == mod] <- "mod_value"
-  # df <- df %>% unclass %>% data.frame
-  # df$mod_value <- df[,mod]
-  # df <- df %>% select(-all_of(mod)) %>% as_tibble
-  # # df <- df %>% group_by(study, p_value) %>% summarize_at(vars(mod_value, pred, lower, upper), mean) %>% ungroup()
-  # if(class(df$mod_value) %in% c("factor", "character")){
-  #   df <- df %>% mutate(mod_fac = factor(mod_value))
-  #   } else {
-  #     if(mod == "age") df <- df %>% mutate(mod_fac = factor(mod_value, levels = c(-10, 0, 10), labels = c("-10 yrs", "60", "+10 yrs")))
-  #     else if(mod == "education") df <- df %>% mutate(mod_fac = factor(mod_value, levels = c(-5, 0, 5), labels = c("-5 yrs", "12 yrs", "+5 yrs")))
-  #     else df <- df %>% select(p_value, study, mod_value) %>% distinct() %>% 
-  #         group_by(study) %>% mutate(mod_fac = factor(mod_value, levels = unique(mod_value), labels = c("-1 SD", "M", "+1 SD"))) %>%
-  #         left_join(df)
-  #     }
   std <- unique(df$study)
   cols <- (stdcolors %>% filter(studies_long %in% std))$colors
   lt <- (stdcolors %>% filter(studies_long %in% std))$lt
@@ -883,11 +945,6 @@ ipd_std_se_plot_fun <- function(df, outcome, trait, mod, cov, link){
       scale_color_manual(values = cols) +
       scale_fill_manual(values = cols) +
       scale_size_manual(values = c(2,.8)) + 
-      # geom_ribbon(data = df %>% filter(study == "Overall")
-      #             , aes(ymin = lower
-      #                 , ymax = upper
-      #                 , fill = study)
-      #             , alpha = .25) +
       geom_line(aes(linetype = study, color = study, size = gr)) +
       labs(x = "Personality (POMP)"
            , y = if(link == "factor") paste(o, "(OR)") else o
@@ -909,13 +966,119 @@ ipd_std_se_plot_fun <- function(df, outcome, trait, mod, cov, link){
 }
 
 nested_simp_std_se <- nested_mega_simp %>%
-  filter(Covariate != "fully") %>%
+  filter(Covariate != "fully" & Moderator != "dementia") %>%
   mutate(pred.fx = map(pred.fx, ~(.) %>% mutate(study = "Overall")),
          comb.fx = map2(pred.fx, pred.rx, full_join)) %>%
   select(-pred.fx, -pred.rx) %>%
   # filter(Moderator %in% c("age", "education")) %>%
   mutate(pmap(list(comb.fx, Outcome, Trait, Moderator, Covariate, link), ipd_std_se_plot_fun))
 ```
+
+```{r}
+knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/study-specific-simple-effects/dementia_C_age_sharedint.png")
+```
+
+```{r study specific se plots dem, eval = F}
+ipd_std_se_plot_fun <- function(df, outcome, trait, mod, cov, link){
+  fctr_vars <- c("gender", "smokes", "alcohol", "race", "stroke", "cancer", "diabetes", "heartProb", "dementia")
+  print(paste(outcome, mod))
+  o <- mapvalues(outcome, outcomes$short_name, outcomes$long_name, warn_missing = F)
+  trt <- mapvalues(trait, traits$short_name, traits$long_name, warn_missing = F)
+  cv <- cov# cv <- mapvalues(cov, covars$short_name, covars$long_name, warn_missing = F)
+  m <- mapvalues(mod, moders$short_name, moders$long_name, warn_missing = F)
+  d <- round(max(abs(min(df$pred)), abs(max(df$pred))), 3)
+  
+  titl <- if(mod == "none"){sprintf("%s: %s", o, trt)} else {sprintf("%s: %s x %s Simple Effects", o, trt, m)}
+  
+  std <- unique(df$study)
+  cols <- (stdcolors %>% filter(studies_long %in% std))$colors
+  lt <- (stdcolors %>% filter(studies_long %in% std))$lt
+  ht <- length(unique(df$mod_fac))
+  # if(link == "factor") {mini <- round(min(df$pred),2); maxi <- round(max(df$pred),2)} else {mini <- floor(min(df$pred)); maxi <- ceiling(max(df$pred))}
+  if(link == "factor") {mini <- round(min(df$lower),2); maxi <- round(max(df$upper),2)} else {mini <- floor(min(df$lower)); maxi <- ceiling(max(df$upper))}
+  yint <- if(link == "factor") 1 else 0
+  df <- df %>%
+    mutate(study = factor(study, levels = stdcolors$studies_long, labels = stdcolors$studies_long),
+           lower = ifelse(lower < mini, mini, lower),
+           upper = ifelse(upper > maxi, maxi, upper),
+           gr = ifelse(study == "Overall", "Overall", "study")) %>%
+    group_by(study, mod_fac, p_value, gr) %>%
+    summarize_at(vars(pred, lower, upper), mean) %>%
+    ungroup() 
+  ord <- (df %>% filter(mod_fac == "M" & gr != "Overall") %>% arrange(desc(pred)))$study %>% as.character()
+    p <- df %>% 
+      # mutate(study = factor(study, c("Overall", ord))) %>%
+      ggplot(aes(y = mod_fac
+               , x = pred
+               , group  = mod_fac))  +
+      # scale_y_continuous(limits = c(mini,maxi)
+      #                    , breaks = round(seq(mini, maxi, length.out = 4), 2)
+      #                    , labels = round(seq(mini, maxi, length.out = 4), 2)) +
+      scale_shape_manual(values = c(15, 22)) +
+      scale_color_manual(values = cols) +
+      # scale_fill_manual(values = cols) +
+      scale_size_manual(values = c(4,3)) + 
+      scale_alpha_manual(values = c(1, .5)) + 
+      geom_vline(aes(xintercept = yint), linetype = "dashed") + 
+      # scale_x_continuous(
+      #   limits = c(-.5, 1.5)
+      #   , breaks = c(0,1)
+      #   , labels = c("No", "Yes")
+      #   ) + 
+      # geom_col(
+      #   aes(fill = study, alpha = gr)
+      #     , position = position_dodge(width = .9)
+      #     , color = "black"
+      #     # , alpha = .5
+      #   ) +
+      geom_errorbar(
+        aes(xmin = lower, xmax = upper)
+        , position = position_dodge(width = .9)
+        , width = 0
+        , color = "black"
+      ) +
+      # geom_errorbar(
+      #   aes(ymin = lower, ymax = pred)
+      #   , position = position_dodge(width = .9)
+      #   , width = 0
+      #   , color = "white"
+      # ) +
+      geom_point(
+        aes(shape = gr, fill = study, size = gr)
+        , position = position_dodge(width = .9)
+        , color = "black"
+        ) +
+      labs(y = paste(trt, "Score (%)")
+           , x = if(link == "factor") paste("Predicted Difference in", o, "(OR)") else paste("Predicted Difference in", o)
+           , title = titl) +
+      guides(size = "none", color = "none", shape = "none", fill = "none") +
+      facet_wrap(~study, nrow = 1) +
+      theme_classic() +
+      theme(legend.position = "bottom"
+            , plot.title = element_text(face = "bold", size = rel(1.2), hjust = .5)
+            , plot.subtitle = element_text(size = rel(1.1), hjust = .5)
+            , strip.background = element_rect(fill = "black")
+            , strip.text = element_text(face = "bold", color = "white")
+            , axis.text = element_text(color = "black")
+            , panel.border = element_rect(color = "black", fill = NA, size = 1))
+  ggsave(p, file = sprintf("%s/results/figures/study-specific-simple-effects/%s_%s_%s_%s.png", local_path, outcome, trait, mod, cov), width = 4*length(std), height = 5)
+  return(p)
+}
+
+nested_simp_std_se_dx <- nested_mega_simp %>%
+  filter(Covariate != "fully" & Moderator == "dementia") %>%
+  mutate(pred.fx = map(pred.fx, ~(.) %>% mutate(study = "Overall")),
+         comb.fx = map2(pred.fx, pred.rx, full_join)) %>%
+  select(-pred.fx, -pred.rx) %>%
+  # filter(Moderator %in% c("age", "education")) %>%
+  mutate(pmap(list(comb.fx, Outcome, Trait, Moderator, Covariate, link), ipd_std_se_plot_fun))
+```
+
+
+```{r}
+knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/study-specific-simple-effects/braak_C_dementia_sharedint.png")
+```
+
 
 #### Significant Forest Plots & Simple Effects  
 ```{r, eval = F}
@@ -943,7 +1106,7 @@ std_eff_comb_plot_fun <- function(p1, p2, cov, out, trt, mod){
 nested_std_plots_comb <- nested_reg_fp %>% 
   select(-p) %>%
   unnest(data) %>% 
-  filter(Moderator != "none" & study != "Overall") %>%
+  filter(!Moderator %in% c("none", "dementia") & study != "Overall") %>%
   group_by(Covariate, Outcome, Trait, Moderator, sig) %>%
   tally() %>%
   group_by(Covariate, Outcome, Trait, Moderator) %>%
@@ -955,7 +1118,7 @@ nested_std_plots_comb <- nested_reg_fp %>%
     nested_reg_fp %>% 
       select(-p) %>%
       unnest(data) %>% 
-      filter(Moderator != "none" & study == "Overall" & sign(conf.low) == sign(conf.high)) %>% 
+      filter(!Moderator %in% c("none", "dementia") & study == "Overall" & sign(conf.low) == sign(conf.high)) %>% 
       select(Covariate:Moderator, sig)
   ) %>%
   distinct() %>%
@@ -967,10 +1130,38 @@ nested_std_plots_comb <- nested_reg_fp %>%
   ) %>%
   mutate(p = pmap(list(fp, sep, Covariate, Outcome, Trait, Moderator)
                   , possibly(std_eff_comb_plot_fun, NA_real_)))
+
+nested_std_plots_comb_dx <- nested_reg_fp %>% 
+  select(-p) %>%
+  unnest(data) %>% 
+  filter(Moderator == "dementia" & study != "Overall") %>%
+  group_by(Covariate, Outcome, Trait, Moderator, sig) %>%
+  tally() %>%
+  group_by(Covariate, Outcome, Trait, Moderator) %>%
+  mutate(perc = n/sum(n)) %>%
+  ungroup() %>%
+  filter(sig == "sig" & perc > .3) %>%
+  select(-n,-perc) %>%
+  full_join(
+    nested_reg_fp %>% 
+      select(-p) %>%
+      unnest(data) %>% 
+      filter(Moderator == "dementia" & study == "Overall" & sign(conf.low) == sign(conf.high)) %>% 
+      select(Covariate:Moderator, sig)
+  ) %>%
+  distinct() %>%
+  left_join(
+    nested_reg_fp %>% select(everything(), -data, fp=p)
+  ) %>%
+  left_join(
+    nested_simp_std_se_dx %>% select(everything(), -comb.fx, sep = `pmap(...)`)
+  ) %>%
+  mutate(p = pmap(list(fp, sep, Covariate, Outcome, Trait, Moderator)
+                  , possibly(std_eff_comb_plot_fun, NA_real_)))
 ```
 
 ```{r}
-knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/study-specific-simple-effects/dementia_N_cognition_shared.png")
+knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/study-specific-simple-effects/dementia_N_cognition_sharedint.png")
 ```
 
 
@@ -992,7 +1183,7 @@ nested_std_plots_comb_panel <- function(plist, cov, mod, nmod, trt_group){
 }
 
 
-nested_std_plots_comb %>%
+nested_std_plots_comb_dx %>%
   filter(Moderator == "dementia") %>%
   mutate(nmod = map_dbl(sep, ~length(levels((.)$data$mod_fac)))
          , trt_group = mapvalues(Trait, traits$short_name, c(rep("big5", 5), rep("swb", 3)))) %>%
@@ -1033,21 +1224,30 @@ nested_reg_fp %>%
 ```
 
 ```{r}
-knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/study-specific-combined-panels/dementia-shared-big5.png")
+knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/study-specific-combined-panels/dementia-sharedint-big5.png")
 ```
 
 ```{r}
-knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/study-specific-combined-panels/dementia-shared-swb.png")
+knitr::include_graphics("https://github.com/emoriebeck/personality-dementia-neuropath/raw/master/results/figures/study-specific-combined-panels/dementia-sharedint.png")
 ```
 
 ```{r}
+# C - braak - dementia - shared 
+load("/Volumes/Emorie/projects/dementia/prediction/results/models/shared/braak_C_dementia.RData")
 hyp <- c(
   "p_value = 0", "p_value + p_value:dementia1 = 0"
 ); names(hyp) <- c("Dementia = 0", "Dementia = 1")
-# C - braak - dementia - shared 
-load("/Volumes/Emorie/projects/dementia/prediction/results/models/shared/braak_C_dementia.RData")
-hypothesis(m, hyp, scope = "coef", group = "study")
-hypothesis(m, hyp)
+
+hyp <- c(
+  "dementia1 + 2.5*p_value + 2.5*p_value:dementia1 = 0", "dementia1 + 5*p_value + 5*p_value:dementia1 = 0", "dementia1 + 7.5*p_value + 7.5*p_value:dementia1 = 0"
+); names(hyp) <- c("-25%", "M", "+25%")
+hypothesis(m, hyp, scope = "coef", group = "study")$hypothesis %>%
+  full_join(
+    hypothesis(m, hyp)$hypothesis %>% 
+      mutate(Group = "Overall")
+  ) %>%
+  mutate(Hypothesis = factor(Hypothesis, c("-25%", "M", "+25%"))) %>%
+  arrange(Group, Hypothesis)
 # association only for individuals without dementia diag
 
 # C - vsclrMcrInfrcts - dementia - shared 
